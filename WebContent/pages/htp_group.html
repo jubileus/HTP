@@ -1,0 +1,607 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>HTP网盘-群组</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <!-- bootstrap -->
+    <link href="css/bootstrap/bootstrap.css" rel="stylesheet"/>
+    <link href="css/bootstrap/bootstrap-responsive.css" rel="stylesheet"/>
+    <link href="css/bootstrap/bootstrap-overrides.css" type="text/css" rel="stylesheet"/>
+
+    <!-- libraries -->
+    <link href="css/lib/jquery-ui-1.10.2.custom.css" rel="stylesheet" type="text/css"/>
+    <link href="css/lib/font-awesome.css" type="text/css" rel="stylesheet"/>
+
+    <!-- global styles -->
+    <link rel="stylesheet" type="text/css" href="css/layout.css"/>
+    <link rel="stylesheet" type="text/css" href="css/elements.css"/>
+    <link rel="stylesheet" type="text/css" href="css/icons.css"/>
+
+    <!-- this page specific styles -->
+    <link rel="stylesheet" href="css/compiled/index.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/jquery.mobile.flatui.css"/>
+
+
+    <link rel="stylesheet" href="css/compiled/tables.css" type="text/css" media="screen" />
+    <!-- open sans font
+    <link href='http://fonts.useso.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css' />
+    -->
+    <!-- lato font
+    <link href='http://fonts.useso.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css' />
+    -->
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+<body>
+
+<!-- navbar -->
+<div class="navbar navbar-inverse">
+    <div class="navbar-inner">
+        <button type="button" class="btn btn-navbar visible-phone" id="menu-toggler">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+
+        <a class="brand" href="index.html"><img src="img/logo.png"/></a>
+        <!--产品logo图片-->
+        <ul class="nav pull-right">
+            <li class="hidden-phone">
+                <input class="search" type="text" placeholder="搜我的"/>
+                <!--内有默认文字-->
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle hidden-phone" data-toggle="dropdown">
+                    中文
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">英文</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle hidden-phone" data-toggle="dropdown">
+                    Ivy
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="htp_pernlInfo.html">个人资料</a></li>
+                    <li><a href="#">扩容</a></li>
+
+                    <hr style="margin:  0"/>
+                    <li><a href="htp_login.html">退出</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- end navbar -->
+
+<!-- sidebar -->
+<div id="sidebar-nav">
+    <ul id="dashboard-menu">
+        <li>
+            <a href="htp_allfiles.html">
+                <i class="icon-folder-open"></i>
+                <span>全部文件</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="icon-folder-close"></i>
+                <span>文档</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="icon-picture"></i>
+                <span>图片</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="icon-film"></i>
+                <span>视频</span>
+            </a>
+        </li>
+        <li>
+            <a href="htp_myShare.html">
+                <i class="icon-external-link"></i>
+                <span>我的分享</span>
+            </a>
+        </li>
+        <li class="active">
+            <div class="pointer">
+                <div class="arrow"></div>
+                <div class="arrow_border"></div>
+            </div>
+            <a href="group.html.html">
+                <i class="icon-group"></i>
+                <span>我的群组</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<!-- end sidebar -->
+
+
+<!-- main container -->
+<div class="content">
+
+    <!-- settings changer -->
+    <div class="skins-nav">
+        <a href="#" class="skin first_nav selected">
+            <span class="icon"></span><span class="text">默认(蓝色)</span>
+        </a>
+        <a href="#" class="skin second_nav" data-file="css/skins/dark.css">
+            <span class="icon"></span><span class="text">黑色</span>
+        </a>
+    </div>
+
+    <div class="container-fluid">
+
+        <!-- upper main stats -->
+        <div id="main-stats">
+            <div class="row-fluid stats-row">
+                <div class="span6">
+                    <a href="#creatGroup" data-toggle="modal" class="btn-flat white" style="margin-left: 15px;">创建群组</a>
+                    <a href="javascript:queren()" class="btn-flat white" style="margin: 10px">删除群组</a>
+                    <a href="#addMember" data-toggle="modal" class="btn-flat white" style="margin: 10px 10px 10px 0">添加成员</a>
+                </div>
+                <div class="span5">
+                </div>
+            </div>
+
+            <div class="modal hide fade" id="creatGroup" tabindex="-1" role="dialog"   aria-hidden="true">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"  aria-hidden="true" onclick="closeCreatGroup()">×</button>
+                    <h4>创建群组</h4>
+                </div>
+                <form class="form-horizontal">
+                    <div class="modal-body">
+                        <div class="control-group">
+                            <label class="control-label">群组名</label>
+
+                            <div class="controls">
+                                <input type="text">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-small btn-success">创建</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal hide fade" id="addMember"aria-labelledby="addMember"  tabindex="-1" role="dialog"   aria-hidden="true">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"  aria-hidden="true" onclick="closeAddMember()">×</button>
+                <h4>添加成员</h4>
+            </div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="control-group">
+                        <label class="control-label">用户名</label>
+
+                        <div class="controls">
+                            <input type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-small btn-success">添加</button>
+                </div>
+            </form>
+        </div>
+
+            <div class="row">
+                <div class="span4" style="border: thin solid #d3d3d3;margin-left: 50px">
+                    <div style="min-height: 538px;min-width: 200px" id="context" data-toggle="context"
+                         data-target="#context-menu">
+                        <h3 style="margin: 10px;text-align: center; padding: 5px">我的群组</h3>
+
+                        <ul id="tree" class="ztree" style="width:560px; overflow:auto;margin-left: 50px"></ul>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div style="border: thin solid #d3d3d3; min-height: 462px;">
+
+
+                        <style type="text/css">
+                            .scrollspy-example {
+                                height: 500px;
+                                overflow: auto;
+                                position: relative;
+                            }
+                        </style>
+
+                        <div data-spy="scroll" data-target="#navbarExample" data-offset="50" class="scrollspy-example">
+
+
+                            <br/>
+                            <ul class="content-reply-box span2">
+                                <li class="odd">
+                                    <a class="user" href="#"><img class="img-responsive avatar_" width="40px" height="42px" src="img/default_img.png"
+                                                                  alt=""><span class="user-name">大毛</span></a>
+
+                                    <div class="reply-content-box">
+                                        <span class="reply-time">03-08 15：00</span>
+
+                                        <div class="reply-content pr">
+                                            <span class="arrow">&nbsp;</span>
+                                            c语言进阶 <a>下载</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="even">
+                                    <a class="user" href="#"><img class="img-responsive avatar_" src="img/avatar-1.png"
+                                                                  alt=""><span class="user-name">二毛</span></a>
+
+                                    <div class="reply-content-box">
+                                        <span class="reply-time">03-08 15：10</span>
+
+                                        <div class="reply-content pr">
+                                            <span class="arrow">&nbsp;</span>
+                                            c语言进阶2 <a>下载</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="even">
+                                    <a class="user" href="#"><img class="img-responsive avatar_" src="img/avatar-1.png"
+                                                                  alt=""><span class="user-name">二毛</span></a>
+
+                                    <div class="reply-content-box">
+                                        <span class="reply-time">03-08 15：10</span>
+
+                                        <div class="reply-content pr">
+                                            <span class="arrow">&nbsp;</span>
+                                            c语言进阶2 <a>下载</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="even">
+                                    <a class="user" href="#"><img class="img-responsive avatar_" src="img/avatar-1.png"
+                                                                  alt=""><span class="user-name">二毛</span></a>
+
+                                    <div class="reply-content-box">
+                                        <span class="reply-time">03-08 15：10</span>
+
+                                        <div class="reply-content pr">
+                                            <span class="arrow">&nbsp;</span>
+                                            c语言进阶2 <a>下载</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="odd">
+                                    <a class="user" href="#"><img class="img-responsive avatar_" src="img/avatar-1.png"
+                                                                  alt=""><span class="user-name">三毛</span></a>
+
+                                    <div class="reply-content-box">
+                                        <span class="reply-time">03-08 15：20</span>
+
+                                        <div class="reply-content pr">
+                                            <span class="arrow">&nbsp;</span>
+                                            c语言进阶 <a>下载</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="even">
+                                    <a class="user" href="#"><img class="img-responsive avatar_" src="img/avatar-1.png"
+                                                                  alt=""><span class="user-name">大哥</span></a>
+
+                                    <div class="reply-content-box">
+                                        <span class="reply-time">03-08 15：30</span>
+
+                                        <div class="reply-content pr">
+                                            <span class="arrow">&nbsp;</span>
+                                            c语言进阶6 <a>下载</a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                    <div style="border:thin solid #d3d3d3;padding: 5px; margin-top: 5px; text-align: center">
+                        <a href="#shareFile" data-toggle="modal" class="btn-flat default ui-link" style="margin-left: 15px;">分享文件</a>
+                       <!-- <a href="group_share.html" class="btn-flat default" style="margin-left: 15px;">文件库</a>-->
+                        <a href="javascript:goToGroupShare()" class="btn-flat default">文件库</a>
+                    </div>
+
+                    <div class="modal hide fade" id="shareFile" tabindex="-1" role="dialog"   aria-hidden="true">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"  aria-hidden="true" onclick="closeShareFile()">×</button>
+                            <h4>分享文件</h4>
+                        </div>
+
+                            <div class="modal-body">
+                                <div class="control-group">
+                                    <div class="table-wrapper products-table">
+                                        <table class="table table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th class="span9">
+                                                    <input type="checkbox" />
+                                                    文件名
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <!-- row -->
+                                            <tr class="first">
+                                                <td>
+                                                    <input type="checkbox" />
+                                                    <div class="img">
+                                                        <img src="img/table-img.png" />
+                                                    </div>
+                                                    <a href="#" class="name">T1kdJPByWT1R47IVrK.mp3 </a>
+                                                </td>
+                                            </tr>
+                                            <!-- row -->
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox" />
+                                                    <div class="img">
+                                                        <img src="img/table-img.png" />
+                                                    </div>
+                                                    <a href="#" class="name">算法精解-c语言描述</a>
+                                                </td>
+                                            </tr>
+                                            <!-- row -->
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox" />
+                                                    <div class="img">
+                                                        <img src="img/table-img.png" />
+                                                    </div>
+                                                    <a href="#" class="name">算法精解-c语言描述 </a>
+                                                </td>
+                                            </tr>
+                                            <!-- row -->
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox" />
+                                                    <div class="img">
+                                                        <img src="img/table-img.png" />
+                                                    </div>
+                                                    <a href="#" class="name">T1kdJPByWT1R47IVrK.mp3</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox" />
+                                                    <div class="img">
+                                                        <img src="img/table-img.png" />
+                                                    </div>
+                                                    <a href="#" class="name">算法精解-c语言描述 </a>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+
+                                <div style="float: left" id="upload">
+                                    本地上传
+                                    <input type="file">
+                                </div>
+
+                                <style>
+                                    #upload div{
+                                        display: inline;
+                                    }
+                                </style>
+
+                              <!--  <button class="btn btn-small btn-info" style="float: left">本地上传</button>-->
+                                <button class="btn btn-small btn-success">分享</button>
+                            </div>
+                    </div>
+
+                </div>
+            </div>
+            <script type="text/javascript" src="js/jquery.min.js"></script>
+            <script type="text/javascript" src="js/jquery.mobile-1.4.0-rc.1.js"></script>
+
+        </div>
+    </div>
+<!--
+    <div id="context-menu">
+        <ul class="dropdown-menu" role="menu">
+            <li><a tabindex="-1" href="#">右键测试1</a></li>
+            <li><a tabindex="-1" href="#">右键测试2</a></li>
+        </ul>
+    </div>
+    -->
+</div>
+<!-- end upper main stats -->
+</div>
+
+
+<!-- scripts -->
+<script src="js/jquery-latest.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery-ui-1.10.2.custom.min.js"></script>
+
+<!-- knob -->
+<script src="js/jquery.knob.js"></script>
+
+
+<link rel="stylesheet" href="css/zTreeStyle/metro.css">
+<script src="js/jquery.ztree.all-3.5.min.js"></script>
+
+<script src="js/bootstrap-contextmenu.js"></script>
+
+<script src="js/bootstrap-dropdown.js"></script>
+<script src="js/bootstrap-scrollspy.js"></script>
+<script src="js/bootstrap-modal.js"></script>
+
+<script>
+    var zTree;
+    var demoIframe;
+
+    function addHoverDom(treeId, treeNode) {
+        var sObj = $("#" + treeNode.tId + "_span");
+        if (treeNode.editNameFlag || $("#addBtn_" + treeNode.tId).length > 0) return;
+        var addStr = "<span class='button remove' id='removeBtn_" + treeNode.tId
+                + "' title='删除用户' onfocus='this.blur();'></span>";
+
+        addStr += "<span class='button add'style='display:none' id='addBtn_" + treeNode.tId + "'></span>";
+        addStr += "<span class='button edit' title='设为管理员' id='editBtn_" + treeNode.tId + "'></span>";
+        sObj.after(addStr);
+        /*
+         var btn = $("#addBtn_"+treeNode.tId);
+         if (btn) btn.bind("click", function(){
+         var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+         zTree.addNodes(treeNode, {id:(1000 + newCount), pId:treeNode.id, name:"new node" + (newCount++)});
+         return false;
+         });
+         */
+    }
+    ;
+
+    function removeHoverDom(treeId, treeNode) {
+        $("#addBtn_" + treeNode.tId).unbind().remove();
+        $("#removeBtn_" + treeNode.tId).unbind().remove();
+        $("#editBtn_" + treeNode.tId).unbind().remove();
+    }
+    ;
+
+    var setting = {
+        check: {
+            enable: true
+        },
+        view: {
+            addHoverDom: addHoverDom,
+            removeHoverDom: removeHoverDom,
+            dblClickExpand: false,
+            showLine: true,
+            selectedMulti: false
+        },
+        data: {
+            simpleData: {
+                enable: true,
+                idKey: "id",
+                pIdKey: "pId",
+                rootPId: ""
+            }
+        },
+        callback: {
+
+            beforeClick: function (treeId, treeNode) {
+                var zTree = $.fn.zTree.getZTreeObj("tree");
+                if (treeNode.isParent) {
+                    zTree.expandNode(treeNode);
+                    return false;
+                } else {
+                    demoIframe.attr("src", treeNode.file + ".html");
+                    return true;
+                }
+            }
+
+        }
+    };
+
+    var zNodes = [
+        {id: 1, pId: 0, name: "组1", open: true},
+        {id: 101, pId: 1, name: "张三", file: "core/standardData"},
+        {id: 102, pId: 1, name: "李四", file: "core/simpleData"},
+        {id: 103, pId: 1, name: "王五", file: "core/noline"},
+
+        {id: 2, pId: 0, name: "组2", open: false},
+        {id: 201, pId: 2, name: "大毛", file: "excheck/checkbox"},
+        {id: 206, pId: 2, name: "二毛", file: "excheck/checkbox_nocheck"},
+        {id: 207, pId: 2, name: "三毛", file: "excheck/checkbox_chkDisabled"},
+
+        {id: 3, pId: 0, name: "组3", open: false},
+        {id: 301, pId: 3, name: "拖拽 节点 基本控制", file: "exedit/drag"},
+        {id: 302, pId: 3, name: "拖拽 节点 高级控制", file: "exedit/drag_super"},
+        {id: 303, pId: 3, name: "用 zTree 方法 移动 / 复制 节点", file: "exedit/drag_fun"},
+        {id: 304, pId: 3, name: "基本 增 / 删 / 改 节点", file: "exedit/edit"},
+        {id: 305, pId: 3, name: "高级 增 / 删 / 改 节点", file: "exedit/edit_super"},
+        {id: 306, pId: 3, name: "用 zTree 方法 增 / 删 / 改 节点", file: "exedit/edit_fun"},
+        {id: 307, pId: 3, name: "异步加载 & 编辑功能 共存", file: "exedit/async_edit"},
+        {id: 308, pId: 3, name: "多棵树之间 的 数据交互", file: "exedit/multiTree"},
+
+        {id: 4, pId: 0, name: "组4", open: false},
+        {id: 401, pId: 4, name: "一次性加载大数据量", file: "bigdata/common"},
+        {id: 402, pId: 4, name: "分批异步加载大数据量", file: "bigdata/diy_async"},
+        {id: 403, pId: 4, name: "分批异步加载大数据量", file: "bigdata/page"},
+
+        {id: 5, pId: 0, name: "组5", open: false},
+        {id: 501, pId: 5, name: "冻结根节点", file: "super/oneroot"},
+        {id: 502, pId: 5, name: "单击展开/折叠节点", file: "super/oneclick"},
+        {id: 503, pId: 5, name: "保持展开单一路径", file: "super/singlepath"},
+        {id: 504, pId: 5, name: "添加 自定义控件", file: "super/diydom"},
+        {id: 505, pId: 5, name: "checkbox / radio 共存", file: "super/checkbox_radio"},
+        {id: 506, pId: 5, name: "左侧菜单", file: "super/left_menu"},
+        {id: 513, pId: 5, name: "OutLook 样式的左侧菜单", file: "super/left_menuForOutLook"},
+        {id: 507, pId: 5, name: "下拉菜单", file: "super/select_menu"},
+        {id: 509, pId: 5, name: "带 checkbox 的多选下拉菜单", file: "super/select_menu_checkbox"},
+        {id: 510, pId: 5, name: "带 radio 的单选下拉菜单", file: "super/select_menu_radio"},
+        {id: 508, pId: 5, name: "右键菜单 的 实现", file: "super/rightClickMenu"},
+        {id: 511, pId: 5, name: "与其他 DOM 拖拽互动", file: "super/dragWithOther"},
+        {id: 512, pId: 5, name: "异步加载模式下全部展开", file: "super/asyncForAll"},
+
+        {id: 6, pId: 0, name: "组6", open: false},
+        {id: 601, pId: 6, name: "隐藏普通节点", file: "exhide/common"},
+        {id: 602, pId: 6, name: "配合 checkbox 的隐藏", file: "exhide/checkbox"},
+        {id: 603, pId: 6, name: "配合 radio 的隐藏", file: "exhide/radio"}
+    ];
+
+    $(document).ready(function () {
+        var t = $("#tree");
+        t = $.fn.zTree.init(t, setting, zNodes);
+        demoIframe = $("#testIframe");
+        demoIframe.bind("load", loadReady);
+        var zTree = $.fn.zTree.getZTreeObj("tree");
+        //zTree.selectNode(zTree.getNodeByParam("id", 101));
+
+    });
+
+    function loadReady() {
+        var bodyH = demoIframe.contents().find("body").get(0).scrollHeight,
+                htmlH = demoIframe.contents().find("html").get(0).scrollHeight,
+                maxH = Math.max(bodyH, htmlH), minH = Math.min(bodyH, htmlH),
+                h = demoIframe.height() >= maxH ? minH : maxH;
+        if (h < 530) h = 530;
+        demoIframe.height(h);
+    }
+
+    $('.context').contextmenu();
+
+    function queren()
+    {
+        var se = confirm("请确认删除?");
+        if (se==true)
+        {
+            alert("已删除！");
+        }
+    }
+
+    function closeCreatGroup(){
+        $('#creatGroup').css("display","none");
+    }
+
+    function closeAddMember(){
+        $('#addMember').css("display","none");
+    }
+
+    function closeShareFile(){
+        $('#shareFile').css("display","none");
+    }
+
+    function goToGroupShare(){
+        window.location.href = "group_share.html";
+    }
+</script>
+
+</body>
+</html>

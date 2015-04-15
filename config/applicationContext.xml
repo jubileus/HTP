@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+	http://www.springframework.org/schema/util 
+	http://www.springframework.org/schema/util/spring-util-2.5.xsd"
+	default-autowire="byName" default-lazy-init="true">
+	 
+    <!-- <import resource="classpath:quartz.xml" /> -->
+    <!-- <import resource="classpath:spring-mongodb.xml" /> -->
+    <import resource="classpath:spring-*.xml" />
+	
+	<!-- dataSource config -->
+	<bean id ="dataSource" class ="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"> 
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/htp?useUnicode=true&amp;characterEncoding=UTF-8" /> 
+		<property name="username" value="root" /> 
+		<property name="password" value="123"/> 
+	</bean> 
+	
+	<!-- SessionFactory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+
+		<property name="dataSource">
+			<ref bean="dataSource"/>
+		</property>
+		<property name="configLocation">
+			<value>classpath:hibernate.cfg.xml</value>
+		</property>		
+	</bean>
+	
+	<!-- TransactionManager  不过这里暂时没注入-->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref local="sessionFactory"/>
+		</property>
+	</bean>	
+	
+	<!-- DaoUtil Begin-->
+	<bean id="dao_util" class="com.bjtu.util.dao.DaoUtil">
+	    <property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	<!-- DaoUtil End-->
+	
+	<!-- DAO Begin -->	
+	<bean id="user_dao" class="com.bjtu.dao.daoimp.UserDaoImp">		
+		<property name="dao_util">
+			<ref bean="dao_util"/>
+		</property>
+	</bean>
+	<bean id="file_type_dao" class="com.bjtu.dao.daoimp.FileTypeDaoImp">		
+		<property name="dao_util">
+			<ref bean="dao_util"/>
+		</property>
+	</bean>
+    <!-- DAO  End -->
+
+	<!-- Services Begin -->	
+	<bean id="login_register_service" class="com.bjtu.service.login_register.LoginRegisterServiceImp">
+		<property name="user_dao">
+			<ref bean="user_dao"/>
+		</property>
+	</bean>	
+	<bean id="admin_management_service" class="com.bjtu.service.admin_management.AdminManagementServiceImp">
+		<property name="user_dao">
+			<ref bean="user_dao"/>
+		</property>
+	</bean>
+	<bean id="fileType_management_service" class="com.bjtu.service.fileType_management.FileTypeManagementServiceImp">
+		<property name="file_type_dao">
+			<ref bean="file_type_dao"/>
+		</property>
+	</bean>
+	<bean id="user_management_service" class="com.bjtu.service.user_management.UserManagementServiceImp">
+		<property name="user_dao">
+			<ref bean="user_dao"/>
+		</property>
+	</bean>
+	<!-- Services End -->
+	
+	<!--User Management Action Begin-->
+	<bean scope="prototype" id="UserListAction" class="com.bjtu.action.user_management.UserListAction">
+		<property name="user_management_service">
+			<ref bean="user_management_service"/>
+		</property>
+	</bean>
+	<bean scope="prototype" id="UserPageAction" class="com.bjtu.ajax.user_management.UserPageAction">
+		<property name="user_management_service">
+			<ref bean="user_management_service"/>
+		</property>
+	</bean>
+	<bean scope="prototype" id="ModifyUserStatusAction" class="com.bjtu.ajax.user_management.ModifyUserStatusAction">
+		<property name="user_management_service">
+			<ref bean="user_management_service"/>
+		</property>
+	</bean>
+	<bean scope="prototype" id="ValidateTotalStorageAction" class="com.bjtu.ajax.user_management.ValidateTotalStorageAction">
+		<property name="user_management_service">
+			<ref bean="user_management_service"/>
+		</property>
+	</bean>
+	<bean scope="prototype" id="ModifyUserTotalStorageAction" class="com.bjtu.ajax.user_management.ModifyUserTotalStorageAction">
+		<property name="user_management_service">
+			<ref bean="user_management_service"/>
+		</property>
+	</bean>
+	<!--User Management Action End-->
+	
+	<!--Login Register Action Begin-->
+	<bean scope="prototype" id="ValidateEmailAction" class="com.bjtu.ajax.login_register.ValidateEmailAction">
+		<property name="login_register_service">
+			<ref bean="login_register_service"/>
+		</property>
+	</bean>
+	<bean scope="prototype" id="RegisterAction" class="com.bjtu.action.login_register.RegisterAction">
+		<property name="login_register_service">
+			<ref bean="login_register_service"/>
+		</property>
+	</bean>	
+	<bean scope="prototype" id="LoginAction" class="com.bjtu.action.login_register.LoginAction">
+		<property name="login_register_service">
+			<ref bean="login_register_service"/>
+		</property>
+	</bean>
+	<bean scope="prototype" id="LogoutAction" class="com.bjtu.action.login_register.LogoutAction">
+	</bean>
+	<!--Login Register Action End-->
+	
+	<!--Admin Management Action Begin-->
+	<bean scope="prototype" id="AdminAddAction" class="com.bjtu.ajax.admin_management.AdminAddAction">
+		<property name="admin_management_service">
+			<ref bean="admin_management_service"/>
+		</property>
+	</bean>
+	<bean scope="prototype" id="AdminDeleteAction" class="com.bjtu.ajax.admin_management.AdminDeleteAction">
+		<property name="admin_management_service">
+			<ref bean="admin_management_service"/>
+		</property>
+	</bean>
+	<bean scope="prototype" id="AdminSearchAction" class="com.bjtu.ajax.admin_management.AdminSearchAction">
+		<property name="admin_management_service">
+			<ref bean="admin_management_service"/>
+		</property>
+	</bean>
+	<bean scope="prototype" id="AdminListAction" class="com.bjtu.action.admin_management.AdminListAction">
+		<property name="admin_management_service">
+			<ref bean="admin_management_service"/>
+		</property>
+	</bean>	
+	<!--Admin Management Action End-->
+	
+	<!--FileType Management Action Begin-->
+	<bean scope="prototype" id="FileTypePageAction" class="com.bjtu.ajax.fileType_management.FileTypePageAction">
+		<property name="fileType_management_service">
+			<ref bean="fileType_management_service"/>
+		</property>
+	</bean>
+	<bean scope="prototype" id="ValidatePostfixAction" class="com.bjtu.ajax.fileType_management.ValidatePostfixAction">
+		<property name="fileType_management_service">
+			<ref bean="fileType_management_service"/>
+		</property>
+	</bean>
+	<bean scope="prototype" id="FileTypeAddAction" class="com.bjtu.ajax.fileType_management.FileTypeAddAction">
+		<property name="fileType_management_service">
+			<ref bean="fileType_management_service"/>
+		</property>
+	</bean>
+	<bean scope="prototype" id="FileTypeDeleteAction" class="com.bjtu.ajax.fileType_management.FileTypeDeleteAction">
+		<property name="fileType_management_service">
+			<ref bean="fileType_management_service"/>
+		</property>
+	</bean>
+	<bean scope="prototype" id="FileTypeListAction" class="com.bjtu.action.fileType_management.FileTypeListAction">
+		<property name="fileType_management_service">
+			<ref bean="fileType_management_service"/>
+		</property>
+	</bean>	
+	<!--FileType Management Action End-->
+	
+	<bean scope="prototype" id="TestAction" class="com.bjtu.test.TestAction">
+		<property name="login_register_service">
+			<ref bean="login_register_service"/>
+		</property>
+		<property name="admin_management_service">
+			<ref bean="admin_management_service"/>
+		</property>
+		<property name="fileType_management_service">
+			<ref bean="fileType_management_service"/>
+		</property>
+	</bean>
+	
+
+</beans>

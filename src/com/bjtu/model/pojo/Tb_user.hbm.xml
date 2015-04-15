@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+    
+<hibernate-mapping>
+<!-- 
+    Created by the Middlegen Hibernate plugin 2.2
+
+    http://boss.bekk.no/boss/middlegen/
+    http://www.hibernate.org/
+-->
+
+<class name="com.bjtu.model.pojo.Tb_user" table="tb_user" lazy="false">
+
+    <id name="id" type="string" column="id"><generator class="uuid.hex"></generator></id>
+    <property name="email" type="string" column="email" not-null="true" unique="true" length="50" />
+    <property name="password" type="string" column="password" not-null="true" unique="false" length="32" />
+    <property name="nickname" type="string" column="nickname" not-null="true" unique="false" length="50" />
+    <property name="img" type="string" column="img" not-null="true" unique="false" length="100" />
+    <property name="total_storage" type="float" column="total_storage" />
+    <property name="used_storage" type="float" column="used_storage" />
+    <property name="register_time" type="string" column="register_time" not-null="true" unique="false" length="32" />
+    <property name="role" type="int" column="role" />
+    <property name="status" type="int" column="status" />
+</class>
+</hibernate-mapping>

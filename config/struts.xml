@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+     
+<struts>
+
+	<constant name="struts.multipart.maxSize" value="20971520"></constant>
+	<constant name="struts.multipart.saveDir" value="/tmp"></constant>
+	
+<package name="default" extends="json-default">
+	<!-- User Management Action Begin -->
+	<action name="UserPageAction" class="UserPageAction">
+    	<result type="json" />
+    </action>
+    <action name="ModifyUserStatusAction" class="ModifyUserStatusAction">
+    	<result type="json" />
+    </action>
+    <action name="ValidateTotalStorageAction" class="ValidateTotalStorageAction">
+    	<result type="json" />
+    </action>
+    <action name="ModifyUserTotalStorageAction" class="ModifyUserTotalStorageAction">
+    	<result type="json" />
+    </action>
+	<!-- User Management Action End -->
+
+	<!-- Login Register Action Begin -->
+    <action name="ValidateEmailAction" class="ValidateEmailAction">
+    	<result type="json" />
+    </action>
+    <!-- Login Register Action End -->
+    
+    <!-- Admin Management Action Begin -->
+    <action name="AdminAddAction" class="AdminAddAction">
+    	<result type="json" />
+    </action>
+    <action name="AdminDeleteAction" class="AdminDeleteAction">
+    	<result type="json" />
+    </action>
+    <action name="AdminSearchAction" class="AdminSearchAction">
+    	<result type="json" />
+    </action>
+	<!-- Admin Management Action End -->
+	
+	<!-- FileType Management Action Begin -->
+	<action name="FileTypePageAction" class="FileTypePageAction">
+    	<result type="json" />
+    </action>
+    <action name="ValidatePostfixAction" class="ValidatePostfixAction">
+    	<result type="json" />
+    </action>
+    <action name="FileTypeAddAction" class="FileTypeAddAction">
+    	<result type="json" />
+    </action>
+    <action name="FileTypeDeleteAction" class="FileTypeDeleteAction">
+    	<result type="json" />
+    </action>
+	<!-- FileType Management Action End -->
+</package>
+
+
+<package name="products" extends="struts-default">
+	<!-- User Management Action Begin -->
+	<action name="UserListAction" class="UserListAction">
+		<result name="success">/pages/admin_userList.jsp</result>
+    </action>
+	<!-- User Management Action End -->
+
+	<!-- Admin Management Action Begin -->
+	<action name="AdminListAction" class="AdminListAction">
+		<result name="success">/pages/admin_adminList.jsp</result>
+    </action>
+	<!-- Admin Management Action End -->
+	
+	<!-- FileType Management Action Begin -->
+	<action name="FileTypeListAction" class="FileTypeListAction">
+		<result name="success">/pages/admin_fileTypeList.jsp</result>
+    </action>
+	<!-- FileType Management Action End -->
+
+	<!-- Login Register Action Begin -->
+    <action name="RegisterAction" class="RegisterAction">
+		<result name="success">/pages/ok.jsp</result>
+    </action>
+    <action name="LoginAction" class="LoginAction">
+    	<result name="user">/pages/ok.jsp</result>
+		<result name="admin" type="chain">UserListAction</result>
+		<result name="error">/pages/login.jsp</result>
+    </action>
+    <action name="LogoutAction" class="LogoutAction">
+    	<result name="success">/pages/login.jsp</result>
+    </action>
+    <!-- Login Register Action End -->
+    
+    <action name="TestAction" class="TestAction">
+    	<result name="success">/pages/ok.jsp</result>
+    </action>
+</package>
+
+</struts>
