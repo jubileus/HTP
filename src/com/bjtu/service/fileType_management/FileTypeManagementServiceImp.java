@@ -1,6 +1,7 @@
 package com.bjtu.service.fileType_management;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.bjtu.dao.idao.IFileTypeDao;
@@ -128,6 +129,25 @@ public class FileTypeManagementServiceImp implements IFileTypeManagementService{
 	@Override
 	public void deleteFileType(String id) {
 		file_type_dao.delete(id);
+	}
+	
+	/**
+   	 * @author 刘庶
+   	 * 编写日期：2015-4-13
+   	 * 功能：获取id为后缀名，value为图片路径的HashMap
+   	 */
+	@Override
+	public HashMap<String, String> getImgMap() {
+		List<Tb_file_type> type_list=file_type_dao.getAll();
+		HashMap<String, String> img_map=new HashMap<String, String>();
+		Tb_file_type tmp;
+		if(type_list!=null&&type_list.size()>0){
+			for(int i=0;i<type_list.size();i++){
+				tmp=type_list.get(i);
+				img_map.put(tmp.getPostfix(), tmp.getImg());
+			}
+		}
+		return img_map;
 	}
 	
 }

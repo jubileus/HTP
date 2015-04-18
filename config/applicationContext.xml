@@ -46,6 +46,7 @@
 			<ref bean="sessionFactory"/>
 		</property>
 	</bean>
+	<bean id="file_dao_util" class="com.bjtu.util.mongodb.FileDaoUtil"></bean>
 	<!-- DaoUtil End-->
 	
 	<!-- DAO Begin -->	
@@ -57,6 +58,11 @@
 	<bean id="file_type_dao" class="com.bjtu.dao.daoimp.FileTypeDaoImp">		
 		<property name="dao_util">
 			<ref bean="dao_util"/>
+		</property>
+	</bean>
+	<bean id="file_dao" class="com.bjtu.dao.daoimp.FileDaoImp">
+		<property name="file_dao_util">
+			<ref bean="file_dao_util"/>
 		</property>
 	</bean>
     <!-- DAO  End -->
@@ -82,7 +88,27 @@
 			<ref bean="user_dao"/>
 		</property>
 	</bean>
+	<bean id="file_service" class="com.bjtu.service.file.FileServiceImp">
+		<property name="file_dao">
+			<ref bean="file_dao"/>
+		</property>
+	</bean>
 	<!-- Services End -->
+	<!--File Action Begin-->
+	<bean scope="prototype" id="AllFileInGalleryAction" class="com.bjtu.ajax.file.AllFileInGalleryAction">
+		<property name="file_service">
+			<ref bean="file_service"/>
+		</property>
+		<property name="fileType_management_service">
+			<ref bean="fileType_management_service"/>
+		</property>
+	</bean>
+	<bean scope="prototype" id="AllFileInGalleryIndexAction" class="com.bjtu.action.file.AllFileInGalleryIndexAction">
+		<property name="file_service">
+			<ref bean="file_service"/>
+		</property>
+	</bean>
+	<!--File Management Action End-->
 	
 	<!--User Management Action Begin-->
 	<bean scope="prototype" id="UserListAction" class="com.bjtu.action.user_management.UserListAction">
@@ -194,6 +220,10 @@
 			<ref bean="fileType_management_service"/>
 		</property>
 	</bean>
-	
+	<bean scope="prototype" id="TestMongoAction" class="com.bjtu.test.TestMongoAction">
+		<property name="file_service">
+			<ref bean="file_service"/>
+		</property>
+	</bean>
 
 </beans>

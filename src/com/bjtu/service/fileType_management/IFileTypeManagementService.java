@@ -1,5 +1,6 @@
 package com.bjtu.service.fileType_management;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.bjtu.model.pojo.Tb_file_type;
@@ -54,4 +55,10 @@ public interface IFileTypeManagementService {
    	 */
     public void deleteFileType(String id);
     
+    /**
+   	 * @author 刘庶
+   	 * 编写日期：2015-4-13
+   	 * 功能：获取id为后缀名，value为图片路径的HashMap
+   	 */
+    public HashMap<String, String> getImgMap();
 }

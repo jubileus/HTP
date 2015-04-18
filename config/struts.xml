@@ -9,6 +9,16 @@
 	<constant name="struts.multipart.saveDir" value="/tmp"></constant>
 	
 <package name="default" extends="json-default">
+	<!-- File Action Begin -->
+	<action name="AllFileInGalleryAction" class="AllFileInGalleryAction">
+    	<result type="json" />
+    </action>
+	<!-- File Action End -->
+
+	<!-- Test Action Begin -->
+	
+	<!-- Test Action End -->
+	
 	<!-- User Management Action Begin -->
 	<action name="UserPageAction" class="UserPageAction">
     	<result type="json" />
@@ -60,6 +70,12 @@
 
 
 <package name="products" extends="struts-default">
+	<!-- File Action Begin -->
+	<action name="AllFileInGalleryIndexAction" class="AllFileInGalleryIndexAction">
+    	<result name="success">/pages/all_files_gallery.jsp</result>
+    </action>
+	<!-- File Action End -->
+
 	<!-- User Management Action Begin -->
 	<action name="UserListAction" class="UserListAction">
 		<result name="success">/pages/admin_userList.jsp</result>
@@ -83,7 +99,7 @@
 		<result name="success">/pages/ok.jsp</result>
     </action>
     <action name="LoginAction" class="LoginAction">
-    	<result name="user">/pages/ok.jsp</result>
+    	<result name="user" type="chain">AllFileInGalleryIndexAction</result>
 		<result name="admin" type="chain">UserListAction</result>
 		<result name="error">/pages/login.jsp</result>
     </action>
@@ -93,6 +109,9 @@
     <!-- Login Register Action End -->
     
     <action name="TestAction" class="TestAction">
+    	<result name="success">/pages/ok.jsp</result>
+    </action>
+    <action name="TestMongoAction" class="TestMongoAction">
     	<result name="success">/pages/ok.jsp</result>
     </action>
 </package>

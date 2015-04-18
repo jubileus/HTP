@@ -45,4 +45,11 @@ public interface IFileTypeDao {
 	 * @param id
 	 */
 	public void delete(String id);
+	
+	/**
+	 * @author 宫文超
+	 * 编写日期：2015-04-14
+	 * 功能：获取全部文件类型
+	 */
+	public List getAll();
 }

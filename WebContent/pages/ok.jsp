@@ -7,8 +7,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form method="post" action="TestAction.action" id="test">
+	<form method="post" action="TestMongoAction.action" id="test">
 		<input type="submit" value="添加">
+	</form>
+	
+	<form method="post" action="AllFileInGalleryAction.action" id="test">
+		<input type="text" id="page_index" name="page_index" value="1" />
+		<input type="text" id="path" name="path" value="/user/hadoop/user/402824814cb03d52014cb03dbc190001/file/" />
+		<input type="text" id="search_name" name="search_name" value="" />
+		<input type="submit" value="测试">
 	</form>
 </body>
 </html>

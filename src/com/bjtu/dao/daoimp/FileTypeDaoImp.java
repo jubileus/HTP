@@ -108,5 +108,17 @@ public class FileTypeDaoImp implements IFileTypeDao{
 		Tb_file_type file_type= (Tb_file_type)dao_util.getSingle(hql, objects);
 		dao_util.delete(file_type);
 	}
+	
+	/**
+	 * @author 宫文超
+	 * 编写日期：2015-04-14
+	 * 功能：获取全部文件类型
+	 */
+	@Override
+	public List getAll() {
+		String hql = "from Tb_file_type";
+		Object[] objects = new Object[0];
+		return dao_util.getList(hql, objects);
+	}
 
 }
