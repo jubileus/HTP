@@ -93,7 +93,7 @@
                     <div class="arrow"></div>
                     <div class="arrow_border"></div>
                 </div>
-                <a href="htp_allfiles.html">
+                <a href="AllFileInGalleryIndexAction.action">
                     <i class="icon-folder-open"></i>
                     <span>全部文件</span>
                 </a>

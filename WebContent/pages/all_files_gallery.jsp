@@ -10,13 +10,13 @@
 			<div class="row-fluid ltt-actionbar" >
 				  <input name="file" type="file" style="opacity:0;width:70px;height:30px;position:absolute;z-index:10;"/>
 				  <button type="button" class="btn btn-primary" id="btn_upload"> <span class="icon-upload-alt"></span> 上传 </button>	
-				  <button type="button" class="btn btn-default" onclick="confirm('确认删除此文件？')"> <span class="icon-trash"></span> 删除 </button>
-				  <button type="button" class="btn btn-default" id="btn_newFolder"> <span class="icon-plus"></span> 新建文件夹 </button>
+				  <button type="button" class="btn btn-default" onclick="javascript:deleteCheckedFile()"> <span class="icon-trash"></span> 删除 </button>
+				  <button type="button" class="btn btn-default" onclick="javascript:addFolder()"> <span class="icon-plus"></span> 新建文件夹 </button>
 				  <button type="button" onclick="javascript:doRefresh()" class="btn btn-default"><span class="icon-refresh"></span></button>
 				  
 				  <div class="btn-group pull-right">
-				  <button type="button" class="btn btn-default" onclick="window.location.href='htp_allfilesl.html';"> <span class="icon-reorder"></span> </button>
-				  <button type="button" class="btn btn-default active" onclick="window.location.href='htp_allfiles.html';"> <span class="icon-sitemap"></span> </button>
+					  <button type="button" class="btn btn-default active"> <span class="icon-sitemap"></span> </button>
+					  <button type="button" class="btn btn-default" onclick="window.location.href='htp_allfilesl.html';"> <span class="icon-reorder"></span> </button>
 				  </div>
 			</div>	
 						
@@ -114,6 +114,8 @@
 				<input type="hidden" id="total_page" name="total_page" value="<s:property value="total_page" />" />
 				<input type="hidden" id="index" name="index" value="<s:property value="index" />" />
 				<input type="hidden" id="path" name="path" value="<s:property value="path" />" />
+				<input type="hidden" id="old_name" name="old_name" value="" />
+				<input type="hidden" id="postfix" name="postfix" value="" />
 			</div>			
 			
             <div id="pad-wrapper" class="gallery" >
@@ -144,7 +146,7 @@
 	<script type="text/javascript" src="/HTP/pages/right_menu/jquery.contextmenu.r2.js"></script>
 	
 	<script src="/HTP/pages/project_js/common.js"></script>
-	<script src="/HTP/pages/project_js/all_files.js"></script>
+	<script src="/HTP/pages/project_js/all_files_gallery.js"></script>
 	
     <script type="text/javascript">
 		$(document).ready(function() {

@@ -143,7 +143,7 @@ function bindRightMenu(){
 	        	rename_start(t);
 	        },
 	        'delete': function(t) {
-		          alert('Trigger was '+t.id+'\nAction was delete');
+	        	deleteFolderOrFile(t);
 	        }
 	      }
 	    });
@@ -151,11 +151,8 @@ function bindRightMenu(){
 	//文件夹右击菜单
 	$('div.folder_item').contextMenu('folder_menu', {
 	      bindings: {
-	        'download': function(t) {
-	          alert('Trigger was '+t.id+'\nAction was download');
-	        },
 	        'delete': function(t) {
-	          alert('Trigger was '+t.id+'\nAction was delete');
+	        	deleteFolderOrFile(t);
 	        },
 	        'rename': function(t) {
 	        	rename_start(t);
@@ -164,27 +161,52 @@ function bindRightMenu(){
 	});
 }
 
-function rename_start(file){
-		var file_name_id="#file_name_"+file.id.split("_")[1];
-		var new_name_id="new_name_"+file.id.split("_")[1];
-		
-		var _str=$("<input style='width:55px;height:20px;' onblur='javascript:rename_over(this.id)' value='"+$(file_name_id).html()+"' type='text' id='"+new_name_id+"' name='"+new_name_id+"' />");
-		$(file_name_id).empty();
-		$(file_name_id).append(_str); 
-		$("#"+new_name_id).focus();
-	}
-	
-function rename_over(new_name_id){
-	//暂存旧名称
-	var old_name=$("#"+new_name_id).val();
-	//删除输入框
-	var file_name_id="#file_name_"+new_name_id.split("_")[2];
-	var _str=$(""+old_name);
-	
-	$(file_name_id).empty();
-	$(file_name_id).html(old_name); 
+//用于查看那些文件被选中
+function deleteCheckedFile(){
+	var id_list="_";
+	$('i[id^="check_"]').each(function () {
+		var div_id="#file_"+this.id.split("_")[1];
+		if($(div_id).hasClass("ui-selected")){
+			//文件或文件夹被选中，开始删除
+			var file_id=this.id.split("_")[1];
+			id_list=id_list+file_id+"_";
+		}
+	});
+	var url = "DeleteListInGalleryAction.action?id_list="+id_list;
+	$.ajax({ 
+		type:'get', 
+		url:url, 
+		dataType: 'json', 
+		success:function(data){ 
+			//成功删除
+			//重置页数为1
+			$('#index').val(1);
+			//重新加载数据
+			loadGalleryData();
+		} 
+	})
 }
 
+//删除文件或文件夹操作
+function deleteFolderOrFile(file){
+	var file_id=file.id.split("_")[1];
+	var url = "DeleteInGalleryAction.action?id="+file_id;
+	$.ajax({ 
+		type:'get', 
+		url:url, 
+		dataType: 'json', 
+		success:function(data){ 
+			//成功删除
+			
+			//重置页数为1
+			$('#index').val(1);
+			//重新加载数据
+			loadGalleryData();
+		} 
+	})
+}
+
+//全选按钮
 function check_all(check_button_id){
 	if ($("#"+check_button_id).is(":checked")){
 		//执行全选操作
@@ -217,16 +239,111 @@ function check_all(check_button_id){
 	}
 }
 
-/* function findCheckedFile(){
-	//用于查看那些被选中
-    $('i[id^="check_"]').each(function () {
-    	var file_id="#file_"+this.id.split("_")[1];
-    	if($(file_id).hasClass("ui-selected")){
-    		alert(file_id);
-    	}
-    });
-} */
+//文件重命名
+function rename_start(file){
+	var file_name_id="#file_name_"+file.id.split("_")[1];
+	var name_id="#name_"+file.id.split("_")[1];
+	var new_name_id="new_name_"+file.id.split("_")[1];
+	//暂存旧名称
+	var last_index=$(name_id).html().lastIndexOf("."); 
+	var name_length=$(name_id).html().length;
+	if(last_index==-1){
+		//是文件夹
+		$("#old_name").val($(name_id).html());
+		$("#postfix").val("folder");
+	}else{
+		//是文件
+		$("#old_name").val($(name_id).html().substring(0,last_index));
+		$("#postfix").val($(name_id).html().substring(last_index+1,name_length));
+	}
+	
+	//显示输入框
+	var show_name=$(name_id).html().split(".")[0];
+	var _str=$("<input style='width:55px;height:20px;' onblur='javascript:rename_over(this.id)' value='"+show_name+"' type='text' id='"+new_name_id+"' name='"+new_name_id+"' />");
+	$(file_name_id).empty();
+	$(file_name_id).append(_str); 
+	$("#"+new_name_id).focus();
+}
+	
+//完成重命名
+function rename_over(new_name_id){
+	var file_id=new_name_id.split("_")[2];
+	var new_name=$("#new_name_"+file_id).val();
+	var old_name=$("#old_name").val();
+	var postfix=$("#postfix").val();
+	if(trim(new_name).length==0){
+		alert("名称不可为空");
+		//删除输入框并显示旧名称
+		show_old_name(file_id);
+	}else{
+		if(new_name.indexOf(".")==-1){
+			//文件名不包含'.'，是合法的
+			if(old_name==new_name){
+				//未进行修改
+				//删除输入框并显示旧名称
+				show_old_name(file_id);
+			}else{
+				//进行了修改
+				//清空模糊查询框数据
+				$('#search_name').val("");
+				//重置页数为1
+				$('#index').val(1);
+				var url = "ModifyFileNameInGalleryAction.action?new_name="+new_name+"&&file_id="+file_id;
+				$.ajax({ 
+					type:'get', 
+					url:url, 
+					dataType: 'json', 
+					success:function(data){ 
+						//成功修改
+						loadGalleryData();
+					} 
+				})
+			}
+		}else{
+			//文件名包含'.'，不合法
+			alert("文件名不可包含 . ");
+			//删除输入框并显示旧名称
+			show_old_name(file_id);
+		}
+	}
+}
 
+//文件名修改失败时显示旧名称
+function show_old_name(file_id){
+	var old_name=$("#old_name").val();
+	var postfix=$("#postfix").val();
+	var file_name_id="#file_name_"+file_id;
+	var name_id="name_"+file_id;
+	$(file_name_id).empty();
+	var _str;
+	if(postfix=="folder"){
+		//是文件夹
+		_str=$("<div id='"+name_id+"'>"+old_name+"</div>");
+	}else{
+		//是文件
+		_str=$("<div id='"+name_id+"'>"+old_name+"."+postfix+"</div>");
+	}
+	$(file_name_id).append(_str);
+}
+
+//添加文件夹
+function addFolder(){
+	var path=$('#path').val();
+	var url = "AddFolderInGalleryAction.action?path="+path;
+	$.ajax({ 
+		type:'get', 
+		url:url, 
+		dataType: 'json', 
+		success:function(data){ 
+			//成功建立
+			//重置页数为1
+			$('#index').val(1);
+			loadGalleryData(); 
+		} 
+	})
+}
+
+//文件图标的选择或取消选择操作
 function check_item(id){
 	var check_id="#"+id;
 	var file_id="#file_"+id.split("_")[1];
@@ -249,15 +366,3 @@ function check_item(id){
 	$("#"+type).addClass("active"); 
 	$("#div_"+type).css("display","block"); 
 };
-
-$("#btn_newFolder").click(function(){
-    //$("#file6").after('<div class="span1 img-container" id="file7"><div class="img-box"><span class="ltt-icon" ><i class="gallery-check" id="check7"></i></span><img src="img/icon/icon_folder.png" /><p class="title"> 新建文件夹</p></div></div>');
-	//$("#file7").append($(".gallery-row"));  
-	var newFile='<div class="span1 img-container" id="file7"><div class="img-box"><span class="ltt-icon" ><i class="gallery-check" id="check7"></i></span><img src="img/icon/icon_folder.png" /><p class="title"> 新建文件夹</p></div></div>';              
-	$(".gallery-row").prepend(newFile);   
-		});
-		
-	$("#file4").click(function(){
-        var myPDF = new PDFObject({ url: "test.pdf" }).embed("show-file");
-		$('#fileModal').modal('toggle');
-});

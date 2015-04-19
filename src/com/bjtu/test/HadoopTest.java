@@ -19,23 +19,6 @@ import org.apache.hadoop.fs.FileStatus;
 
 public class HadoopTest {
 
-	public static void main(String[] args) {
-		 try {
-//			 uploadToHdfs();			 
-//			 readFromHdfs();
-//			 deleteFromHdfs();
-//			 createFolderFromHdfs();
-			 getDirectoryFromHdfs();
-		  } catch (Exception e) {
-			   // TODO Auto-generated catch block
-			   e.printStackTrace();
-		  }
-		  finally
-		  {
-			  System.out.println("---finish---");
-		  }
-	}
-	
 	/**上传文件到HDFS上去*/
 	private static void uploadToHdfs() throws FileNotFoundException,IOException {
 		 String localSrc = "e://prototype.zip";
@@ -89,16 +72,16 @@ public class HadoopTest {
 	 
 	 /**从HDFS上删除文件*/
 	 private static void deleteFromHdfs() throws FileNotFoundException,IOException {
-	     String dst = "hdfs://192.168.10.133:9000/user/hadoop/qq.txt";  
+	     String dst = "hdfs://192.168.10.133:9000/user/hadoop/user/402824814cb03d52014cb03dbc190001/file/1429449367573";  
 	     Configuration conf = new Configuration();  
 	     FileSystem fs = FileSystem.get(URI.create(dst), conf);
-	     fs.deleteOnExit(new Path(dst));
+	     fs.delete(new Path(dst),true);
 	     fs.close();
 	 }
 
 	 /**遍历HDFS上的文件和目录*/
 	 private static void getDirectoryFromHdfs() throws FileNotFoundException,IOException {
-		 String dst = "hdfs://192.168.10.133:9000/user/hadoop/";  
+		 String dst = "hdfs://192.168.10.133:9000/user/hadoop/user/402824814cb03d52014cb03dbc190001/file/";  
 		 Configuration conf = new Configuration();  
 		 FileSystem fs = FileSystem.get(URI.create(dst), conf);
 		 FileStatus fileList[] = fs.listStatus(new Path(dst));
@@ -108,4 +91,20 @@ public class HadoopTest {
 		 }
 		 fs.close();
 	 } 
+	 
+	 public static void main(String[] args) {
+		 try {
+//			 uploadToHdfs();			 
+//			 readFromHdfs();
+//			 deleteFromHdfs();
+//			 createFolderFromHdfs();
+			 getDirectoryFromHdfs();
+		  } catch (Exception e) {
+			   // TODO Auto-generated catch block
+			   e.printStackTrace();
+		  } finally
+		  {
+			  System.out.println("---finish---");
+		  }
+	}
 }

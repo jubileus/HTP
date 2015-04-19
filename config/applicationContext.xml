@@ -94,7 +94,28 @@
 		</property>
 	</bean>
 	<!-- Services End -->
+	
 	<!--File Action Begin-->
+	<bean scope="prototype" id="DeleteListInGalleryAction" class="com.bjtu.ajax.file.DeleteListInGalleryAction">
+		<property name="file_service">
+			<ref bean="file_service"/>
+		</property>
+	</bean>
+	<bean scope="prototype" id="DeleteInGalleryAction" class="com.bjtu.ajax.file.DeleteInGalleryAction">
+		<property name="file_service">
+			<ref bean="file_service"/>
+		</property>
+	</bean>
+	<bean scope="prototype" id="ModifyFileNameInGalleryAction" class="com.bjtu.ajax.file.ModifyFileNameInGalleryAction">
+		<property name="file_service">
+			<ref bean="file_service"/>
+		</property>
+	</bean>
+	<bean scope="prototype" id="AddFolderInGalleryAction" class="com.bjtu.ajax.file.AddFolderInGalleryAction">
+		<property name="file_service">
+			<ref bean="file_service"/>
+		</property>
+	</bean>
 	<bean scope="prototype" id="AllFileInGalleryAction" class="com.bjtu.ajax.file.AllFileInGalleryAction">
 		<property name="file_service">
 			<ref bean="file_service"/>

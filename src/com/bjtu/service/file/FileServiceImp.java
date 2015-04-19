@@ -152,5 +152,78 @@ public class FileServiceImp implements IFileService{
 		}
 		return rs;
 	}
+	
+	/**
+	 * @author 刘庶
+	 * 编写日期：2015-04-18
+	 * 功能：查询文件名称是否存在同名文件
+	 * @param file
+	 */
+	@Override
+	public boolean ifNewFileExist(Tb_file file) {
+		if(file_dao.getByUserId_ShowName_Postfix(file)==null){
+			//没有同名文件
+			return false;
+		}else{
+			return true;
+		}
+	}
 
+	
+	/**
+	 * @author 刘庶
+	 * 编写日期：2015-04-18
+	 * 功能：查询文件名称是否存在同名文件,存在则返回已有同名文件编号最大值，不存在则返回0
+	 * @param file
+	 */
+	@Override
+	public int getNewFileNum(Tb_file file) {
+		int rs=0;
+		List<Tb_file> file_list=file_dao.getListByUserId_ShowName_Postfix(file);
+		//查找目前最大的标号
+		String tmp;
+		int start_index;
+		String num;
+		int current_num;
+		if(file_list!=null&&file_list.size()>0){
+			for(int i=0;i<file_list.size();i++){
+				tmp= file_list.get(i).getShow_name();
+				start_index=tmp.lastIndexOf("(");
+				num=tmp.substring(start_index+1, tmp.length()-1);
+				try {
+					current_num=Integer.parseInt(num);
+					if(current_num>rs){
+						rs=current_num;
+					}
+				} catch (Exception e) {
+					//不能转换为数字，则不是需要的数据
+				}
+			}
+		}
+		//返回最大编号+1
+		return rs+1;
+	}
+	
+	/**
+	 * @author 刘庶
+	 * 编写日期：2015-04-18
+	 * 功能：修改文件show_name
+	 * @param file
+	 */
+	@Override
+	public void modifyShowName(Tb_file file) {
+		file_dao.modifyShowName(file);
+	}
+	
+	/**
+	 * @author 刘庶
+	 * 编写日期：2015-04-18
+	 * 功能：删除文件或文件夹
+	 * @param id
+	 */
+	@Override
+	public void deleteFolderOrFile(String id) {
+		file_dao.delete(id);
+	}
+	
 }

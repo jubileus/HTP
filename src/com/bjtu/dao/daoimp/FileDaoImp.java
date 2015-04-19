@@ -129,5 +129,93 @@ public class FileDaoImp implements IFileDao{
     	query.addCriteria(criteria);
 		return file_dao_util.findOne(query);
 	}
+	
+	/**
+	 * @author 刘庶
+	 * 编写日期：2015-04-18
+	 * 功能：根据user_id和show_name和postfix查询文件
+	 * @param file
+	 */
+	@Override
+	public Tb_file getByUserId_ShowName_Postfix(Tb_file file) {
+		Query query;
+		Criteria criteria;
+    	query=new Query();
+    	criteria=Criteria.where("user_id").is(file.getUser_id()).and("show_name").is(file.getShow_name()).
+    			and("postfix").is(file.getPostfix()).and("path").is(file.getPath());;
+    	query.addCriteria(criteria);
+		return file_dao_util.findOne(query);
+	}
+	
+	/**
+	 * @author 刘庶
+	 * 编写日期：2015-04-18
+	 * 功能：根据user_id和show_name和postfix查询文件副本List
+	 * @param file
+	 */
+    public List<Tb_file> getListByUserId_ShowName_Postfix(Tb_file file){
+		Query query;
+		Criteria criteria;
+    	query=new Query();
+    	criteria=Criteria.where("user_id").is(file.getUser_id()).and("postfix").is(file.getPostfix()).and("path").is(file.getPath());
+    	query.addCriteria(criteria);
+    	criteria=Criteria.where("show_name").regex(file.getShow_name()+"[(]+"+"[0-9]+"+"[)]$");
+		query.addCriteria(criteria);
+		return file_dao_util.find(query);
+	}
+    
+    /**
+	 * @author 刘庶
+	 * 编写日期：2015-04-18
+	 * 功能：修改文件show_name
+	 * @param file
+	 */
+	@Override
+	public void modifyShowName(Tb_file file) {
+		Query query = new Query(); 
+		Criteria criteria=Criteria.where("id").is(file.getId());
+        query.addCriteria(criteria);  
+        Update update = new Update();  
+        update.set("show_name", file.getShow_name());
+        file_dao_util.update(query, update);
+	}
+	
+	/**
+	 * @author 刘庶
+	 * 编写日期：2015-04-18
+	 * 功能：删除一条或多条数据
+	 * @param id
+	 */
+	@Override
+	public void delete(String id) {
+		Query query;
+		Criteria criteria;
+    	query=new Query();
+    	criteria=Criteria.where("id").is(id);
+    	query.addCriteria(criteria);
+    	Tb_file file=file_dao_util.findOne(query);
+    	
+    	if(file.getIs_folder()==1){
+    		//删除子文件夹和子文件
+    		query=new Query();
+    		criteria=Criteria.where("user_id").is(file.getUser_id());
+    		query.addCriteria(criteria);
+    		String delete_path=file.getPath()+file.getHdfs_name()+"/";
+    		criteria=Criteria.where("path").regex(delete_path+".*");
+    		query.addCriteria(criteria);
+    		file_dao_util.delete(query);
+    		//删除自身
+    		query=new Query();
+    		criteria=Criteria.where("id").is(id);
+    		query.addCriteria(criteria);
+    		file_dao_util.delete(query);
+    	}else{
+    		//删除文件
+    		query=new Query();
+    		criteria=Criteria.where("id").is(id);
+    		query.addCriteria(criteria);
+    		file_dao_util.delete(query);
+    	}
+	}
 
 }

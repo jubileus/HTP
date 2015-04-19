@@ -47,17 +47,17 @@ public class TestMongoAction extends ActionSupport{
         	file.setId(StringUtil.getUUID());
         	file.setIs_complete(1);
         	file.setIs_folder(1);
-//        	file.setPath("/user/hadoop/user/"+user_id+"/file/");
-        	file.setPath("/user/hadoop/user/"+user_id+"/file/1429348039973/");
+        	file.setPath("/user/hadoop/user/"+user_id+"/file/");
+//        	file.setPath("/user/hadoop/user/"+user_id+"/file/1429348039973/");
         	file.setPostfix("folder");
         	file.setShow_name("folder"+index);
         	file.setTimestamp(timestamp);
         	file.setUser_id(user_id);
         	file_service.insert(file);
         }
-        //插入170条文件数据至用户根目录
+        //插入50条文件数据至用户根目录
         index=0;
-        for(int i=0;i<170;i++){
+        for(int i=0;i<50;i++){
         	String timestamp=String.valueOf(System.currentTimeMillis());
         	file=new Tb_file();
         	file.setCreate_time(DateUtil.getCurrentDateTime());
@@ -66,8 +66,8 @@ public class TestMongoAction extends ActionSupport{
         	file.setId(StringUtil.getUUID());
         	file.setIs_complete(1);
         	file.setIs_folder(0);
-//        	file.setPath("/user/hadoop/user/"+user_id+"/file/");
-        	file.setPath("/user/hadoop/user/"+user_id+"/file/1429348039973/");
+        	file.setPath("/user/hadoop/user/"+user_id+"/file/");
+//        	file.setPath("/user/hadoop/user/"+user_id+"/file/1429348039973/");
         	file.setPostfix("doc");
         	file.setShow_name("word"+index);
         	file.setTimestamp(timestamp);

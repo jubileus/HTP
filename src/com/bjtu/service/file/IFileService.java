@@ -63,4 +63,36 @@ public interface IFileService {
 	 * @param path
 	 */
 	public List<PathEntity> getPathList(String user_id,String path);
+	
+	/**
+	 * @author 刘庶
+	 * 编写日期：2015-04-18
+	 * 功能：查询文件名称是否存在同名文件
+	 * @param file
+	 */
+	public boolean ifNewFileExist(Tb_file file);
+	
+	/**
+	 * @author 刘庶
+	 * 编写日期：2015-04-18
+	 * 功能：查询文件名称是否存在同名文件,存在则返回已有同名文件编号最大值，不存在则返回0
+	 * @param file
+	 */
+	public int getNewFileNum(Tb_file file);
+	
+	/**
+	 * @author 刘庶
+	 * 编写日期：2015-04-18
+	 * 功能：修改文件show_name
+	 * @param file
+	 */
+    public void modifyShowName(Tb_file file);
+    
+    /**
+	 * @author 刘庶
+	 * 编写日期：2015-04-18
+	 * 功能：删除文件或文件夹
+	 * @param id
+	 */
+    public void deleteFolderOrFile(String id);
 }

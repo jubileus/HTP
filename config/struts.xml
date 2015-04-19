@@ -10,13 +10,24 @@
 	
 <package name="default" extends="json-default">
 	<!-- File Action Begin -->
+	<action name="DeleteInGalleryAction" class="DeleteInGalleryAction">
+    	<result type="json" />
+    </action>
+    <action name="DeleteListInGalleryAction" class="DeleteListInGalleryAction">
+    	<result type="json" />
+    </action>
+	<action name="AddFolderInGalleryAction" class="AddFolderInGalleryAction">
+    	<result type="json" />
+    </action>
+	<action name="ModifyFileNameInGalleryAction" class="ModifyFileNameInGalleryAction">
+    	<result type="json" />
+    </action>
 	<action name="AllFileInGalleryAction" class="AllFileInGalleryAction">
     	<result type="json" />
     </action>
 	<!-- File Action End -->
 
 	<!-- Test Action Begin -->
-	
 	<!-- Test Action End -->
 	
 	<!-- User Management Action Begin -->

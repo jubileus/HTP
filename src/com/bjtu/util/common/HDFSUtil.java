@@ -23,9 +23,52 @@ public class HDFSUtil {
 		    FileSystem fs;
 			fs = FileSystem.get(URI.create(ROOT_PATH),conf);
 			Path srcPath = new Path(path);
-		    boolean isok = fs.mkdirs(srcPath);
+		    fs.mkdirs(srcPath);
 		    fs.close();
 		}catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * @author 刘庶
+	 * 编写日期：2015-04-19
+	 * 功能：删除目录或文件
+	 * @param path：目录或文件路径
+	 */
+	public static void deleteFolderOrFile(FileSystem fs,String path){
+		try{
+			Path srcPath = new Path(path);
+		    fs.delete(srcPath, true);
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * @author 刘庶
+	 * 编写日期：2015-04-19
+	 * 功能：打开文件目录
+	 */
+	public static FileSystem openFileSystem(){
+	    try {
+	    	Configuration conf = new Configuration();
+		    FileSystem fs;
+			return FileSystem.get(URI.create(ROOT_PATH),conf);
+		} catch (IOException e) {
+			return null;
+		}
+	}
+	
+	/**
+	 * @author 刘庶
+	 * 编写日期：2015-04-19
+	 * 功能：关闭文件目录
+	 */
+	public static void closeFileSystem(FileSystem fs){
+		try {
+			fs.close();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

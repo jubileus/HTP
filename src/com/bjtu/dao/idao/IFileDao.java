@@ -51,4 +51,36 @@ public interface IFileDao {
 	 * @param hdfs_name
 	 */
     public Tb_file getByUserIdAndHDFSName(String user_id,String hdfs_name);
+    
+    /**
+	 * @author 刘庶
+	 * 编写日期：2015-04-18
+	 * 功能：根据path，user_id，show_name和postfix查询文件
+	 * @param file
+	 */
+    public Tb_file getByUserId_ShowName_Postfix(Tb_file file);
+    
+    /**
+	 * @author 刘庶
+	 * 编写日期：2015-04-18
+	 * 功能：根据path，user_id，show_name和postfix查询文件副本List
+	 * @param file
+	 */
+    public List<Tb_file> getListByUserId_ShowName_Postfix(Tb_file file);
+    
+    /**
+	 * @author 刘庶
+	 * 编写日期：2015-04-18
+	 * 功能：修改文件show_name
+	 * @param file
+	 */
+    public void modifyShowName(Tb_file file);
+    
+    /**
+	 * @author 刘庶
+	 * 编写日期：2015-04-18
+	 * 功能：删除一条或多条数据
+	 * @param id
+	 */
+    public void delete(String id);
 }
