@@ -18,8 +18,8 @@
     <property name="password" type="string" column="password" not-null="true" unique="false" length="32" />
     <property name="nickname" type="string" column="nickname" not-null="true" unique="false" length="50" />
     <property name="img" type="string" column="img" not-null="true" unique="false" length="100" />
-    <property name="total_storage" type="float" column="total_storage" />
-    <property name="used_storage" type="float" column="used_storage" />
+    <property name="total_storage" type="double" column="total_storage" />
+    <property name="used_storage" type="double" column="used_storage" />
     <property name="register_time" type="string" column="register_time" not-null="true" unique="false" length="32" />
     <property name="role" type="int" column="role" />
     <property name="status" type="int" column="status" />

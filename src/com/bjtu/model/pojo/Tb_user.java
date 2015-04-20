@@ -12,9 +12,9 @@ public class Tb_user {
 	//头像路径
 	private String img;
 	//总存储空间
-	private float total_storage;
+	private double total_storage;
 	//已使用存储空间
-	private float used_storage;
+	private double used_storage;
 	//注册时间
 	private String register_time;
 	//角色：0=普通用户，1=管理员
@@ -52,16 +52,16 @@ public class Tb_user {
 	public void setImg(String img) {
 		this.img = img;
 	}
-	public float getTotal_storage() {
+	public double getTotal_storage() {
 		return total_storage;
 	}
-	public void setTotal_storage(float total_storage) {
+	public void setTotal_storage(double total_storage) {
 		this.total_storage = total_storage;
 	}
-	public float getUsed_storage() {
+	public double getUsed_storage() {
 		return used_storage;
 	}
-	public void setUsed_storage(float used_storage) {
+	public void setUsed_storage(double used_storage) {
 		this.used_storage = used_storage;
 	}
 	public String getRegister_time() {

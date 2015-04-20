@@ -40,7 +40,7 @@ public class DeleteListInGalleryAction extends ActionSupport{
 		Tb_file file;
 		FileSystem fs=HDFSUtil.openFileSystem();
 		//初始化被删除文件总大小
-		float total_delete_size=0;
+		double total_delete_size=0;
 		while(st.hasMoreElements()){
 			id=st.nextToken();
 			file=file_service.getById(id);

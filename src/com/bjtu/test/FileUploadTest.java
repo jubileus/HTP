@@ -20,12 +20,17 @@ import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.fs.FileStatus;
 
+import com.bjtu.util.common.DataFormatUtil;
+
 public class FileUploadTest {
 
 	public static void main(String[] args) {
 		try {
 			RandomAccessFile raf = new RandomAccessFile("E://test.docx", "rw");
-			System.out.println("size-------->"+raf.length());
+			System.out.println("size  in  Byte-------->"+raf.length());
+			double size_mb=raf.length()/1048576.0;
+			System.out.println(size_mb);
+			System.out.println("size  in  MB-------->"+DataFormatUtil.doubleRound(size_mb, 2, 1));
 			
 		} catch (Exception e) {
 			e.printStackTrace();
