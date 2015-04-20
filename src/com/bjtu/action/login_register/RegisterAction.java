@@ -29,7 +29,7 @@ public class RegisterAction extends ActionSupport{
 		//设置role=0，表示普通用户
 		user.setRole(0);
 		user.setStatus(1);
-		//默认空间大小10GB=10*1024MB=10240M
+		//默认空间大小10GB=10*1024MB=10240MB
 		user.setTotal_storage(10240);
 		user.setUsed_storage(0);
 		

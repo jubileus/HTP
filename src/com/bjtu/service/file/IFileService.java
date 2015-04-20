@@ -6,6 +6,7 @@ import java.util.List;
 import com.bjtu.model.bo.GalleryFileEntity;
 import com.bjtu.model.bo.PathEntity;
 import com.bjtu.model.pojo.Tb_file;
+import com.bjtu.model.pojo.Tb_user;
 
 public interface IFileService {
 
@@ -95,4 +96,12 @@ public interface IFileService {
 	 * @param id
 	 */
     public void deleteFolderOrFile(String id);
+    
+    /**
+	 * @author 刘庶
+	 * 编写日期：2015-04-20
+	 * 功能：更新用户已用存储空间
+	 * @param user
+	 */
+	public void updateUsedStorage(Tb_user user);
 }

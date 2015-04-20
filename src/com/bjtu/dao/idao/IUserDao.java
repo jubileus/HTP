@@ -86,4 +86,11 @@ public interface IUserDao {
 	 */
 	public void updateTotalStorage(Tb_user user);
 	
+	/**
+	 * @author 苏国伟
+	 * 编写日期：2015-04-20
+	 * 功能：更新用户已用存储空间
+	 * @param user
+	 */
+	public void updateUsedStorage(Tb_user user);
 }

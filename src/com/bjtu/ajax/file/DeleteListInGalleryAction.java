@@ -31,18 +31,36 @@ public class DeleteListInGalleryAction extends ActionSupport{
 	
 	@Override
 	public String execute() throws Exception {
+		HttpServletRequest request = ServletActionContext.getRequest();
+        HttpSession session = request.getSession();
+        Tb_user user=(Tb_user)session.getAttribute("user");
+		
 		StringTokenizer st=new StringTokenizer(id_list,"_");
 		String id;
 		Tb_file file;
 		FileSystem fs=HDFSUtil.openFileSystem();
+		//初始化被删除文件总大小
+		float total_delete_size=0;
 		while(st.hasMoreElements()){
 			id=st.nextToken();
 			file=file_service.getById(id);
-			HDFSUtil.deleteFolderOrFile(fs,file.getPath()+file.getHdfs_name());
+			//更新被删除文件总大小
+			total_delete_size+=file.getSize_mb();
+			if(file.getIs_folder()==1){
+				//删除文件夹
+				HDFSUtil.deleteFolderOrFile(fs,file.getPath()+file.getHdfs_name());
+			}else{
+				//删除文件
+				HDFSUtil.deleteFolderOrFile(fs,file.getPath()+file.getHdfs_name()+"."+file.getPostfix());
+			}
 			//删除文件数据
 			file_service.deleteFolderOrFile(id);
 		}
 		HDFSUtil.closeFileSystem(fs);
+		//更新用户已使用空间大小
+		user.setUsed_storage(user.getUsed_storage()-total_delete_size);
+        file_service.updateUsedStorage(user);
+		
         
 		return SUCCESS;
 	}

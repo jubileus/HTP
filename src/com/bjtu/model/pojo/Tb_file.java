@@ -21,6 +21,13 @@ public class Tb_file {
 	private String create_time;
 	//时间戳
 	private String timestamp;
+	//文件的MD5数值，文件夹为""
+	private String md5;
+	//文件的大小，单位是MB
+	private float size_mb;
+	//文件的大小，单位是B
+	private String size_b;
+	
 	
 	public String getId() {
 		return id;
@@ -81,6 +88,24 @@ public class Tb_file {
 	}
 	public void setTimestamp(String timestamp) {
 		this.timestamp = timestamp;
+	}
+	public String getMd5() {
+		return md5;
+	}
+	public void setMd5(String md5) {
+		this.md5 = md5;
+	}
+	public float getSize_mb() {
+		return size_mb;
+	}
+	public void setSize_mb(float size_mb) {
+		this.size_mb = size_mb;
+	}
+	public String getSize_b() {
+		return size_b;
+	}
+	public void setSize_b(String size_b) {
+		this.size_b = size_b;
 	}
 	
 }

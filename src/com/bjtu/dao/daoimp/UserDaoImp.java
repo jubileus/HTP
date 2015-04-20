@@ -188,5 +188,21 @@ public class UserDaoImp implements IUserDao{
 		dao_util.update(temp);
 	}
 	
+	/**
+	 * @author 苏国伟
+	 * 编写日期：2015-04-20
+	 * 功能：更新用户已用存储空间
+	 * @param user
+	 */
+	@Override
+	public void updateUsedStorage(Tb_user user) {
+		String hql = "from Tb_user where id = ?";
+		Object[] objects = new Object[1];
+		objects[0]=user.getId();
+		Tb_user temp=(Tb_user)dao_util.getSingle(hql, objects);
+		temp.setUsed_storage(user.getUsed_storage());
+		dao_util.update(temp);
+	}
+	
 	
 }

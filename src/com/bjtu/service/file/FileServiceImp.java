@@ -6,12 +6,15 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 import com.bjtu.dao.idao.IFileDao;
+import com.bjtu.dao.idao.IUserDao;
 import com.bjtu.model.bo.GalleryFileEntity;
 import com.bjtu.model.bo.PathEntity;
 import com.bjtu.model.pojo.Tb_file;
+import com.bjtu.model.pojo.Tb_user;
 
 public class FileServiceImp implements IFileService{
 	
+	private IUserDao user_dao;
 	private IFileDao file_dao;
 	public IFileDao getFile_dao() {
 		return file_dao;
@@ -19,7 +22,13 @@ public class FileServiceImp implements IFileService{
 	public void setFile_dao(IFileDao file_dao) {
 		this.file_dao = file_dao;
 	}
-
+	public IUserDao getUser_dao() {
+		return user_dao;
+	}
+	public void setUser_dao(IUserDao user_dao) {
+		this.user_dao = user_dao;
+	}
+	
 	/**
 	 * @author 刘庶
 	 * 编写日期：2015-04-18
@@ -224,6 +233,17 @@ public class FileServiceImp implements IFileService{
 	@Override
 	public void deleteFolderOrFile(String id) {
 		file_dao.delete(id);
+	}
+	
+	/**
+	 * @author 刘庶
+	 * 编写日期：2015-04-20
+	 * 功能：更新用户已用存储空间
+	 * @param user
+	 */
+	@Override
+	public void updateUsedStorage(Tb_user user) {
+		user_dao.updateUsedStorage(user);
 	}
 	
 }

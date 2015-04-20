@@ -92,6 +92,9 @@
 		<property name="file_dao">
 			<ref bean="file_dao"/>
 		</property>
+		<property name="user_dao">
+			<ref bean="user_dao"/>
+		</property>
 	</bean>
 	<!-- Services End -->
 	

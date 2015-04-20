@@ -33,9 +33,22 @@ public class DeleteInGalleryAction extends ActionSupport{
 		//获取文件对象
 		Tb_file file=file_service.getById(id);
 		
+		//更新用户已使用空间大小
+		HttpServletRequest request = ServletActionContext.getRequest();
+        HttpSession session = request.getSession();
+        Tb_user user=(Tb_user)session.getAttribute("user");
+        user.setUsed_storage(user.getUsed_storage()-file.getSize_mb());
+        file_service.updateUsedStorage(user);
+		
 		//在HDFS中删除数据
 		FileSystem fs=HDFSUtil.openFileSystem();
-    	HDFSUtil.deleteFolderOrFile(fs,file.getPath()+file.getHdfs_name());
+		if(file.getIs_folder()==1){
+			//删除文件夹
+			HDFSUtil.deleteFolderOrFile(fs,file.getPath()+file.getHdfs_name());
+		}else{
+			//删除文件
+			HDFSUtil.deleteFolderOrFile(fs,file.getPath()+file.getHdfs_name()+"."+file.getPostfix());
+		}
     	HDFSUtil.closeFileSystem(fs);
 		//删除文件数据
 		file_service.deleteFolderOrFile(id);
