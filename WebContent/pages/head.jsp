@@ -38,7 +38,7 @@
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-	
+	<link href='/HTP/pages/css/mybar.css' rel='stylesheet'>
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
 <body>

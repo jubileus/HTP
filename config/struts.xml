@@ -10,6 +10,15 @@
 	
 <package name="default" extends="json-default">
 	<!-- File Action Begin -->
+	<action name="SaveFileInHDFSAction" class="SaveFileInHDFSAction">
+    	<result type="json" />
+    </action>
+	<action name="FileUploadAction" class="FileUploadAction">
+    	<result type="json" />
+    </action>
+    <action name="IfFileCanUploadAction" class="IfFileCanUploadAction">
+    	<result type="json" />
+    </action>
 	<action name="DeleteInGalleryAction" class="DeleteInGalleryAction">
     	<result type="json" />
     </action>

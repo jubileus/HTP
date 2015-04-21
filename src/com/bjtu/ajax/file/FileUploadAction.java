@@ -1,5 +1,7 @@
 package com.bjtu.ajax.file;
 
+import java.io.File;
+import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,6 +9,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.hadoop.fs.FSDataOutputStream;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.struts2.ServletActionContext;
 
@@ -17,50 +20,73 @@ import com.bjtu.model.pojo.Tb_user;
 import com.bjtu.service.file.IFileService;
 import com.bjtu.service.fileType_management.IFileTypeManagementService;
 import com.bjtu.util.common.DateUtil;
-import com.bjtu.util.common.HDFSUtil;
+import com.bjtu.util.common.FileUtil;
 import com.bjtu.util.common.StringUtil;
 import com.googlecode.jsonplugin.annotations.JSON;
 import com.opensymphony.xwork2.ActionSupport;
 
 @SuppressWarnings("all")
-public class DeleteInGalleryAction extends ActionSupport{
-	private String id;
+public class FileUploadAction extends ActionSupport{
+	private File data;
+	private String hdfs_name;
+	private String file_name;
+	private int index;
 	
 	private IFileService file_service;
 	
 	@Override
 	public String execute() throws Exception {
-		//获取文件对象
-		Tb_file file=file_service.getById(id);
-		
-		//更新用户已使用空间大小
 		HttpServletRequest request = ServletActionContext.getRequest();
         HttpSession session = request.getSession();
         Tb_user user=(Tb_user)session.getAttribute("user");
-        user.setUsed_storage(user.getUsed_storage()-file.getSize_mb());
-        file_service.updateUsedStorage(user);
+        //切分后缀并拼接path
+        int index_of_dot=file_name.lastIndexOf(".");
+        String postfix=file_name.substring(index_of_dot+1, file_name.length());
+		String path=FileUtil.TEMPPATH+user.getId()+FileUtil.DEVIDE+hdfs_name+"."+postfix;
 		
-		//在HDFS中删除数据
-		if(file.getIs_folder()==1){
-			//删除文件夹
-			HDFSUtil.deleteFolderOrFile(file.getPath()+file.getHdfs_name());
-		}else{
-			//删除文件
-			HDFSUtil.deleteFolderOrFile(file.getPath()+file.getHdfs_name()+"."+file.getPostfix());
-		}
-		//删除文件数据
-		file_service.deleteFolderOrFile(id);
-        
+		//将File转换为byte[]
+		byte[] buffer=FileUtil.getBytes(data);
+		//在已建立的空文件中追加内容
+		RandomAccessFile dst=new RandomAccessFile(path, "rw");
+		dst.seek(dst.length());
+		dst.write(buffer);
+		dst.close();
 		return SUCCESS;
+	}
+	
+	public int getIndex() {
+		return index;
+	}
+
+	public void setIndex(int index) {
+		this.index = index;
 	}
 
 	@JSON(serialize=false)
-	public String getId() {
-		return id;
+	public File getData() {
+		return data;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setData(File data) {
+		this.data = data;
+	}
+
+	@JSON(serialize=false)
+	public String getHdfs_name() {
+		return hdfs_name;
+	}
+
+	public void setHdfs_name(String hdfs_name) {
+		this.hdfs_name = hdfs_name;
+	}
+
+	@JSON(serialize=false)
+	public String getFile_name() {
+		return file_name;
+	}
+
+	public void setFile_name(String file_name) {
+		this.file_name = file_name;
 	}
 
 	@JSON(serialize=false)

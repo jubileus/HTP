@@ -7,15 +7,19 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
+
 import org.apache.hadoop.util.Progressable;
 import org.apache.hadoop.io.IOUtils;
 import org.apache.hadoop.fs.FSDataInputStream;
+
 import java.io.FileOutputStream;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.fs.FileStatus;
+
+import com.bjtu.util.common.HDFSUtil;
 
 public class HadoopTest {
 
@@ -37,12 +41,11 @@ public class HadoopTest {
 	 
 	 /**从HDFS上下载文件*/
 	 private static void readFromHdfs() throws FileNotFoundException,IOException {
-	     String dst = "hdfs://192.168.10.133:9000/user/hadoop/qq.txt";  
 	     Configuration conf = new Configuration();  
-	     FileSystem fs = FileSystem.get(URI.create(dst), conf);
-	     FSDataInputStream hdfsInStream = fs.open(new Path(dst));
+	     FileSystem fs = FileSystem.get(URI.create("hdfs://192.168.10.133:9000/user/hadoop/user/402824814cb03d52014cb03dbc190001/file/"), conf);
+	     FSDataInputStream hdfsInStream = fs.open(new Path("/user/hadoop/user/402824814cb03d52014cb03dbc190001/file/1429623539742.pptx"));
 	  
-	     OutputStream out = new FileOutputStream("e://qq-hdfs.txt"); 
+	     OutputStream out = new FileOutputStream("e://combine.pptx"); 
 	     byte[] ioBuffer = new byte[1024];
 	     int readLen = hdfsInStream.read(ioBuffer);
 
@@ -72,7 +75,7 @@ public class HadoopTest {
 	 
 	 /**从HDFS上删除文件*/
 	 private static void deleteFromHdfs() throws FileNotFoundException,IOException {
-	     String dst = "hdfs://192.168.10.133:9000/user/hadoop/user/402824814cb03d52014cb03dbc190001/file/1429449367573";  
+	     String dst = "hdfs://192.168.10.133:9000/user/hadoop/402824814cb03d52014cb03dbc190001/file/test.pptx";  
 	     Configuration conf = new Configuration();  
 	     FileSystem fs = FileSystem.get(URI.create(dst), conf);
 	     fs.delete(new Path(dst),true);
@@ -94,11 +97,12 @@ public class HadoopTest {
 	 
 	 public static void main(String[] args) {
 		 try {
+			 HDFSUtil.deleteFolderOrFile("/user/hadoop/user/402824814cb03d52014cb03dbc190001/file/1429623539742.pptx");
 //			 uploadToHdfs();			 
 //			 readFromHdfs();
 //			 deleteFromHdfs();
 //			 createFolderFromHdfs();
-			 getDirectoryFromHdfs();
+//			 getDirectoryFromHdfs();
 		  } catch (Exception e) {
 			   // TODO Auto-generated catch block
 			   e.printStackTrace();

@@ -45,8 +45,6 @@ public class AddFolderInGalleryAction extends ActionSupport{
     	file.setTimestamp(timestamp);
     	file.setUser_id(user.getId());
     	file.setShow_name("新建文件夹");
-    	file.setMd5("");
-    	file.setSize_b("0");
     	file.setSize_mb(0);
         if(file_service.ifNewFileExist(file)){
         	//文件名重复，获取新编号

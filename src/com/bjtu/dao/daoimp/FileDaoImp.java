@@ -61,7 +61,7 @@ public class FileDaoImp implements IFileDao{
 		Criteria criteria;
     	query=new Query();
     	//指定文件所在目录
-    	criteria=Criteria.where("path").is(path);
+    	criteria=Criteria.where("path").is(path).and("is_complete").is(1);
     	query.addCriteria(criteria);
     	//判读是否是模糊查询
     	if(file_name!=null){
@@ -97,7 +97,7 @@ public class FileDaoImp implements IFileDao{
 		Query query;
 		query=new Query();
 		//指定文件所在目录
-		criteria=Criteria.where("path").is(path);
+		criteria=Criteria.where("path").is(path).and("is_complete").is(1);
 		query.limit(num);
 		query.skip((index-1)*num);
 		query.with(new Sort(new Sort.Order(Direction.DESC, "is_folder")));
@@ -216,6 +216,22 @@ public class FileDaoImp implements IFileDao{
     		query.addCriteria(criteria);
     		file_dao_util.delete(query);
     	}
+	}
+	
+	/**
+	 * @author 刘庶
+	 * 编写日期：2015-04-21
+	 * 功能：修改文件is_complete
+	 * @param file
+	 */
+	@Override
+	public void modifyIs_complete(Tb_file file) {
+		Query query = new Query(); 
+		Criteria criteria=Criteria.where("id").is(file.getId());
+        query.addCriteria(criteria);  
+        Update update = new Update();  
+        update.set("is_complete", file.getIs_complete());
+        file_dao_util.update(query, update);
 	}
 
 }

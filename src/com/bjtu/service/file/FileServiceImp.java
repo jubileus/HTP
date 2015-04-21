@@ -246,4 +246,15 @@ public class FileServiceImp implements IFileService{
 		user_dao.updateUsedStorage(user);
 	}
 	
+	/**
+	 * @author 刘庶
+	 * 编写日期：2015-04-21
+	 * 功能：修改文件is_complete
+	 * @param file
+	 */
+	@Override
+	public void modifyIs_complete(Tb_file file) {
+		file_dao.modifyIs_complete(file);
+	}
+	
 }

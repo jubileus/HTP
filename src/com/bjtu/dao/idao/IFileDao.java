@@ -83,4 +83,12 @@ public interface IFileDao {
 	 * @param id
 	 */
     public void delete(String id);
+    
+    /**
+	 * @author 刘庶
+	 * 编写日期：2015-04-21
+	 * 功能：修改文件is_complete
+	 * @param file
+	 */
+    public void modifyIs_complete(Tb_file file);
 }
