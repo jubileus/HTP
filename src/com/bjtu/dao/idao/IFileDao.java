@@ -7,7 +7,7 @@ import com.bjtu.model.pojo.Tb_file;
 public interface IFileDao {
 	
 	/**
-	 * @author 刘庶
+	 * @author 苏国伟
 	 * 编写日期：2015-04-18
 	 * 功能：插入文件数据
 	 * @param file
@@ -15,7 +15,7 @@ public interface IFileDao {
 	public void insert(Tb_file file);
 		
 	/**
-	 * @author 刘庶
+	 * @author 苏国伟
 	 * 编写日期：2015-04-18
 	 * 功能：根据id查询文件
 	 * @param id
@@ -23,7 +23,7 @@ public interface IFileDao {
     public Tb_file getById(String id);
 		
     /**
-	 * @author 刘庶
+	 * @author 苏国伟
 	 * 编写日期：2015-04-18
 	 * 功能：查询符合条件数据的总页数
 	 * @param num:每页显示数量
@@ -33,7 +33,7 @@ public interface IFileDao {
     public int getPageCount(int num,String path,String file_name);
     
     /**
-	 * @author 刘庶
+	 * @author 苏国伟
 	 * 编写日期：2015-04-18
 	 * 功能：查询指定页数中的符合条件的数据
 	 * @param num:每页显示数量
@@ -44,7 +44,7 @@ public interface IFileDao {
     public List getPageData(int num,int index,String path,String file_name);
     
     /**
-	 * @author 刘庶
+	 * @author 苏国伟
 	 * 编写日期：2015-04-18
 	 * 功能：根据user_id和hdfs_name查询文件
 	 * @param user_id
@@ -69,7 +69,7 @@ public interface IFileDao {
     public List<Tb_file> getListByUserId_ShowName_Postfix(Tb_file file);
     
     /**
-	 * @author 刘庶
+	 * @author 苏国伟
 	 * 编写日期：2015-04-18
 	 * 功能：修改文件show_name
 	 * @param file
@@ -77,7 +77,7 @@ public interface IFileDao {
     public void modifyShowName(Tb_file file);
     
     /**
-	 * @author 刘庶
+	 * @author 苏国伟
 	 * 编写日期：2015-04-18
 	 * 功能：删除一条或多条数据
 	 * @param id
@@ -85,7 +85,7 @@ public interface IFileDao {
     public void delete(String id);
     
     /**
-	 * @author 刘庶
+	 * @author 苏国伟
 	 * 编写日期：2015-04-21
 	 * 功能：修改文件is_complete
 	 * @param file

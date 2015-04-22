@@ -97,7 +97,7 @@ public class HadoopTest {
 	 
 	 public static void main(String[] args) {
 		 try {
-			 HDFSUtil.deleteFolderOrFile("/user/hadoop/user/402824814cb03d52014cb03dbc190001/file/1429623539742.pptx");
+			 HDFSUtil.deleteFolderOrFile("/user/hadoop/user/402824814cb03d52014cb03dbc190001/file/1429629268610.rar");
 //			 uploadToHdfs();			 
 //			 readFromHdfs();
 //			 deleteFromHdfs();

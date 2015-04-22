@@ -23,7 +23,7 @@ public class FileDaoImp implements IFileDao{
 	}
 
 	/**
-	 * @author 刘庶
+	 * @author 苏国伟
 	 * 编写日期：2015-04-18
 	 * 功能：插入文件数据
 	 * @param file
@@ -34,7 +34,7 @@ public class FileDaoImp implements IFileDao{
 	}
 
 	/**
-	 * @author 刘庶
+	 * @author 苏国伟
 	 * 编写日期：2015-04-18
 	 * 功能：根据id查询文件
 	 * @param id
@@ -114,7 +114,7 @@ public class FileDaoImp implements IFileDao{
 	}
 	
 	/**
-	 * @author 刘庶
+	 * @author 苏国伟
 	 * 编写日期：2015-04-18
 	 * 功能：根据user_id和hdfs_name查询文件
 	 * @param user_id
@@ -131,7 +131,7 @@ public class FileDaoImp implements IFileDao{
 	}
 	
 	/**
-	 * @author 刘庶
+	 * @author 苏国伟
 	 * 编写日期：2015-04-18
 	 * 功能：根据user_id和show_name和postfix查询文件
 	 * @param file
@@ -148,7 +148,7 @@ public class FileDaoImp implements IFileDao{
 	}
 	
 	/**
-	 * @author 刘庶
+	 * @author 苏国伟
 	 * 编写日期：2015-04-18
 	 * 功能：根据user_id和show_name和postfix查询文件副本List
 	 * @param file
@@ -165,7 +165,7 @@ public class FileDaoImp implements IFileDao{
 	}
     
     /**
-	 * @author 刘庶
+	 * @author 苏国伟
 	 * 编写日期：2015-04-18
 	 * 功能：修改文件show_name
 	 * @param file
@@ -181,7 +181,7 @@ public class FileDaoImp implements IFileDao{
 	}
 	
 	/**
-	 * @author 刘庶
+	 * @author 苏国伟
 	 * 编写日期：2015-04-18
 	 * 功能：删除一条或多条数据
 	 * @param id
@@ -219,7 +219,7 @@ public class FileDaoImp implements IFileDao{
 	}
 	
 	/**
-	 * @author 刘庶
+	 * @author 苏国伟
 	 * 编写日期：2015-04-21
 	 * 功能：修改文件is_complete
 	 * @param file
