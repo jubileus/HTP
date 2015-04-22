@@ -43,9 +43,9 @@ public class HadoopTest {
 	 private static void readFromHdfs() throws FileNotFoundException,IOException {
 	     Configuration conf = new Configuration();  
 	     FileSystem fs = FileSystem.get(URI.create("hdfs://192.168.10.133:9000/user/hadoop/user/402824814cb03d52014cb03dbc190001/file/"), conf);
-	     FSDataInputStream hdfsInStream = fs.open(new Path("/user/hadoop/user/402824814cb03d52014cb03dbc190001/file/1429623539742.pptx"));
+	     FSDataInputStream hdfsInStream = fs.open(new Path("/user/hadoop/user/402824814cb03d52014cb03dbc190001/file/1429712996412.rar"));
 	  
-	     OutputStream out = new FileOutputStream("e://combine.pptx"); 
+	     OutputStream out = new FileOutputStream("e://rs.rar"); 
 	     byte[] ioBuffer = new byte[1024];
 	     int readLen = hdfsInStream.read(ioBuffer);
 
@@ -97,9 +97,9 @@ public class HadoopTest {
 	 
 	 public static void main(String[] args) {
 		 try {
-			 HDFSUtil.deleteFolderOrFile("/user/hadoop/user/402824814cb03d52014cb03dbc190001/file/1429629268610.rar");
+//			 HDFSUtil.deleteFolderOrFile("/user/hadoop/user/402824814cb03d52014cb03dbc190001/file/1429629268610.rar");
 //			 uploadToHdfs();			 
-//			 readFromHdfs();
+			 readFromHdfs();
 //			 deleteFromHdfs();
 //			 createFolderFromHdfs();
 //			 getDirectoryFromHdfs();

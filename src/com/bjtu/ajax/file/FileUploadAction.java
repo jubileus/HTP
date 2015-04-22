@@ -42,13 +42,13 @@ public class FileUploadAction extends ActionSupport{
         //切分后缀并拼接path
         int index_of_dot=file_name.lastIndexOf(".");
         String postfix=file_name.substring(index_of_dot+1, file_name.length());
-		String path=FileUtil.TEMPPATH+user.getId()+FileUtil.DEVIDE+hdfs_name+"."+postfix;
+		String path=FileUtil.TEMPPATH+user.getId()+FileUtil.DEVIDE+hdfs_name+"_"+index+"."+postfix;
 		
 		//将File转换为byte[]
 		byte[] buffer=FileUtil.getBytes(data);
 		//在已建立的空文件中追加内容
 		RandomAccessFile dst=new RandomAccessFile(path, "rw");
-		dst.seek(dst.length());
+//		dst.seek(dst.length());
 		dst.write(buffer);
 		dst.close();
 		return SUCCESS;

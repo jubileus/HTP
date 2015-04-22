@@ -44,7 +44,7 @@ public class SaveFileInHDFSAction extends ActionSupport{
         HttpSession session = request.getSession();
         Tb_user user=(Tb_user)session.getAttribute("user");
         //将文件存入HDFS
-        SaveFileIntoHDFS(user);
+        SaveToHDfS(user);
         
         //更改文件状态为上传完毕
         Tb_file file=file_service.getById(file_id);
@@ -55,6 +55,32 @@ public class SaveFileInHDFSAction extends ActionSupport{
         FileUtil.delFolder(FileUtil.TEMPPATH+user.getId());
         
 		return SUCCESS;
+	}
+	
+	private void SaveToHDfS(Tb_user user){
+		try {
+			//将文件存入HDFS
+	        FileSystem fs=HDFSUtil.openFileSystem("/user/hadoop/user/"+user.getId()+"/");
+	        //建立空白文件
+	        int index_of_dot=file_name.lastIndexOf(".");
+	        String postfix=file_name.substring(index_of_dot+1, file_name.length());
+	        HDFSUtil.createNewFile(path+hdfs_name+"."+postfix, fs);
+	        FSDataOutputStream dst=fs.create(new Path(path+hdfs_name+"."+postfix));
+	        RandomAccessFile tmp;
+	        byte[] buffer;
+	        //循环写入文件
+	        for(int i=1;i<=total;i++){
+	        	tmp=new RandomAccessFile(FileUtil.TEMPPATH+user.getId()+FileUtil.DEVIDE+hdfs_name+"_"+i+"."+postfix, "r");
+	        	buffer=new byte[(int)tmp.length()];
+	        	tmp.read(buffer);
+	        	dst.write(buffer);
+	        	tmp.close();
+	        }
+	        dst.close();
+	        fs.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	//将文件存入HDFS

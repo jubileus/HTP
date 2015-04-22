@@ -29,8 +29,8 @@
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 					<h4 class="modal-title" id="myModalLabel">文件上传中，请稍等片刻</h4>
 				  </div>
-				  <div class="field-box">
-						<h4 style="margin: 30px;">文件正在上传中。。。</h4>
+				  <div id="progress_msg" class="field-box">
+						<h4 style="margin: 30px;">文件正在上传中，已完成0%</h4>
 				  </div>
 				  <!--end modal body -->
 				  <div class="modal-footer">
@@ -131,6 +131,7 @@
 		    }else{
 		    	//显示正在上传
 		    	$("#upload_menu").click();
+		    	var count=0;
 		    	for(var i = 0;i < shardCount;++i){
 		            //计算每一片的起始与结束位置
 		            var start = i * shardSize;
@@ -146,18 +147,24 @@
 		                url: "FileUploadAction.action",
 		                type: "POST",
 		                data: form,
-		                async: false,        //同步
+		                async: true,        //异步
 		                processData: false,  //很重要，告诉jquery不要对form进行处理
 		                contentType: false,  //很重要，指定为false才能形成正确的Content-Type
 		                success: function(data){
-		                	if(data.index==shardCount){//上传成功，开始合并文件
+		                	count++;
+		                	var progress=(Number(100*count/shardCount)).toFixed(1);
+		                	$("#progress_msg").html("<h4 style='margin: 30px;'>文件正在上传中，已完成 "+progress+" %</h4>'");
+		                	if(count==shardCount){
+		                		//文件全部上传完毕，开始合并，并导入至HDFS
+		                		$("#progress_msg").html("<h4 style='margin: 30px;'>文件正在处理中</h4>'");
 		                		$.ajax({ 
 		    	    				type:'get', 
 		    	    				url:"SaveFileInHDFSAction.action?hdfs_name="+msg+"&&file_name="+file_name+"&&path="+path+
 		    	    						"&&total="+shardCount+"&&file_id="+file_id+"&&shard_size="+shardSize, 
-		    	    				async: false,   //同步
 		    	    				dataType: 'json', 
 		    	    				success:function(data){ 
+		    	    					//上传成功，关闭上传进度页面
+				        		    	$('#close_upload_menu').click();
 		    	    					//文件传输至HDFS
 		    	    					//重置页数为1
 		    	    					$('#index').val(1);
@@ -169,10 +176,8 @@
 		    	    			});
 		                	}
 		                }
-		            });
+		            }); 
 		        }
-		    	//上传成功，关闭上传进度页面
-		    	$('#close_upload_menu').click();
 		    }
 		    
 			//清空文件上传框内容

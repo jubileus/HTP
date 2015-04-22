@@ -77,9 +77,9 @@ public class IfFileCanUploadAction extends ActionSupport{
             //如果尚未建立，则建立文件暂存目录
     		FileUtil.createFolder(FileUtil.TEMPPATH+user.getId());
     		//建立空文件
-    		RandomAccessFile merge=new RandomAccessFile(FileUtil.TEMPPATH+user.getId()+FileUtil.DEVIDE+
-    				file.getHdfs_name()+"."+file.getPostfix(),"rw");
-    		merge.close();
+//    		RandomAccessFile merge=new RandomAccessFile(FileUtil.TEMPPATH+user.getId()+FileUtil.DEVIDE+
+//    				file.getHdfs_name()+"."+file.getPostfix(),"rw");
+//    		merge.close();
         }
         
 		return SUCCESS;
