@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.URI;
 
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FSDataInputStream;
 import org.apache.hadoop.fs.FSDataOutputStream;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
@@ -113,4 +114,20 @@ public class HDFSUtil {
 		}
 	}
 	
+	/**
+	 * @author 刘庶
+	 * 编写日期：2015-04-23
+	 * 功能：从HDFS中下载文件
+	 * @param path：目标文件
+	 * @param file_name：文件名称
+	 */
+	public static FSDataInputStream download(String path,String file_name){
+		try {
+			Configuration conf = new Configuration();  
+		    FileSystem fs = FileSystem.get(URI.create(PORT_INFO+path), conf);
+		    return fs.open(new Path(path+"/"+file_name));
+		} catch (Exception e) {
+			return null;
+		}
+	}
 }

@@ -66,6 +66,9 @@
 				<input type="hidden" id="path" name="path" value="<s:property value="path" />" />
 				<input type="hidden" id="old_name" name="old_name" value="" />
 				<input type="hidden" id="postfix" name="postfix" value="" />
+				<form id="download_form" method="post" action="DownloadAction.action">
+					<input type="hidden" id="download_id" name="download_id" />
+				</form>
 			</div>			
 			
             <div id="pad-wrapper" class="gallery" >

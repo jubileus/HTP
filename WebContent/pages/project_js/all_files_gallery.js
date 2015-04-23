@@ -128,13 +128,20 @@ $(window).scroll(function(){
 	}
 });
 
+//文件下载
+function downloadFile(file){
+	var file_id=file.id.split("_")[1];
+	$("#download_id").val(file_id);
+	$("#download_form").submit();
+}
+
 //绑定右击菜单
 function bindRightMenu(){
 	//文件右击菜单
 	$('div.file_item').contextMenu('file_menu', {
 	      bindings: {
 	        'download': function(t) {
-	          alert('Trigger was '+t.id+'\nAction was download');
+	        	downloadFile(t);
 	        },
 	        'share': function(t) {
 	          alert('Trigger was '+t.id+'\nAction was share');
