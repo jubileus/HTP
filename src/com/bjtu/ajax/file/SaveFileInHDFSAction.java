@@ -2,6 +2,7 @@ package com.bjtu.ajax.file;
 
 import java.io.File;
 import java.io.RandomAccessFile;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -51,6 +52,10 @@ public class SaveFileInHDFSAction extends ActionSupport{
         file.setIs_complete(1);
         file_service.modifyIs_complete(file);
         
+        //更新用户已使用空间大小
+  		user.setUsed_storage(user.getUsed_storage()+file.getSize_mb());
+        file_service.updateUsedStorage(user);
+        
         //删除临时文件
         FileUtil.delFolder(FileUtil.TEMPPATH+user.getId());
         
@@ -59,6 +64,7 @@ public class SaveFileInHDFSAction extends ActionSupport{
 	
 	private void SaveToHDfS(Tb_user user){
 		try {
+			file_name=URLDecoder.decode(file_name, "UTF-8");
 			//将文件存入HDFS
 	        FileSystem fs=HDFSUtil.openFileSystem("/user/hadoop/user/"+user.getId()+"/");
 	        //建立空白文件
@@ -77,48 +83,6 @@ public class SaveFileInHDFSAction extends ActionSupport{
 	        	tmp.close();
 	        }
 	        dst.close();
-	        fs.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	//将文件存入HDFS
-	private void SaveFileIntoHDFS(Tb_user user){
-		try {
-			//将文件存入HDFS
-	        FileSystem fs=HDFSUtil.openFileSystem("/user/hadoop/user/"+user.getId()+"/");
-	        //建立空白文件
-	        int index_of_dot=file_name.lastIndexOf(".");
-	        String postfix=file_name.substring(index_of_dot+1, file_name.length());
-	        HDFSUtil.createNewFile(path+hdfs_name+"."+postfix, fs);
-	        FSDataOutputStream dst=fs.create(new Path(path+hdfs_name+"."+postfix));
-	        //导入数据
-	        RandomAccessFile src=new RandomAccessFile(FileUtil.TEMPPATH+user.getId()+FileUtil.DEVIDE+hdfs_name+"."+postfix, "rw");
-	        long total_size=src.length();
-	        long last_size=total_size%shard_size;
-	        if(last_size==0){
-	        	//循环total次正好读完文件
-	        	for(int i=0;i<total;i++){
-	        		byte[] buffer=new byte[(int)shard_size];
-	        		src.read(buffer);
-	        		HDFSUtil.appendFile(dst, buffer);
-	        	}
-	        }else{
-	        	//循环total次剩余last_size个byte
-	        	for(int i=0;i<total-1;i++){
-	        		byte[] buffer=new byte[(int)shard_size];
-	        		src.read(buffer);
-	        		HDFSUtil.appendFile(dst, buffer);
-	        	}
-	        	byte[] buffer=new byte[(int)last_size];
-	        	src.read(buffer);
-	    		HDFSUtil.appendFile(dst, buffer);
-	        }
-	        dst.close();
-	        src.close();
-	        
-	        //关闭FileSystem
 	        fs.close();
 		} catch (Exception e) {
 			e.printStackTrace();

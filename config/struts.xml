@@ -9,6 +9,18 @@
 	<constant name="struts.multipart.saveDir" value="/tmp"></constant>
 	
 <package name="default" extends="json-default">
+	<!-- Group Action Begin -->
+	<action name="AddMemberAction" class="AddMemberAction">
+    	<result type="json" />
+    </action>
+	<action name="GetGroupListAction" class="GetGroupListAction">
+    	<result type="json" />
+    </action>
+	<action name="AddGroupAction" class="AddGroupAction">
+    	<result type="json" />
+    </action>
+	<!-- Group Action Begin -->
+
 	<!-- File Action Begin -->
 	<action name="SaveFileInHDFSAction" class="SaveFileInHDFSAction">
     	<result type="json" />
@@ -124,7 +136,7 @@
 
 	<!-- Login Register Action Begin -->
     <action name="RegisterAction" class="RegisterAction">
-		<result name="success">/pages/ok.jsp</result>
+		<result name="success">/pages/login.jsp</result>
     </action>
     <action name="LoginAction" class="LoginAction">
     	<result name="user" type="chain">AllFileInGalleryIndexAction</result>

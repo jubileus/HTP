@@ -11,7 +11,6 @@
 	
 	<!-- my own css -->
     <link href="/HTP/pages/css/ltt.css" rel="stylesheet" />
-
 	
     <!-- bootstrap -->
 	<link href="/HTP/pages/css/bootstrap/bootstrap.css" rel="stylesheet" /> 
@@ -30,10 +29,9 @@
     <link rel="stylesheet" href="/HTP/pages/css/compiled/gallery.css" type="text/css" media="screen" />
 	    <!-- this page specific styles -->
     <link rel="stylesheet" href="/HTP/pages/css/compiled/tables.css" type="text/css" media="screen" />
-
-
+	<link rel="stylesheet" type="text/css" href="/HTP/pages/css/style.css">
+ 	<link rel="stylesheet" href="/HTP/pages/css/zTreeStyle/metro.css">
     <!-- open sans font -->
-    <link href='http://fonts.useso.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css' />
 	
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -88,7 +86,7 @@
       <!-- sidebar -->
     <div id="sidebar-nav">
         <ul id="dashboard-menu">
-            <li class="active">
+            <li>
                 <div class="pointer">
                     <div class="arrow"></div>
                     <div class="arrow_border"></div>
@@ -129,7 +127,7 @@
                 </a>
             </li>
             <li>
-                <a href="htp_group.html">
+                <a href="/HTP/pages/my_group.jsp">
                     <i class="icon-group"></i>
                     <span>我的群组</span>
                 </a>

@@ -116,6 +116,7 @@
 			var shardSize = 10485760   //以10MB为一个分片
 		    var shardCount = Math.ceil(size / shardSize);  //总片数
 		    //将文件大小和名称发送至服务器，如果可使用空间充足则返回文件的在HDFS上的名称
+		    file_name=encodeURI(encodeURI(file_name));
 			var url = "IfFileCanUploadAction.action?file_name="+file_name+"&&size_mb="+size_mb+"&&path="+path; 
 			var msg;//文件上传预操作结果
 			var file_id;//文件id

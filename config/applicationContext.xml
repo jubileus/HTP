@@ -65,6 +65,16 @@
 			<ref bean="file_dao_util"/>
 		</property>
 	</bean>
+	<bean id="group_dao" class="com.bjtu.dao.daoimp.GroupDaoImp">		
+		<property name="dao_util">
+			<ref bean="dao_util"/>
+		</property>
+	</bean>
+	<bean id="member_dao" class="com.bjtu.dao.daoimp.MemberDaoImp">		
+		<property name="dao_util">
+			<ref bean="dao_util"/>
+		</property>
+	</bean>
     <!-- DAO  End -->
 
 	<!-- Services Begin -->	
@@ -96,7 +106,36 @@
 			<ref bean="user_dao"/>
 		</property>
 	</bean>
+	<bean id="group_service" class="com.bjtu.service.group.GroupServiceImp">
+		<property name="group_dao">
+			<ref bean="group_dao"/>
+		</property>
+		<property name="member_dao">
+			<ref bean="member_dao"/>
+		</property>
+		<property name="user_dao">
+			<ref bean="user_dao"/>
+		</property>
+	</bean>
 	<!-- Services End -->
+	
+	<!--Group Action Begin-->
+	<bean scope="prototype" id="AddMemberAction" class="com.bjtu.ajax.group.AddMemberAction">
+		<property name="group_service">
+			<ref bean="group_service"/>
+		</property>
+	</bean>
+	<bean scope="prototype" id="GetGroupListAction" class="com.bjtu.ajax.group.GetGroupListAction">
+		<property name="group_service">
+			<ref bean="group_service"/>
+		</property>
+	</bean>
+	<bean scope="prototype" id="AddGroupAction" class="com.bjtu.ajax.group.AddGroupAction">
+		<property name="group_service">
+			<ref bean="group_service"/>
+		</property>
+	</bean>
+	<!--Group Action End-->
 	
 	<!--File Action Begin-->
 	<bean scope="prototype" id="DownloadAction" class="com.bjtu.action.file.DownloadAction">

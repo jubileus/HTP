@@ -2,6 +2,7 @@ package com.bjtu.ajax.file;
 
 import java.io.File;
 import java.io.RandomAccessFile;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,6 +37,7 @@ public class FileUploadAction extends ActionSupport{
 	
 	@Override
 	public String execute() throws Exception {
+		file_name=URLDecoder.decode(file_name, "UTF-8");
 		HttpServletRequest request = ServletActionContext.getRequest();
         HttpSession session = request.getSession();
         Tb_user user=(Tb_user)session.getAttribute("user");

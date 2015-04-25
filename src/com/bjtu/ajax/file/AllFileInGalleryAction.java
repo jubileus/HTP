@@ -1,5 +1,6 @@
 package com.bjtu.ajax.file;
 
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,7 +37,7 @@ public class AllFileInGalleryAction extends ActionSupport{
 		HttpServletRequest request = ServletActionContext.getRequest();
         HttpSession session = request.getSession();
         Tb_user user=(Tb_user)session.getAttribute("user");
-		
+        search_name=URLDecoder.decode(search_name, "UTF-8");
         //获取总页数
 		total_page=file_service.getPageCount(100, path, search_name);
         //获取页面数据

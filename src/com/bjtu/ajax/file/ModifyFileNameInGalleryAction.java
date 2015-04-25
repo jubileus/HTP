@@ -1,5 +1,6 @@
 package com.bjtu.ajax.file;
 
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,7 +31,7 @@ public class ModifyFileNameInGalleryAction extends ActionSupport{
 		HttpServletRequest request = ServletActionContext.getRequest();
         HttpSession session = request.getSession();
         Tb_user user=(Tb_user)session.getAttribute("user");
-        
+        new_name=URLDecoder.decode(new_name, "UTF-8");
         Tb_file file=file_service.getById(file_id);
         file.setShow_name(new_name);
         if(file_service.ifNewFileExist(file)){

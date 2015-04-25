@@ -8,6 +8,7 @@
 	
 	<mapping resource="com/bjtu/model/pojo/Tb_user.hbm.xml" />
 	<mapping resource="com/bjtu/model/pojo/Tb_file_type.hbm.xml" />
-	
+	<mapping resource="com/bjtu/model/pojo/Tb_group.hbm.xml" />
+	<mapping resource="com/bjtu/model/pojo/Tb_member.hbm.xml" />
 </session-factory>
 </hibernate-configuration>

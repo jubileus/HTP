@@ -4,8 +4,8 @@ function loadGalleryData(){
 	var path=$('#path').val();
 	var search_name=$('#search_name').val();
 	var total_page=$('#total_page').val();
-	var url = "AllFileInGalleryAction.action?index="+index+"&&search_name="+trim(search_name)+"&&path="+path; 
-	
+	search_name=encodeURI(encodeURI(search_name));
+	var url = "AllFileInGalleryAction.action?index="+index+"&&search_name="+search_name+"&&path="+path; 
 	var page_max=parseInt(total_page)+1;
 	//查看是否已经加载完数据
 	if(index<page_max){
@@ -295,6 +295,7 @@ function rename_over(new_name_id){
 				$('#search_name').val("");
 				//重置页数为1
 				$('#index').val(1);
+				new_name=encodeURI(encodeURI(new_name));
 				var url = "ModifyFileNameInGalleryAction.action?new_name="+new_name+"&&file_id="+file_id;
 				$.ajax({ 
 					type:'get', 

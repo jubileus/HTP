@@ -1,6 +1,7 @@
 package com.bjtu.ajax.file;
 
 import java.io.RandomAccessFile;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,6 +46,7 @@ public class IfFileCanUploadAction extends ActionSupport{
         if(user.getUsed_storage()+size_mb>user.getTotal_storage()){//无空间进行上传
         	msg="no_space";
         }else{//有空间进行上传
+        	file_name=URLDecoder.decode(file_name, "UTF-8");
         	//检测路径下文件名称是否重复
             Tb_file file=new Tb_file();
             file.setPath(path);
