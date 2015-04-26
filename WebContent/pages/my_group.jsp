@@ -287,7 +287,6 @@
     //页面初始加载方法
     $(document).ready(function () {
     	//调整右侧边框栏选中情况
-    	adjustHeaderToMyGroup();
     	refreshTree();
     });
     
@@ -309,17 +308,6 @@
     		} 
     	})
     }
-    
-    //调整右侧导航栏的选择情况
-	function adjustHeaderToMyGroup(){
-		$('#all_file_li').removeClass("active");
-		$('#document_file_li').removeClass("active");
-		$('#picture_file_li').removeClass("active");
-		$('#video_file_li').removeClass("active");
-		$('#music_file_li').removeClass("active");
-		$('#my_share_li').removeClass("active");
-		$('#my_group_li').addClass("active");
-	}
     
     function loadReady() {
         var bodyH = demoIframe.contents().find("body").get(0).scrollHeight,

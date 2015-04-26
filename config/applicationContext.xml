@@ -47,6 +47,7 @@
 		</property>
 	</bean>
 	<bean id="file_dao_util" class="com.bjtu.util.mongodb.FileDaoUtil"></bean>
+	<bean id="share_dao_util" class="com.bjtu.util.mongodb.ShareDaoUtil"></bean>
 	<!-- DaoUtil End-->
 	
 	<!-- DAO Begin -->	
@@ -73,6 +74,11 @@
 	<bean id="member_dao" class="com.bjtu.dao.daoimp.MemberDaoImp">		
 		<property name="dao_util">
 			<ref bean="dao_util"/>
+		</property>
+	</bean>
+	<bean id="share_dao" class="com.bjtu.dao.daoimp.ShareDaoImp">
+		<property name="share_dao_util">
+			<ref bean="share_dao_util"/>
 		</property>
 	</bean>
     <!-- DAO  End -->
@@ -117,7 +123,30 @@
 			<ref bean="user_dao"/>
 		</property>
 	</bean>
+	<bean id="share_service" class="com.bjtu.service.share.ShareServiceImp">
+		<property name="share_dao">
+			<ref bean="share_dao"/>
+		</property>
+	</bean>
 	<!-- Services End -->
+	
+	<!--Share Action Begin-->
+	<bean scope="prototype" id="GroupShareAction" class="com.bjtu.ajax.share.GroupShareAction">
+		<property name="share_service">
+			<ref bean="share_service"/>
+		</property>
+	</bean>
+	<bean scope="prototype" id="PrivateShareAction" class="com.bjtu.ajax.share.PrivateShareAction">
+		<property name="share_service">
+			<ref bean="share_service"/>
+		</property>
+	</bean>
+	<bean scope="prototype" id="PublicShareAction" class="com.bjtu.ajax.share.PublicShareAction">
+		<property name="share_service">
+			<ref bean="share_service"/>
+		</property>
+	</bean>
+	<!--Share Action End-->
 	
 	<!--Group Action Begin-->
 	<bean scope="prototype" id="DeleteMemberAction" class="com.bjtu.ajax.group.DeleteMemberAction">

@@ -9,6 +9,18 @@
 	<constant name="struts.multipart.saveDir" value="/tmp"></constant>
 	
 <package name="default" extends="json-default">
+	<!-- Share Action Begin -->
+	<action name="GroupShareAction" class="GroupShareAction">
+    	<result type="json" />
+    </action>
+	<action name="PrivateShareAction" class="PrivateShareAction">
+    	<result type="json" />
+    </action>
+    <action name="PublicShareAction" class="PublicShareAction">
+    	<result type="json" />
+    </action>
+	<!-- Share Action End -->
+
 	<!-- Group Action Begin -->
 	<action name="DeleteMemberAction" class="DeleteMemberAction">
     	<result type="json" />

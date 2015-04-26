@@ -135,6 +135,102 @@ function downloadFile(file){
 	$("#download_form").submit();
 }
 
+//打开分享菜单
+function openShareMenu(file){
+	//记录本分享的文件id
+	$("#share_id").val(file.id.split("_")[1]);
+	//清空旧数据
+	$("#public_share").html("");
+	$("#private_share").html("");
+	$("#share_code").val("");
+	getGroupList();
+	//打开上传菜单
+	$("#share_menu").click();
+}
+
+//公开分享
+function public_share(){
+	var file_id=$("#share_id").val();
+	var url = "PublicShareAction.action?file_id="+file_id;
+	$.ajax({ 
+		type:'get', 
+		url:url, 
+		dataType: 'json', 
+		success:function(data){ 
+			$("#public_share").html(data.share_link);
+		} 
+	})
+}
+
+//私密分享
+function private_share(){
+	var file_id=$("#share_id").val();
+	var url = "PrivateShareAction.action?file_id="+file_id;
+	$.ajax({ 
+		type:'get', 
+		url:url, 
+		dataType: 'json', 
+		success:function(data){ 
+			$("#private_share").html(data.share_link);
+			$("#share_code").val(data.share_code);
+		} 
+	})
+}
+
+//分享至群组
+function group_share(){
+	var checkbox=document.getElementsByName("group_share");  
+	var group_id_list="";
+    for(var i=0;i<checkbox.length;i++){
+        if(checkbox[i].checked){
+            group_id_list+="_"+checkbox[i].value;
+        }
+    }    
+    var checked_num=$("input[name='group_share']:checked").length;
+    if(checked_num==0){
+    	//尚未选择任何群组
+    	alert("尚未选择任何群组");
+    }else{
+    	var file_id=$("#share_id").val();
+    	var url = "GroupShareAction.action?file_id="+file_id+"&&group_id_list="+group_id_list;
+    	$.ajax({ 
+    		type:'get', 
+    		url:url, 
+    		dataType: 'json', 
+    		success:function(){ 
+    			alert("已成功分享");
+    			$("#share_menu_close").click();
+    		} 
+    	})
+    }
+}
+
+//获取群组列表
+function getGroupList(){
+	var url = "GetGroupListAction.action";
+	$.ajax({ 
+		type:'get', 
+		url:url, 
+		dataType: 'json', 
+		success:function(data){ 
+			//清空旧列表
+			$("#group_list").empty();
+			//拼接列表内容
+			var _tr = "";
+			if(data.msg==1){
+				$.each(data.group_list,function(i,value){ 
+					_tr=_tr+"<div class='checkbox'><label>"+
+					"<input type='checkbox' name='group_share' value='"+value.id+"' />"+value.name+
+					"</label></div>";
+				})
+			}
+			var str=$(_tr);
+			//加载新列表
+			$("#group_list").append(str); 
+		} 
+	})
+}
+
 //绑定右击菜单
 function bindRightMenu(){
 	//文件右击菜单
@@ -144,7 +240,7 @@ function bindRightMenu(){
 	        	downloadFile(t);
 	        },
 	        'share': function(t) {
-	          alert('Trigger was '+t.id+'\nAction was share');
+	        	openShareMenu(t);
 	        },
 	        'rename': function(t) {
 	        	rename_start(t);

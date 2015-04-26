@@ -1,8 +1,11 @@
 package com.bjtu.test;
 
+import com.bjtu.util.common.StringUtil;
+
 public class Test {
 
 	public static void main(String[] args) {
+		System.out.println(StringUtil.getRandomPassword());
 		// TODO Auto-generated method stub
 //		addFileType();
 	}

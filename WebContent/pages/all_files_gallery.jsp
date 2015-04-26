@@ -11,6 +11,7 @@
 				  <input type="file" id="file" name="file" onchange="javascript:file_upload()" style="opacity:0;width:70px;height:30px;position:absolute;z-index:10;"/>
 				  <button type="button" class="btn btn-primary" id="btn_upload"> <span class="icon-upload-alt"></span> 上传 </button>
 				  <button type="button" hidden="true" id="upload_menu" data-toggle="modal" href="#fileModal">上传菜单 </button>	
+				  <button type="button" hidden="true" id="share_menu" data-toggle="modal" href="#shareModal">分享菜单 </button>
 				  <button type="button" class="btn btn-default" onclick="javascript:deleteCheckedFile()"> <span class="icon-trash"></span> 删除 </button>
 				  <button type="button" class="btn btn-default" onclick="javascript:addFolder()"> <span class="icon-plus"></span> 新建文件夹 </button>
 				  <button type="button" onclick="javascript:doRefresh()" class="btn btn-default"><span class="icon-refresh"></span></button>
@@ -22,6 +23,58 @@
 			</div>	
 			
 			<!--share Modal -->
+			<div class="modal hide fade" id="shareModal" >			
+			  <div class="modal-dialog">
+				<div class="modal-content">
+				  <div class="modal-header">
+					<button type="button" class="close" id="share_menu_close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">分享文件</h4>
+				  </div>
+				  <div class="modal-body">
+				  <!--modal body -->
+					   <div>		
+							<div role="navigation" >
+								<ul class="nav nav-tabs">
+								  <li role="presentation" class="active" id="openShare"><a href="javascript:void(0);" onclick="change('openShare')">公开分享</a></li>
+								  <li role="presentation" id="privShare"><a href="javascript:void(0);" onclick="change('privShare')">私密分享</a></li>
+								  <li role="presentation" id="groupShare"><a href="javascript:void(0);" onclick="change('groupShare')">群组分享</a></li>
+								</ul>
+							</div>
+							<div class="share_display" id="div_openShare">
+								<span>复制链接发送给您的好友吧！</span><br /><br />
+								<textarea id="public_share" class="form-control" rows="3" ></textarea><br />
+								<button type="button" onclick="javascript:public_share()" class="btn btn-primary btn-sm" >生成链接</button><hr/>
+							</div>	
+							<div class="share_display" id="div_privShare" style="display:none;">
+								<span>复制链接发送给您的好友吧！</span><br /><br />
+								<textarea id="private_share" class="form-control" rows="3" ></textarea><br />
+								<form class="form-inline">
+									<div class="form-group">
+										<label for="exampleInputName2">提取码：</label>
+										<input type="text" class="form-control" id="share_code" value="" style="width:60px;" />
+									</div>
+								</form>
+								<button type="button" onclick="javascript:private_share()" class="btn btn-primary btn-sm" >生成链接</button><hr/>
+							</div>		
+							<div class="share_display" id="div_groupShare" style="display:none;">
+								<div class="panel panel-default">
+								  <div class="panel-heading">
+									<h3 class="panel-title">选择群组</h3>
+								  </div>
+								  <div id="group_list" class="panel-body">
+								  </div>
+								</div>
+								<button onclick="javascript:group_share()" type="button" class="btn btn-primary btn-sm" >确认分享</button>
+							</div>
+						</div>
+				  <!--end modal body -->				  
+				</div>
+			  </div>
+			</div>
+			</div>
+			<!--end share modal-->	
+			
+			<!--upload Modal -->
 			<div class="modal hide fade" id="fileModal" >			
 			  <div class="modal-dialog">
 				<div class="modal-content">
@@ -39,8 +92,7 @@
 				</div>
 			  </div>
 			</div>
-			
-			<!--end share modal-->		
+			<!--end upload modal-->		
 
 			<div class="contextMenu" id="file_menu">
 		      <ul>
@@ -66,6 +118,7 @@
 				<input type="hidden" id="path" name="path" value="<s:property value="path" />" />
 				<input type="hidden" id="old_name" name="old_name" value="" />
 				<input type="hidden" id="postfix" name="postfix" value="" />
+				<input type="hidden" id="share_id" name="share_id" value="" />
 				<form id="download_form" method="post" action="DownloadAction.action">
 					<input type="hidden" id="download_id" name="download_id" />
 				</form>
@@ -103,20 +156,8 @@
 	
     <script type="text/javascript">
 		$(document).ready(function() {
-			adjustHeaderToAllFile();
 			loadGalleryData();
 		});
-		
-		//调整右侧导航栏的选择情况
-		function adjustHeaderToAllFile(){
-			$('#all_file_li').addClass("active");
-			$('#document_file_li').removeClass("active");
-			$('#picture_file_li').removeClass("active");
-			$('#video_file_li').removeClass("active");
-			$('#music_file_li').removeClass("active");
-			$('#my_share_li').removeClass("active");
-			$('#my_group_li').removeClass("active");
-		}
 
 		//文件分片上传方法
 		function file_upload(){
