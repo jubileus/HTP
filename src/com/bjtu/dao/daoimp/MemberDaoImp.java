@@ -85,5 +85,19 @@ public class MemberDaoImp implements IMemberDao{
 		objects[1]=member.getUser_id();
 		return (Tb_member)dao_util.getSingle(hql, objects);
 	}
+	
+	/**
+	 * @author 宫文超
+	 * 编写日期：2015-04-25
+	 * 功能：根据group_id删除群组成员
+	 * @param group_id
+	 */
+	@Override
+	public void deleteByGroupId(String group_id) {
+		String hql = "from Tb_member where group_id = ?";
+		Object[] objects = new Object[1];
+		objects[0]=group_id;
+		dao_util.delete(dao_util.getList(hql, objects));
+	}
 
 }

@@ -29,6 +29,14 @@ public interface IMemberDao {
 	 * @param id
 	 */
     public void delete(String id);
+    
+    /**
+	 * @author 宫文超
+	 * 编写日期：2015-04-25
+	 * 功能：根据group_id删除群组成员
+	 * @param group_id
+	 */
+    public void deleteByGroupId(String group_id);
 	
 	/**
 	 * @author 宫文超

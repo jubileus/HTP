@@ -2,6 +2,7 @@ package com.bjtu.util.dao;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -49,6 +50,16 @@ public class DaoUtil extends HibernateDaoSupport{
 	 */
 	public void delete(Object obj) {
 		this.getHibernateTemplate().delete(obj);		
+	}	
+	
+	/**
+	 * @author 刘庶
+	 * 编写日期：2015-03-27
+	 * 功能：将多个对象从数据库删除
+	 * @param 
+	 */
+	public void delete(Collection entities) {
+		this.getHibernateTemplate().deleteAll(entities);
 	}	
 	
 	/**

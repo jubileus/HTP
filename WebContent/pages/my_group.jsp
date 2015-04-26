@@ -21,9 +21,9 @@
             <div class="row-fluid stats-row">
                 <div class="span6">
                     <a href="#createGroup" data-toggle="modal" class="btn-flat white" style="margin-left: 15px;">创建群组</a>
-                    <a href="javascript:queren()" class="btn-flat white" style="margin: 10px">删除群组</a>
+                    <a href="#deleteGroup" data-toggle="modal" onclick="javascript:openDeleteGroupMenu()" class="btn-flat white" style="margin: 10px">删除群组</a>
                     <a href="#addMember" data-toggle="modal" onclick="javascript:openAddGroupMemberMenu()" class="btn-flat white" style="margin: 10px 10px 10px 0">添加成员</a>
-                    <a href="" class="btn-flat white" style="margin: 10px 10px 10px 0">删除成员</a>
+                    <a href="javascript:deleteMember()" class="btn-flat white" style="margin: 10px 10px 10px 0">删除成员</a>
                 </div>
                 <div class="span5">
                 </div>
@@ -49,6 +49,26 @@
 	            	</div>
 	            </div>
             </div>
+
+			<div class="modal hide fade" id="deleteGroup">
+	            <div class="modal-dialog">
+	            	<div class="modal-content">	
+	            		<div class="modal-header">
+	                		<button type="button" id="close_delete_group" class="close" aria-label="Close" data-dismiss="modal">×</button>
+	                		<h4>删除群组</h4>
+	           			 </div>
+            			 <div align="center" class="modal-body">
+		                    <div class="control-group">
+		                        <div class="controls" id="select_to_delete_div">
+		                        </div>
+		                    </div>
+                		</div>
+		                <div class="modal-footer">
+		                    <button onclick="javascript:deleteGroup()" class="btn btn-small btn-success">删除</button>
+		                </div>
+	            	</div>
+	            </div>
+        	</div>            
 
             <div class="modal hide fade" id="addMember">
 	            <div class="modal-dialog">
@@ -253,7 +273,7 @@
             dblClickExpand: false,
             showLine: false,
             selectedMulti: false
-        },
+        }, 
         data: {
             simpleData: {
                 enable: true,
@@ -264,51 +284,43 @@
         }
     };
 
-    var zNodes = [
-        {id: 1, pId: 0, name: "组1", click:"alert('haha');", open: true},
-        {id: 101, pId: 1, name: "张三", user_id: "user_id_1"},
-        {id: 102, pId: 1, name: "李四", user_id: "user_id_2"},
-        {id: 103, pId: 1, name: "王五", user_id: "user_id_3"}
-    ];
-
+    //页面初始加载方法
     $(document).ready(function () {
-        var t = $("#tree");
-        t = $.fn.zTree.init(t, setting, zNodes);
-        demoIframe = $("#testIframe");
-        demoIframe.bind("load", loadReady);
-        var zTree = $.fn.zTree.getZTreeObj("tree");
-        //zTree.selectNode(zTree.getNodeByParam("id", 101));
-
+    	//调整右侧边框栏选中情况
+    	adjustHeaderToMyGroup();
+    	refreshTree();
     });
     
-    function refreshGroup(){
-    	var treeObj = $.fn.zTree.getZTreeObj("tree");
-    	var treeNode = treeObj.getCheckedNodes(true);
-    	var IDs;
-    	for (x in treeNode) {
-    	    if (!treeNode[x].isParent) {
-    	    	alert(treeNode[x].user_id);
-    	    }
-    	}
-    	
-    	/* zNodes = [
-    	              {id: 1, pId: 0, name: "组1", open: true},
-    	              {id: 101, pId: 1, name: "张三", file: "core/standardData"},
-    	              {id: 102, pId: 1, name: "李四", file: "core/simpleData"},
-    	              {id: 103, pId: 1, name: "王五", file: "core/noline"},
-    	              
-    	              {id: 2, pId: 0, name: "组2", open: true},
-    	              {id: 201, pId: 2, name: "张三", file: "core/standardData"},
-    	              {id: 202, pId: 2, name: "李四", file: "core/simpleData"},
-    	              {id: 203, pId: 2, name: "王五", file: "core/noline"}
-    	];
-    	 var t = $("#tree");
-         t = $.fn.zTree.init(t, setting, zNodes);
-         demoIframe = $("#testIframe");
-         demoIframe.bind("load", loadReady);
-         var zTree = $.fn.zTree.getZTreeObj("tree"); */
+    //刷新树状图
+    function refreshTree(){
+    	var url = "GetTreeAction.action"; 
+    	$.ajax({ 
+    		type:'get', 
+    		url:url, 
+    		dataType: 'json', 
+    		async: false,    
+    		success:function(data){ 
+    			var node=data;
+    			var t = $("#tree");
+    	        t = $.fn.zTree.init(t, setting, node);
+    	        demoIframe = $("#testIframe");
+    	        demoIframe.bind("load", loadReady);
+    	        var zTree = $.fn.zTree.getZTreeObj("tree");
+    		} 
+    	})
     }
-
+    
+    //调整右侧导航栏的选择情况
+	function adjustHeaderToMyGroup(){
+		$('#all_file_li').removeClass("active");
+		$('#document_file_li').removeClass("active");
+		$('#picture_file_li').removeClass("active");
+		$('#video_file_li').removeClass("active");
+		$('#music_file_li').removeClass("active");
+		$('#my_share_li').removeClass("active");
+		$('#my_group_li').addClass("active");
+	}
+    
     function loadReady() {
         var bodyH = demoIframe.contents().find("body").get(0).scrollHeight,
                 htmlH = demoIframe.contents().find("html").get(0).scrollHeight,
@@ -316,15 +328,6 @@
                 h = demoIframe.height() >= maxH ? minH : maxH;
         if (h < 530) h = 530;
         demoIframe.height(h);
-    }
-
-    function queren()
-    {
-        var se = confirm("请确认删除?");
-        if (se==true)
-        {
-            alert("已删除！");
-        }
     }
 
     function closeShareFile(){

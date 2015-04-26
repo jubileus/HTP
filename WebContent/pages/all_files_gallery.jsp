@@ -103,8 +103,20 @@
 	
     <script type="text/javascript">
 		$(document).ready(function() {
+			adjustHeaderToAllFile();
 			loadGalleryData();
 		});
+		
+		//调整右侧导航栏的选择情况
+		function adjustHeaderToAllFile(){
+			$('#all_file_li').addClass("active");
+			$('#document_file_li').removeClass("active");
+			$('#picture_file_li').removeClass("active");
+			$('#video_file_li').removeClass("active");
+			$('#music_file_li').removeClass("active");
+			$('#my_share_li').removeClass("active");
+			$('#my_group_li').removeClass("active");
+		}
 
 		//文件分片上传方法
 		function file_upload(){

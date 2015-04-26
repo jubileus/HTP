@@ -10,6 +10,15 @@
 	
 <package name="default" extends="json-default">
 	<!-- Group Action Begin -->
+	<action name="DeleteMemberAction" class="DeleteMemberAction">
+    	<result type="json" />
+    </action>
+    <action name="DeleteGroupAction" class="DeleteGroupAction">
+    	<result type="json" />
+    </action>
+	<action name="GetTreeAction" class="GetTreeAction">
+    	<result type="json" />
+    </action>
 	<action name="AddMemberAction" class="AddMemberAction">
     	<result type="json" />
     </action>

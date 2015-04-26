@@ -14,7 +14,7 @@ function createGroup(){
 				alert("该名称群组已存在，请更换名称");
 			}else{
 				//刷新群组列表
-				refreshGroup();
+				refreshTree();
 				
 				//关闭添加菜单
 				closeCreateGroup();
@@ -23,10 +23,38 @@ function createGroup(){
 	})
 }
 
-打开添加群组成员菜单
+//打开添加群组成员菜单
 function openAddGroupMemberMenu(){
 	//获取群组列表
 	getGroupList();
+}
+
+//打开删除群组菜单
+function openDeleteGroupMenu(){
+	//获取群组列表
+	getGroupListForDelete();
+}
+
+//删除群组
+function deleteGroup(){
+	var group_id=$('#group_delete').val();
+	if(group_id=="not_select"){
+		alert("请选择群组");
+	}else{
+		var url = "DeleteGroupAction.action?group_id="+group_id;
+		$.ajax({ 
+			type:'get', 
+			url:url, 
+			async: false,   
+			dataType: 'json', 
+			success:function(){
+				//刷新群组列表
+				refreshTree();
+				//关闭删除群组菜单
+				closeDeleteGroup();
+			} 
+		})
+	}
 }
 
 //添加群组成员
@@ -57,7 +85,7 @@ function addGroupMember(){
 						alert("该用户已在组内");
 					}else{
 						//刷新群组列表
-						refreshGroup();
+						refreshTree();
 						
 						//关闭添加菜单
 						closeAddMember();
@@ -66,11 +94,6 @@ function addGroupMember(){
 			} 
 		})
 	}
-}
-
-//刷新群组列表
-function refreshGroup(){
-	
 }
 
 //获取群组列表
@@ -99,6 +122,56 @@ function getGroupList(){
 	})
 }
 
+//删除群组时获取群组列表
+function getGroupListForDelete(){
+	var url = "GetGroupListAction.action";
+	$.ajax({ 
+		type:'get', 
+		url:url, 
+		dataType: 'json', 
+		success:function(data){ 
+			//清空旧列表
+			$("#select_to_delete_div").empty();
+			//拼接列表内容
+			var _tr = "<select id='group_delete' style='height: 30px' name='group_delete'>"+
+			"<option value='not_select'>---请选择群组---</option>";
+			if(data.msg==1){
+				$.each(data.group_list,function(i,value){ 
+					_tr =_tr + "<option value='"+value.id+"'>"+value.name+"</option>";
+				})
+			}
+			_tr =_tr +"</select>";
+			var str=$(_tr);
+			//加载新列表
+			$("#select_to_delete_div").append(str); 
+		} 
+	})
+}
+
+//删除群组成员
+function deleteMember(){
+	var treeObj = $.fn.zTree.getZTreeObj("tree");
+	var treeNode = treeObj.getCheckedNodes(true);
+	var str_id="";
+	for (x in treeNode) {
+	    if (!treeNode[x].isParent) {
+	    	//拼接要删除的成员id字符串
+	    	str_id+="_"+treeNode[x].user_id
+	    }
+	}
+	var url = "DeleteMemberAction.action?member_id_list="+str_id;
+	$.ajax({ 
+		type:'get', 
+		url:url, 
+		async: false,   
+		dataType: 'json', 
+		success:function(){
+			//刷新群组列表
+			refreshTree();
+		} 
+	})
+}
+
 //关闭添加群组菜单
 function closeCreateGroup(){
 	$('#group_name').val("");
@@ -109,4 +182,9 @@ function closeCreateGroup(){
 function closeAddMember(){
 	$('#member_email').val("");
 	$('#close_add_member').click();
+}
+
+//关闭删除群组菜单
+function closeDeleteGroup(){
+	$('#close_delete_group').click();
 }

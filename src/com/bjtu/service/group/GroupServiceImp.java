@@ -135,6 +135,28 @@ public class GroupServiceImp implements IGroupService{
 	public void insertMember(Tb_member member) {
 		member_dao.insert(member);
 	}
+	
+	/**
+	 * @author 刘庶
+	 * 编写日期：2015-04-26
+	 * 功能：删除单个群组成员
+	 * @param id
+	 */
+	@Override
+	public void deleteSingleMember(String id) {
+		member_dao.delete(id);
+	}
+	
+	/**
+	 * @author 刘庶
+	 * 编写日期：2015-04-26
+	 * 功能：根据group_id删除群组成员
+	 * @param group_id
+	 */
+	@Override
+	public void deleteMembers(String group_id) {
+		member_dao.deleteByGroupId(group_id);
+	}
 
 	
 }
