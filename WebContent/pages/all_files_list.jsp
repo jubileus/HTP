@@ -53,8 +53,8 @@
 				  <button type="button" onclick="javascript:doRefresh()" class="btn btn-default"><span class="icon-refresh"></span></button>
 				  
 				  <div class="btn-group pull-right">
-					  <button type="button" class="btn btn-default active"> <span class="icon-sitemap"></span> </button>
-					  <button type="button" class="btn btn-default" onclick="javascript:changeToList()"> <span class="icon-reorder"></span> </button>
+					  <button type="button" class="btn btn-default" onclick="javascript:changeToGallery()"> <span class="icon-sitemap"></span> </button>
+					  <button type="button" class="btn btn-default active"> <span class="icon-reorder"></span> </button>
 				  </div>
 			</div>	
 			
@@ -130,21 +130,6 @@
 			</div>
 			<!--end upload modal-->		
 
-			<div class="contextMenu" id="file_menu">
-		      <ul>
-		        <li id="download">下载/Download</li>
-		        <li id="share">分享/Share</li>
-		        <li id="rename">重命名/Rename</li>
-		        <li id="delete">删除/Delete</li>
-		      </ul>
-    		</div>
-    		<div class="contextMenu" id="folder_menu">
-		      <ul>
-		        <li id="delete">删除/Delete</li>
-		        <li id="rename">重命名/Rename</li>
-		      </ul>
-    		</div>
-			
 			<div class="row-fluid ltt-pathbar">
 				<div id="path_content">
 					
@@ -157,19 +142,23 @@
 				<form id="download_form" method="post" action="DownloadAction.action">
 					<input type="hidden" id="download_id" name="download_id" />
 				</form>
-				<form id="list_form" method="post" action="AllFileInListIndexAction.action">
+				<form id="gallery_form" method="post" action="AllFileInGalleryIndexAction.action">
 					<input type="hidden" id="path" name="path" value="<s:property value="path" />" />
 				</form>
 			</div>			
 			
-            <div id="pad-wrapper" class="gallery" >
-                <!-- gallery wrapper -->
-                <div class="gallery-wrapper" >
-                    <div id="showTable" class="gallery-row">
-                        
-            		</div>
-        		</div>
-			</div>
+            <div class="row-fluid ltt-table">
+				<div class="container-fluid">
+	                <div class="table-wrapper products-table section" style="margin-left:-10px;">
+						<div class="row-fluid">
+	                        <table class="table table-hover">
+	                            <tbody id="showTable">
+	                            </tbody>
+	                        </table>
+	                    </div>
+					</div>
+				</div>
+   			</div>
    		</div>
 	</div>
     <!-- end main container -->
@@ -178,14 +167,13 @@
     <script src="/HTP/pages/js/jquery-latest.js"></script>
     <script src="/HTP/pages/js/bootstrap.min.js"></script>
     <script src="/HTP/pages/js/theme.js"></script>
-	<script type="text/javascript" src="/HTP/pages/right_menu/jquery.contextmenu.r2.js"></script>
 	
 	<script src="/HTP/pages/project_js/common.js"></script>
-	<script src="/HTP/pages/project_js/all_files_gallery.js"></script>
+	<script src="/HTP/pages/project_js/all_files_list.js"></script>
 	
     <script type="text/javascript">
 		$(document).ready(function() {
-			loadGalleryData();
+			loadListData();
 		});
 
 		//文件分片上传方法
@@ -257,7 +245,7 @@
 		    	    					//重置总页数为1，以加载新数据
 		    	    					$('#total_page').val(1);
 		    	    					
-		    	    					loadGalleryData();
+		    	    					loadListData();
 		    	    				} 
 		    	    			});
 		                	}

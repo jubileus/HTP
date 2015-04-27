@@ -18,7 +18,7 @@ import com.googlecode.jsonplugin.annotations.JSON;
 import com.opensymphony.xwork2.ActionSupport;
 
 @SuppressWarnings("all")
-public class AllFileInGalleryIndexAction extends ActionSupport{
+public class AllFileInListIndexAction extends ActionSupport{
 	private int total_page;
 	private int index;
 	private String path;
@@ -43,7 +43,7 @@ public class AllFileInGalleryIndexAction extends ActionSupport{
   		total_page=file_service.getPageCount(100, path, null);
     	//设置初始要获取的页数为第一页
         index=1;
-
+        
 		return SUCCESS;
 	}
 	

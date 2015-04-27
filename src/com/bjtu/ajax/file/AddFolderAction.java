@@ -1,14 +1,13 @@
 package com.bjtu.ajax.file;
 
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.hadoop.fs.FileSystem;
 import org.apache.struts2.ServletActionContext;
 
 import com.bjtu.model.bo.GalleryFileEntity;
@@ -24,8 +23,8 @@ import com.googlecode.jsonplugin.annotations.JSON;
 import com.opensymphony.xwork2.ActionSupport;
 
 @SuppressWarnings("all")
-public class DeleteListInGalleryAction extends ActionSupport{
-	private String id_list;
+public class AddFolderAction extends ActionSupport{
+	private String path;
 	
 	private IFileService file_service;
 	
@@ -34,42 +33,40 @@ public class DeleteListInGalleryAction extends ActionSupport{
 		HttpServletRequest request = ServletActionContext.getRequest();
         HttpSession session = request.getSession();
         Tb_user user=(Tb_user)session.getAttribute("user");
-		
-		StringTokenizer st=new StringTokenizer(id_list,"_");
-		String id;
-		Tb_file file;
-		//初始化被删除文件总大小
-		double total_delete_size=0;
-		while(st.hasMoreElements()){
-			id=st.nextToken();
-			file=file_service.getById(id);
-			//更新被删除文件总大小
-			total_delete_size+=file.getSize_mb();
-			if(file.getIs_folder()==1){
-				//删除文件夹
-				HDFSUtil.deleteFolderOrFile(file.getPath()+file.getHdfs_name());
-			}else{
-				//删除文件
-				HDFSUtil.deleteFolderOrFile(file.getPath()+file.getHdfs_name()+"."+file.getPostfix());
-			}
-			//删除文件数据
-			file_service.deleteFolderOrFile(id);
-		}
-		//更新用户已使用空间大小
-		user.setUsed_storage(user.getUsed_storage()-total_delete_size);
-        file_service.updateUsedStorage(user);
-		
-        
+        //插入文件夹数据
+        String timestamp=String.valueOf(System.currentTimeMillis());
+        Tb_file file=new Tb_file();
+        file.setCreate_time(DateUtil.getCurrentDateTime());
+        file.setHdfs_name(timestamp);
+        file.setId(StringUtil.getUUID());
+    	file.setIs_complete(1);
+    	file.setIs_folder(1);
+    	file.setPath(path);
+    	file.setPostfix("folder");
+    	file.setTimestamp(timestamp);
+    	file.setUser_id(user.getId());
+    	file.setShow_name("新建文件夹");
+    	file.setSize_mb(0);
+        if(file_service.ifNewFileExist(file)){
+        	//文件名重复，获取新编号
+        	int new_num=file_service.getNewFileNum(file);
+        	file.setShow_name(file.getShow_name()+"("+new_num+")");
+        }
+    	//执行插入操作
+    	file_service.insert(file);
+        //在HDFS中建立文件夹
+    	HDFSUtil.createFolder(path+file.getHdfs_name()); 
+    	
 		return SUCCESS;
 	}
-	
+
 	@JSON(serialize=false)
-	public String getId_list() {
-		return id_list;
+	public String getPath() {
+		return path;
 	}
 
-	public void setId_list(String id_list) {
-		this.id_list = id_list;
+	public void setPath(String path) {
+		this.path = path;
 	}
 
 	@JSON(serialize=false)

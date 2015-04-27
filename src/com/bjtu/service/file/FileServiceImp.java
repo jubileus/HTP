@@ -8,6 +8,7 @@ import java.util.StringTokenizer;
 import com.bjtu.dao.idao.IFileDao;
 import com.bjtu.dao.idao.IUserDao;
 import com.bjtu.model.bo.GalleryFileEntity;
+import com.bjtu.model.bo.ListFileEntity;
 import com.bjtu.model.bo.PathEntity;
 import com.bjtu.model.pojo.Tb_file;
 import com.bjtu.model.pojo.Tb_user;
@@ -255,6 +256,65 @@ public class FileServiceImp implements IFileService{
 	@Override
 	public void modifyIs_complete(Tb_file file) {
 		file_dao.modifyIs_complete(file);
+	}
+	
+	/**
+	 * @author 刘庶
+	 * 编写日期：2015-04-29
+	 * 功能：将Tb_file的List转化为ListFileEntity的List
+	 * @param file_list
+	 * @param img_map
+	 */
+	@Override
+	public List<ListFileEntity> convertToListFileEntity(
+			List<Tb_file> file_list, HashMap<String, String> img_map) {
+
+		List<ListFileEntity> rs=new ArrayList<ListFileEntity>();
+		
+		Tb_file tmp;
+        ListFileEntity lfe;
+        if(file_list!=null&&file_list.size()>0){
+        	for(int i=0;i<file_list.size();i++){
+        		tmp=file_list.get(i);
+        		lfe=new ListFileEntity();
+        		lfe.setDate(tmp.getCreate_time());
+        		lfe.setId(tmp.getId());
+        		lfe.setDeleteFile_id("delete_"+tmp.getId());
+        		lfe.setCheck_id("check_"+tmp.getId());
+        		lfe.setShareFile_id("share_"+tmp.getId());
+        		lfe.setDownloadFile_id("download_"+tmp.getId());
+        		lfe.setName_td_id("name_"+tmp.getId());
+        		lfe.setRenameFile_id("rename_"+tmp.getId());
+        		String img=img_map.get(tmp.getPostfix());
+        		if(img==null){
+        			//系统中没有此类型文件，显示默认图标
+        			img="/HTP/pages/img/icon/icon_file.png";
+        		}
+        		lfe.setImg(img);
+        		if(tmp.getIs_folder()==1){
+        			//是文件夹，不拼接后缀名
+        			lfe.setName(tmp.getShow_name());
+        			lfe.setDelete_file("删除");
+        			lfe.setDownload_file("");
+        			lfe.setRename_file("重命名");
+        			lfe.setShare_file("");
+        			lfe.setSize("");
+        			lfe.setImg_id(tmp.getHdfs_name());
+        		}else{
+        			//不是文件夹，拼接后缀名
+        			lfe.setName(tmp.getShow_name()+"."+tmp.getPostfix());
+        			lfe.setDelete_file("删除");
+        			lfe.setDownload_file("下载");
+        			lfe.setRename_file("重命名");
+        			lfe.setShare_file("分享");
+        			lfe.setSize(String.valueOf(tmp.getSize_mb())+" MB");
+        			lfe.setImg_id("not_"+tmp.getHdfs_name());
+        		}
+        		
+        		rs.add(lfe);
+        	}
+        }
+		return rs;
 	}
 	
 }

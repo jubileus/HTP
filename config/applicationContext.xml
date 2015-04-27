@@ -182,6 +182,19 @@
 	<!--Group Action End-->
 	
 	<!--File Action Begin-->
+	<bean scope="prototype" id="AllFileInListAction" class="com.bjtu.ajax.file.AllFileInListAction">
+		<property name="file_service">
+			<ref bean="file_service"/>
+		</property>
+		<property name="fileType_management_service">
+			<ref bean="fileType_management_service"/>
+		</property>
+	</bean>
+	<bean scope="prototype" id="AllFileInListIndexAction" class="com.bjtu.action.file.AllFileInListIndexAction">
+		<property name="file_service">
+			<ref bean="file_service"/>
+		</property>
+	</bean>
 	<bean scope="prototype" id="DownloadAction" class="com.bjtu.action.file.DownloadAction">
 		<property name="file_service">
 			<ref bean="file_service"/>
@@ -202,12 +215,12 @@
 			<ref bean="file_service"/>
 		</property>
 	</bean>
-	<bean scope="prototype" id="DeleteListInGalleryAction" class="com.bjtu.ajax.file.DeleteListInGalleryAction">
+	<bean scope="prototype" id="DeleteListAction" class="com.bjtu.ajax.file.DeleteListAction">
 		<property name="file_service">
 			<ref bean="file_service"/>
 		</property>
 	</bean>
-	<bean scope="prototype" id="DeleteInGalleryAction" class="com.bjtu.ajax.file.DeleteInGalleryAction">
+	<bean scope="prototype" id="DeleteAction" class="com.bjtu.ajax.file.DeleteAction">
 		<property name="file_service">
 			<ref bean="file_service"/>
 		</property>
@@ -217,7 +230,7 @@
 			<ref bean="file_service"/>
 		</property>
 	</bean>
-	<bean scope="prototype" id="AddFolderInGalleryAction" class="com.bjtu.ajax.file.AddFolderInGalleryAction">
+	<bean scope="prototype" id="AddFolderAction" class="com.bjtu.ajax.file.AddFolderAction">
 		<property name="file_service">
 			<ref bean="file_service"/>
 		</property>

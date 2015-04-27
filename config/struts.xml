@@ -43,6 +43,9 @@
 	<!-- Group Action Begin -->
 
 	<!-- File Action Begin -->
+	<action name="AllFileInListAction" class="AllFileInListAction">
+    	<result type="json" />
+    </action>
 	<action name="SaveFileInHDFSAction" class="SaveFileInHDFSAction">
     	<result type="json" />
     </action>
@@ -52,13 +55,13 @@
     <action name="IfFileCanUploadAction" class="IfFileCanUploadAction">
     	<result type="json" />
     </action>
-	<action name="DeleteInGalleryAction" class="DeleteInGalleryAction">
+	<action name="DeleteAction" class="DeleteAction">
     	<result type="json" />
     </action>
-    <action name="DeleteListInGalleryAction" class="DeleteListInGalleryAction">
+    <action name="DeleteListAction" class="DeleteListAction">
     	<result type="json" />
     </action>
-	<action name="AddFolderInGalleryAction" class="AddFolderInGalleryAction">
+	<action name="AddFolderAction" class="AddFolderAction">
     	<result type="json" />
     </action>
 	<action name="ModifyFileNameInGalleryAction" class="ModifyFileNameInGalleryAction">
@@ -124,6 +127,10 @@
 
 <package name="products" extends="struts-default">
 	<!-- File Action Begin -->
+	<action name="AllFileInListIndexAction" class="AllFileInListIndexAction">
+    	<result name="success">/pages/all_files_list.jsp</result>
+    	<result name="error">/pages/login.jsp</result>
+    </action>
 	<action name="DownloadAction" class="DownloadAction">
         <result type="stream">
           <param name="contentType">application</param>
@@ -134,6 +141,7 @@
     </action>
 	<action name="AllFileInGalleryIndexAction" class="AllFileInGalleryIndexAction">
     	<result name="success">/pages/all_files_gallery.jsp</result>
+    	<result name="error">/pages/login.jsp</result>
     </action>
 	<!-- File Action End -->
 

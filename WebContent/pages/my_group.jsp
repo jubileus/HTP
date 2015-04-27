@@ -1,6 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="head.jsp" %>
+<%@ include file="head_css.jsp" %>
+	<!-- navbar -->
+    <div class="navbar navbar-inverse">
+        <div class="navbar-inner">
+            <a class="brand" href="index.html"><img src="/HTP/pages/img/logo.png" /></a>
+            <!--产品logo图片-->
+            <ul class="nav pull-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle hidden-phone" data-toggle="dropdown">
+                        <%
+                    	Tb_user user=(Tb_user)session.getAttribute("user");
+                    	if(user==null){
+	               		%>	
+	               			<jsp:forward page="/pages/login.jsp" />
+	               		<%
+	                    	}else{
+	                    %>
+	                    	<%=user.getNickname() %>
+	                    <%
+	                    	}
+	                    %>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">个人资料</a></li>
+                        <li><a href="LogoutAction.action">退出</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- end navbar -->
+<%@ include file="head_sidebar.jsp" %>
 
 <!-- main container -->
 <style type="text/css">

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.bjtu.model.bo.GalleryFileEntity;
+import com.bjtu.model.bo.ListFileEntity;
 import com.bjtu.model.bo.PathEntity;
 import com.bjtu.model.pojo.Tb_file;
 import com.bjtu.model.pojo.Tb_user;
@@ -112,4 +113,13 @@ public interface IFileService {
 	 * @param file
 	 */
     public void modifyIs_complete(Tb_file file);
+    
+    /**
+	 * @author 刘庶
+	 * 编写日期：2015-04-29
+	 * 功能：将Tb_file的List转化为ListFileEntity的List
+	 * @param file_list
+	 * @param img_map
+	 */
+	public List<ListFileEntity> convertToListFileEntity(List<Tb_file> file_list,HashMap<String, String> img_map);
 }

@@ -1,4 +1,9 @@
-﻿//加载Gallery样式的数据
+﻿//切换成List视图
+function changeToList(){
+	$('#list_form').submit();
+}
+
+//加载Gallery样式的数据
 function loadGalleryData(){
 	var index=$('#index').val();
 	var path=$('#path').val();
@@ -55,7 +60,7 @@ function doRefresh(){
 	loadGalleryData();
 }
 
-//属性路径条
+//刷新路径条
 function refreshPath(data){
 	$("#path_content").empty();
 	var _tr = "<ol class='breadcrumb'>"+
@@ -275,7 +280,7 @@ function deleteCheckedFile(){
 			id_list=id_list+file_id+"_";
 		}
 	});
-	var url = "DeleteListInGalleryAction.action?id_list="+id_list;
+	var url = "DeleteListAction.action?id_list="+id_list;
 	$.ajax({ 
 		type:'get', 
 		url:url, 
@@ -293,7 +298,7 @@ function deleteCheckedFile(){
 //删除文件或文件夹操作
 function deleteFolderOrFile(file){
 	var file_id=file.id.split("_")[1];
-	var url = "DeleteInGalleryAction.action?id="+file_id;
+	var url = "DeleteAction.action?id="+file_id;
 	$.ajax({ 
 		type:'get', 
 		url:url, 
@@ -433,7 +438,7 @@ function show_old_name(file_id){
 //添加文件夹
 function addFolder(){
 	var path=$('#path').val();
-	var url = "AddFolderInGalleryAction.action?path="+path;
+	var url = "AddFolderAction.action?path="+path;
 	$.ajax({ 
 		type:'get', 
 		url:url, 
@@ -464,7 +469,8 @@ function check_item(id){
 	}		  
 }
 
- function change(type){
+//切换分享菜单的页面
+function change(type){
 	$("li").removeClass("active");
 	$(".share_display").css("display","none"); 
 	$("#"+type).addClass("active"); 
