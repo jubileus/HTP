@@ -43,6 +43,12 @@
 	<!-- Group Action Begin -->
 
 	<!-- File Action Begin -->
+	<action name="TypeFileInListAction" class="TypeFileInListAction">
+    	<result type="json" />
+    </action>
+	<action name="TypeFileInGalleryAction" class="TypeFileInGalleryAction">
+    	<result type="json" />
+    </action>
 	<action name="AllFileInListAction" class="AllFileInListAction">
     	<result type="json" />
     </action>
@@ -127,6 +133,14 @@
 
 <package name="products" extends="struts-default">
 	<!-- File Action Begin -->
+	<action name="TypeFileInListIndexAction" class="TypeFileInListIndexAction">
+    	<result name="success">/pages/type_files_list.jsp</result>
+    	<result name="error">/pages/login.jsp</result>
+    </action>
+	<action name="TypeFileInGalleryIndexAction" class="TypeFileInGalleryIndexAction">
+    	<result name="success">/pages/type_files_gallery.jsp</result>
+    	<result name="error">/pages/login.jsp</result>
+    </action>
 	<action name="AllFileInListIndexAction" class="AllFileInListIndexAction">
     	<result name="success">/pages/all_files_list.jsp</result>
     	<result name="error">/pages/login.jsp</result>

@@ -61,4 +61,11 @@ public interface IFileTypeManagementService {
    	 * 功能：获取id为后缀名，value为图片路径的HashMap
    	 */
     public HashMap<String, String> getImgMap();
+    
+    /**
+	 * @author 刘庶
+	 * 编写日期：2015-04-29
+	 * 功能：根据category获取文件类型
+	 */
+	public List getByCategory(int category);
 }

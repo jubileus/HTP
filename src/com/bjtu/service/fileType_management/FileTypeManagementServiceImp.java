@@ -150,4 +150,14 @@ public class FileTypeManagementServiceImp implements IFileTypeManagementService{
 		return img_map;
 	}
 	
+	/**
+	 * @author 刘庶
+	 * 编写日期：2015-04-29
+	 * 功能：根据category获取文件类型
+	 */
+	@Override
+	public List getByCategory(int category) {
+		return file_type_dao.getByCategory(category);
+	}
+	
 }

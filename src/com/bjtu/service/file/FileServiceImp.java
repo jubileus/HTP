@@ -11,6 +11,7 @@ import com.bjtu.model.bo.GalleryFileEntity;
 import com.bjtu.model.bo.ListFileEntity;
 import com.bjtu.model.bo.PathEntity;
 import com.bjtu.model.pojo.Tb_file;
+import com.bjtu.model.pojo.Tb_file_type;
 import com.bjtu.model.pojo.Tb_user;
 
 public class FileServiceImp implements IFileService{
@@ -315,6 +316,37 @@ public class FileServiceImp implements IFileService{
         	}
         }
 		return rs;
+	}
+	
+	/**
+	 * @author 苏国伟
+	 * 编写日期：2015-04-29
+	 * 功能：查询符合条件数据的总页数
+	 * @param user_id:用户id
+	 * @param num:每页显示数量
+	 * @param category：文件分类
+	 * @param file_name:文件显示名称
+	 */
+	@Override
+	public int getPageCount(String user_id, int num, int category,
+			String file_name) {
+		return file_dao.getPageCount(user_id, num, category, file_name);
+	}
+	
+	/**
+	 * @author 苏国伟
+	 * 编写日期：2015-04-29
+	 * 功能：查询指定页数中的符合条件的数据
+	 * @param user_id:用户id
+	 * @param num:每页显示数量
+	 * @param index:准备获取的数据的对应页数
+	 * @param category：文件分类
+	 * @param file_name:文件显示名称
+	 */
+	@Override
+	public List getPageData(String user_id, int num, int index, int category,
+			String file_name) {
+		return file_dao.getPageData(user_id, num, index, category, file_name);
 	}
 	
 }

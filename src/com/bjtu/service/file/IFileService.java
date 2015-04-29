@@ -7,6 +7,7 @@ import com.bjtu.model.bo.GalleryFileEntity;
 import com.bjtu.model.bo.ListFileEntity;
 import com.bjtu.model.bo.PathEntity;
 import com.bjtu.model.pojo.Tb_file;
+import com.bjtu.model.pojo.Tb_file_type;
 import com.bjtu.model.pojo.Tb_user;
 
 public interface IFileService {
@@ -122,4 +123,27 @@ public interface IFileService {
 	 * @param img_map
 	 */
 	public List<ListFileEntity> convertToListFileEntity(List<Tb_file> file_list,HashMap<String, String> img_map);
+	
+	/**
+	 * @author 苏国伟
+	 * 编写日期：2015-04-29
+	 * 功能：查询符合条件数据的总页数
+	 * @param user_id:用户id
+	 * @param num:每页显示数量
+	 * @param category：文件分类
+	 * @param file_name:文件显示名称
+	 */
+	public int getPageCount(String user_id,int num, int category, String file_name);
+    
+    /**
+	 * @author 苏国伟
+	 * 编写日期：2015-04-29
+	 * 功能：查询指定页数中的符合条件的数据
+	 * @param user_id:用户id
+	 * @param num:每页显示数量
+	 * @param index:准备获取的数据的对应页数
+	 * @param category：文件分类
+	 * @param file_name:文件显示名称
+	 */
+	public List getPageData(String user_id,int num, int index, int category,String file_name);
 }

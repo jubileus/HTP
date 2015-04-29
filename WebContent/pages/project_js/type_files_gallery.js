@@ -6,11 +6,11 @@ function changeToList(){
 //加载Gallery样式的数据
 function loadGalleryData(){
 	var index=$('#index').val();
-	var path=$('#path').val();
+	var category=$('#category').val();
 	var search_name=$('#search_name').val();
 	var total_page=$('#total_page').val();
 	search_name=encodeURI(encodeURI(search_name));
-	var url = "AllFileInGalleryAction.action?index="+index+"&&search_name="+search_name+"&&path="+path; 
+	var url = "TypeFileInGalleryAction.action?index="+index+"&&search_name="+search_name+"&&category="+category; 
 	var page_max=parseInt(total_page)+1;
 	//查看是否已经加载完数据
 	if(index<page_max){
@@ -27,8 +27,7 @@ function loadGalleryData(){
 				//刷新刷新用户信息列表
 				refreshGallery(data);
 				//刷新路径条
-				refreshPath(data);
-				
+				refreshPath();
 				//绑定右击菜单
 				bindRightMenu();
 				
@@ -39,6 +38,26 @@ function loadGalleryData(){
 			} 
 		})
 	}
+}
+
+//刷新路径条
+function refreshPath(){
+	var category=$('#category').val();
+	$("#path_content").empty();
+	var _tr = "<ol class='breadcrumb'>"+
+		"<li><input type='checkbox' id='check_all' onclick='javascript:check_all(this.id)'></li>"; 
+	if(category==1){
+		_tr+="<li class='active'>文档文件</li>";
+	}else if(category==2){
+		_tr+="<li class='active'>图片文件</li>";
+	}else if(category==3){
+		_tr+="<li class='active'>视频文件</li>";
+	}else{
+		_tr+="<li class='active'>音频文件</li>";
+	}
+	_tr+="</ol>";
+	var str=$(_tr);
+	$("#path_content").append(str); 
 }
 
 //模糊查询
@@ -60,39 +79,6 @@ function doRefresh(){
 	loadGalleryData();
 }
 
-//刷新路径条
-function refreshPath(data){
-	$("#path_content").empty();
-	var _tr = "<ol class='breadcrumb'>"+
-		"<li><input type='checkbox' id='check_all' onclick='javascript:check_all(this.id)'></li>"; 
-	var path_num=data.path_num;
-	var num=0;
-	$.each(data.path_list,function(i,value){ 
-		num++;
-		//显示根目录
-		if(num==path_num){
-			//是最后一层
-			_tr =_tr + "<li class='active'>"+value.name+"</li>"; 
-		}else{
-			//不是最后一层
-			_tr =_tr + "<li><a href='#' id='"+value.path+"' onclick='javascript:jumpTo(this.id)'>"+value.name+"</a></li>"; 
-		}
-	}) 
-	_tr+="</ol>";
-	var str=$(_tr);
-	$("#path_content").append(str); 
-}
-
-//通过路径条进行跳转
-function jumpTo(path){
-	//重置页数为1
-	$('#index').val(1);
-	//设置path
-	$('#path').val(path);
-	//重新加载数据
-	loadGalleryData();
-}
-
 //刷新Gallery样式的数据
 function refreshGallery(data){
 	$.each(data.file_list,function(i,value){ 
@@ -101,7 +87,7 @@ function refreshGallery(data){
 				"<span class='ltt-icon' >"+
 				"<i class='gallery-check' onclick='javascript:check_item(this.id)' id='"+value.check_id+"'></i>"+
 				"</span>"+
-				"<img style='width:60px;height:60px;' id='"+value.img_id+"' src='"+value.img+"' onclick='javascript:intoFolder(this.id)' />"+
+				"<img style='width:60px;height:60px;' id='"+value.img_id+"' src='"+value.img+"' />"+
 				"<div id='"+value.file_name_id+"'>"+
 				"<div id='"+value.show_name_id+"'>"+value.name+"</div>"+
 				"</div>"+
@@ -109,17 +95,6 @@ function refreshGallery(data){
 				"</div>"); 
 		$("#showTable").append(_tr); 
 	}) 
-}
-
-//查看文件夹中的内容
-function intoFolder(id){
-	if(id.split("_")[0]!="not"){
-		//重置页数为1
-		$('#index').val(1);
-		var path=$('#path').val();
-		$('#path').val(path+id+"/");
-		loadGalleryData();
-	}
 }
 
 //检测滚动条是否到达底端
@@ -433,23 +408,6 @@ function show_old_name(file_id){
 		_str=$("<div id='"+name_id+"'>"+old_name+"."+postfix+"</div>");
 	}
 	$(file_name_id).append(_str);
-}
-
-//添加文件夹
-function addFolder(){
-	var path=$('#path').val();
-	var url = "AddFolderAction.action?path="+path;
-	$.ajax({ 
-		type:'get', 
-		url:url, 
-		dataType: 'json', 
-		success:function(data){ 
-			//成功建立
-			//重置页数为1
-			$('#index').val(1);
-			loadGalleryData(); 
-		} 
-	})
 }
 
 //文件图标的选择或取消选择操作

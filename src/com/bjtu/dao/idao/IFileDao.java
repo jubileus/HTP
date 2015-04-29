@@ -3,6 +3,7 @@ package com.bjtu.dao.idao;
 import java.util.List;
 
 import com.bjtu.model.pojo.Tb_file;
+import com.bjtu.model.pojo.Tb_file_type;
 
 public interface IFileDao {
 	
@@ -91,4 +92,27 @@ public interface IFileDao {
 	 * @param file
 	 */
     public void modifyIs_complete(Tb_file file);
+    
+    /**
+	 * @author 苏国伟
+	 * 编写日期：2015-04-29
+	 * 功能：查询符合条件数据的总页数
+	 * @param user_id:用户id
+	 * @param num:每页显示数量
+	 * @param category：文件分类
+	 * @param file_name:文件显示名称
+	 */
+	public int getPageCount(String user_id,int num, int category, String file_name);
+    
+    /**
+	 * @author 苏国伟
+	 * 编写日期：2015-04-29
+	 * 功能：查询指定页数中的符合条件的数据
+	 * @param user_id:用户id
+	 * @param num:每页显示数量
+	 * @param index:准备获取的数据的对应页数
+	 * @param category：文件分类
+	 * @param file_name:文件显示名称
+	 */
+	public List getPageData(String user_id,int num, int index, int category,String file_name);
 }

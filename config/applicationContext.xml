@@ -182,6 +182,32 @@
 	<!--Group Action End-->
 	
 	<!--File Action Begin-->
+	<bean scope="prototype" id="TypeFileInListAction" class="com.bjtu.ajax.file.TypeFileInListAction">
+		<property name="file_service">
+			<ref bean="file_service"/>
+		</property>
+		<property name="fileType_management_service">
+			<ref bean="fileType_management_service"/>
+		</property>
+	</bean>
+	<bean scope="prototype" id="TypeFileInListIndexAction" class="com.bjtu.action.file.TypeFileInListIndexAction">
+		<property name="file_service">
+			<ref bean="file_service"/>
+		</property>
+	</bean>
+	<bean scope="prototype" id="TypeFileInGalleryAction" class="com.bjtu.ajax.file.TypeFileInGalleryAction">
+		<property name="file_service">
+			<ref bean="file_service"/>
+		</property>
+		<property name="fileType_management_service">
+			<ref bean="fileType_management_service"/>
+		</property>
+	</bean>
+	<bean scope="prototype" id="TypeFileInGalleryIndexAction" class="com.bjtu.action.file.TypeFileInGalleryIndexAction">
+		<property name="file_service">
+			<ref bean="file_service"/>
+		</property>
+	</bean>
 	<bean scope="prototype" id="AllFileInListAction" class="com.bjtu.ajax.file.AllFileInListAction">
 		<property name="file_service">
 			<ref bean="file_service"/>

@@ -52,4 +52,11 @@ public interface IFileTypeDao {
 	 * 功能：获取全部文件类型
 	 */
 	public List getAll();
+	
+	/**
+	 * @author 宫文超
+	 * 编写日期：2015-04-29
+	 * 功能：根据category获取文件类型
+	 */
+	public List getByCategory(int category);
 }

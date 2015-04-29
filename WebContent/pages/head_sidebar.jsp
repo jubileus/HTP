@@ -13,25 +13,25 @@
                 </a>
             </li>            
             <li id="document_file_li">
-                <a href="chart-showcase.html">
+                <a href="TypeFileInGalleryIndexAction.action?category=1">
                     <i class="icon-folder-close"></i>
                     <span>文档</span>
                 </a>
             </li>
             <li id="picture_file_li">
-                <a href="chart-showcase.html">
+                <a href="TypeFileInGalleryIndexAction.action?category=2">
                     <i class="icon-picture"></i>
                     <span>图片</span>
                 </a>
             </li>
             <li id="video_file_li">
-                <a href="chart-showcase.html">
+                <a href="TypeFileInGalleryIndexAction.action?category=3">
                     <i class="icon-film"></i>
                     <span>视频</span>
                 </a>
             </li>
             <li id="music_file_li">
-                <a href="chart-showcase.html">
+                <a href="TypeFileInGalleryIndexAction.action?category=4">
                     <i class="icon-music"></i>
                     <span>音频</span>
                 </a>

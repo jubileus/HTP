@@ -120,5 +120,18 @@ public class FileTypeDaoImp implements IFileTypeDao{
 		Object[] objects = new Object[0];
 		return dao_util.getList(hql, objects);
 	}
+	
+	/**
+	 * @author 宫文超
+	 * 编写日期：2015-04-29
+	 * 功能：根据category获取文件类型
+	 */
+	@Override
+	public List getByCategory(int category) {
+		String hql = "from Tb_file_type where category=?";
+		Object[] objects = new Object[1];
+		objects[0] = category;
+		return dao_util.getList(hql, objects);
+	}
 
 }
