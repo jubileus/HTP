@@ -28,7 +28,7 @@
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">个人资料</a></li>
+                        <li><a href="UserInfoAction.action">个人资料</a></li>
                         <li><a href="LogoutAction.action">退出</a></li>
                     </ul>
                 </li>

@@ -50,5 +50,5 @@ public class LoginRegisterServiceImp implements ILoginRegisterService{
 			return 1;
 		}
 	}
-			
+		
 }

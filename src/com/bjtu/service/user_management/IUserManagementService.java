@@ -53,4 +53,20 @@ public interface IUserManagementService {
 	 * @param id
 	 */
 	public Tb_user getUserById(String id);
+	
+	/**
+	 * @author 刘庶
+	 * 编写日期：2015-05-4
+	 * 功能：更新用户昵称
+	 * @param user
+	 */
+	public void modifyNickname(Tb_user user);
+	
+	/**
+	 * @author 刘庶
+	 * 编写日期：2015-05-4
+	 * 功能：更新用户密码
+	 * @param user
+	 */
+	public void modifyPassword(Tb_user user);
 }

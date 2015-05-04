@@ -82,6 +82,12 @@
 	<!-- Test Action End -->
 	
 	<!-- User Management Action Begin -->
+	<action name="ModifyNicknameAction" class="ModifyNicknameAction">
+    	<result type="json" />
+    </action>
+    <action name="ModifyPasswordAction" class="ModifyPasswordAction">
+    	<result type="json" />
+    </action>
 	<action name="UserPageAction" class="UserPageAction">
     	<result type="json" />
     </action>
@@ -160,6 +166,10 @@
 	<!-- File Action End -->
 
 	<!-- User Management Action Begin -->
+	<action name="UserInfoAction" class="UserInfoAction">
+		<result name="success">/pages/userinfo.jsp</result>
+		<result name="error">/pages/login.jsp</result>
+    </action>
 	<action name="UserListAction" class="UserListAction">
 		<result name="success">/pages/admin_userList.jsp</result>
     </action>

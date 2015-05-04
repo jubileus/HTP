@@ -108,5 +108,27 @@ public class UserManagementServiceImp implements IUserManagementService{
 	public Tb_user getUserById(String id) {
 		return user_dao.getById(id);
 	}
+	
+	/**
+	 * @author 刘庶
+	 * 编写日期：2015-05-4
+	 * 功能：更新用户昵称
+	 * @param user
+	 */
+	@Override
+	public void modifyNickname(Tb_user user) {
+		user_dao.updateNickname(user);
+	}
+	
+	/**
+	 * @author 刘庶
+	 * 编写日期：2015-05-4
+	 * 功能：更新用户密码
+	 * @param user
+	 */
+	@Override
+	public void modifyPassword(Tb_user user) {
+		user_dao.updatePassword(user);
+	}
 
 }

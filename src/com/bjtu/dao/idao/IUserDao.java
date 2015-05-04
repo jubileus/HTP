@@ -93,4 +93,20 @@ public interface IUserDao {
 	 * @param user
 	 */
 	public void updateUsedStorage(Tb_user user);
+	
+	/**
+	 * @author 苏国伟
+	 * 编写日期：2015-05-4
+	 * 功能：更新用户昵称
+	 * @param user
+	 */
+	public void updateNickname(Tb_user user);
+	
+	/**
+	 * @author 苏国伟
+	 * 编写日期：2015-05-4
+	 * 功能：更新用户密码
+	 * @param user
+	 */
+	public void updatePassword(Tb_user user);
 }

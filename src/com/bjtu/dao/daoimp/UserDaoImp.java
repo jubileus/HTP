@@ -204,5 +204,37 @@ public class UserDaoImp implements IUserDao{
 		dao_util.update(temp);
 	}
 	
+	/**
+	 * @author 苏国伟
+	 * 编写日期：2015-05-4
+	 * 功能：更新用户昵称
+	 * @param user
+	 */
+	@Override
+	public void updateNickname(Tb_user user) {
+		String hql = "from Tb_user where id = ?";
+		Object[] objects = new Object[1];
+		objects[0]=user.getId();
+		Tb_user temp=(Tb_user)dao_util.getSingle(hql, objects);
+		temp.setNickname(user.getNickname());
+		dao_util.update(temp);
+	}
+	
+	/**
+	 * @author 苏国伟
+	 * 编写日期：2015-05-4
+	 * 功能：更新用户密码
+	 * @param user
+	 */
+	@Override
+	public void updatePassword(Tb_user user) {
+		String hql = "from Tb_user where id = ?";
+		Object[] objects = new Object[1];
+		objects[0]=user.getId();
+		Tb_user temp=(Tb_user)dao_util.getSingle(hql, objects);
+		temp.setPassword(user.getPassword());
+		dao_util.update(temp);
+	}
+	
 	
 }
