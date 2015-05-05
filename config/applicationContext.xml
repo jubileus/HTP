@@ -181,6 +181,16 @@
 	<!--Share Action End-->
 	
 	<!--Group Action Begin-->
+	<bean scope="prototype" id="DeleteGroupShareAction" class="com.bjtu.ajax.group.DeleteGroupShareAction">
+		<property name="group_service">
+			<ref bean="group_service"/>
+		</property>
+	</bean>
+	<bean scope="prototype" id="GroupSharePageAction" class="com.bjtu.ajax.group.GroupSharePageAction">
+		<property name="group_service">
+			<ref bean="group_service"/>
+		</property>
+	</bean>
 	<bean scope="prototype" id="GetGroupListByCreatorAction" class="com.bjtu.ajax.group.GetGroupListByCreatorAction">
 		<property name="group_service">
 			<ref bean="group_service"/>

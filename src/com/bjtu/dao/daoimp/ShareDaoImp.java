@@ -175,5 +175,56 @@ public class ShareDaoImp implements IShareDao{
     	query.addCriteria(criteria);
     	share_dao_util.delete(query);		
 	}
+	
+	/**
+	 * @author 宫文超
+	 * 编写日期：2015-05-5
+	 * 功能：查询符合条件数据的总页数
+	 * @param group_id:群组id
+	 * @param num:每页显示数量
+	 */
+	@Override
+	public int getPageCount(String group_id, int num) {
+		Query query;
+		Criteria criteria;
+    	query=new Query();
+    	//指定群组id
+    	criteria=Criteria.where("group_id").is(group_id);
+    	query.addCriteria(criteria);
+    	//将数据条数转化为页数
+    	int rs=1;
+    	int total=(int)share_dao_util.count(query);
+    	if(total>num){
+			if(total%num==0){
+				rs=total/num;
+			}else{
+				rs=total/num+1;
+			}
+		}
+    	return rs;
+	}
+	
+	/**
+	 * @author 宫文超
+	 * 编写日期：2015-05-5
+	 * 功能：查询指定页数中的符合条件的数据
+	 * @param group_id:群组id
+	 * @param num:每页显示数量
+	 * @param index:准备获取的数据的对应页数
+	 */
+	@Override
+	public List getPageData(String group_id, int num,int index) {
+		Criteria criteria;
+		Query query;
+		query=new Query();
+		//指定群组id
+		criteria=Criteria.where("group_id").is(group_id);
+		query.limit(num);
+		query.skip((index-1)*num);
+		query.with(new Sort(new Sort.Order(Direction.DESC, "timestamp")));
+    	query.addCriteria(criteria);
+		
+		return share_dao_util.find(query);
+	}
 
 }

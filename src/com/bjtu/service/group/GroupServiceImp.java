@@ -7,8 +7,10 @@ import com.bjtu.dao.idao.IGroupDao;
 import com.bjtu.dao.idao.IMemberDao;
 import com.bjtu.dao.idao.IShareDao;
 import com.bjtu.dao.idao.IUserDao;
+import com.bjtu.model.bo.GroupShareEntity;
 import com.bjtu.model.pojo.Tb_group;
 import com.bjtu.model.pojo.Tb_member;
+import com.bjtu.model.pojo.Tb_share;
 import com.bjtu.model.pojo.Tb_user;
 
 public class GroupServiceImp implements IGroupService{
@@ -221,6 +223,89 @@ public class GroupServiceImp implements IGroupService{
 	@Override
 	public List getGroupByCreatorId(String creator_id) {
 		return group_dao.getGroup(creator_id);
+	}
+	
+	/**
+	 * @author 刘庶
+	 * 编写日期：2015-05-5
+	 * 功能：查询符合条件数据的总页数
+	 * @param group_id:群组id
+	 * @param num:每页显示数量
+	 */
+	@Override
+	public int getPageCount(String group_id, int num) {
+		return share_dao.getPageCount(group_id, num);
+	}
+	
+	/**
+	 * @author 刘庶
+	 * 编写日期：2015-05-5
+	 * 功能：查询指定页数中的符合条件的数据
+	 * @param group_id:群组id
+	 * @param num:每页显示数量
+	 * @param index:准备获取的数据的对应页数
+	 */
+	@Override
+	public List getPageData(String group_id, int num, int index) {
+		return share_dao.getPageData(group_id, num, index);
+	}
+	
+	/**
+	 * @author 刘庶
+	 * 编写日期：2015-04-18
+	 * 功能：将Tb_share的List转化为GroupShareEntity的List
+	 * @param share_list
+	 * @param user_id
+	 */
+	@Override
+	public List<GroupShareEntity> convertToGroupShareEntity(
+			List<Tb_share> share_list, String user_id) {
+		
+		List<GroupShareEntity> rs=new ArrayList<GroupShareEntity>();
+		Tb_share tmp;
+		GroupShareEntity gse;
+		if(share_list!=null&&share_list.size()>0){
+        	for(int i=0;i<share_list.size();i++){
+        		tmp=share_list.get(i);
+        		gse=new GroupShareEntity();
+        		gse.setDate(tmp.getShare_date());
+        		gse.setId(tmp.getId());
+        		gse.setFile_id(tmp.getFile_id());
+        		gse.setName(tmp.getShow_name()+"."+tmp.getPostfix());
+        		Tb_user user=user_dao.getById(tmp.getCreator_id());
+        		gse.setNickname(user.getNickname());
+        		if(tmp.getCreator_id().equals(user_id)){
+        			gse.setLi_class("odd");
+        		}else{
+        			gse.setLi_class("even");
+        		}
+        		rs.add(gse);
+        	}
+    	}
+		
+		return rs;
+	}
+	
+	/**
+	 * @author 刘庶
+	 * 编写日期：2015-05-5
+	 * 功能：根据id获取分享
+	 * @param id
+	 */
+	@Override
+	public Tb_share getShareById(String id) {
+		return share_dao.getById(id);
+	}
+	
+	/**
+	 * @author 刘庶
+	 * 编写日期：2015-05-5
+	 * 功能：根据id删除单个分享
+	 * @param id
+	 */
+	@Override
+	public void deleteShare(String id) {
+		share_dao.delete(id);
 	}
 
 	

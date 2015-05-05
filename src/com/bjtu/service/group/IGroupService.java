@@ -2,8 +2,10 @@ package com.bjtu.service.group;
 
 import java.util.List;
 
+import com.bjtu.model.bo.GroupShareEntity;
 import com.bjtu.model.pojo.Tb_group;
 import com.bjtu.model.pojo.Tb_member;
+import com.bjtu.model.pojo.Tb_share;
 import com.bjtu.model.pojo.Tb_user;
 
 public interface IGroupService {
@@ -127,4 +129,48 @@ public interface IGroupService {
 	 * @param creator_id
 	 */
 	public List getGroupByCreatorId(String creator_id);
+	
+	/**
+	 * @author 刘庶
+	 * 编写日期：2015-05-5
+	 * 功能：查询符合条件数据的总页数
+	 * @param group_id:群组id
+	 * @param num:每页显示数量
+	 */
+    public int getPageCount(String group_id,int num);
+
+    /**
+	 * @author 刘庶
+	 * 编写日期：2015-05-5
+	 * 功能：查询指定页数中的符合条件的数据
+	 * @param group_id:群组id
+	 * @param num:每页显示数量
+	 * @param index:准备获取的数据的对应页数
+	 */
+    public List getPageData(String group_id,int num,int index);
+    
+    /**
+	 * @author 刘庶
+	 * 编写日期：2015-04-18
+	 * 功能：将Tb_share的List转化为GroupShareEntity的List
+	 * @param share_list
+	 * @param user_id
+	 */
+    public List<GroupShareEntity> convertToGroupShareEntity(List<Tb_share> share_list,String user_id);
+    
+    /**
+	 * @author 刘庶
+	 * 编写日期：2015-05-5
+	 * 功能：根据id获取分享
+	 * @param id
+	 */
+    public Tb_share getShareById(String id);
+    
+    /**
+	 * @author 刘庶
+	 * 编写日期：2015-05-5
+	 * 功能：根据id删除单个分享
+	 * @param id
+	 */
+    public void deleteShare(String id);
 }

@@ -1,4 +1,102 @@
-﻿//添加群组
+﻿//加载群组分享内容
+function loadGroupShareData(){
+	var index=$('#index').val();
+	var group_id=$('#group_id').val();
+	var url = "GroupSharePageAction.action?index="+index+"&&group_id="+group_id;
+	$.ajax({ 
+		type:'get', 
+		url:url, 
+		dataType: 'json', 
+		success:function(data){ 
+			//清空已有数据
+			$("#showTable").empty();
+			//刷新列表
+			refreshData(data);
+			
+			$('#total_page').val(data.total_page);
+		} 
+	})
+}
+
+//删除分享
+function deleteShare(share){
+	var share_id=share.split("_")[1];
+	var url="DeleteGroupShareAction.action?share_id="+share_id;
+	$.ajax({ 
+		type:'get', 
+		url:url, 
+		dataType: 'json', 
+		success:function(data){ 
+			if(data.msg==1){
+				//成功删除
+				$("#index").val(1);
+				$("#a_index").html(1);
+				loadGroupShareData();
+			}else{
+				//权限不足，不能删除
+				alert("权限不足，不能删除");
+			}
+		} 
+	})
+}
+
+//文件下载
+function downloadFile(file){
+	var file_id=file.split("_")[1];
+	$("#download_id").val(file_id);
+	$("#download_form").submit();
+}
+
+//先前翻页
+function previousPage(){
+	var index=$('#index').val();
+	if(trim(index).length>0){
+		if(index==1){
+			alert("已经是第一页");
+		}else{
+			var new_index=parseInt(index)-1;
+			$('#index').val(new_index);
+			$("#a_index").html(new_index);
+			loadGroupShareData();
+		}
+	}else{
+		alert("请先选择群组");
+	}
+}
+
+//先前翻页
+function nextPage(){
+	var total_page=$('#total_page').val();
+	var index=$('#index').val();
+	if(trim(index).length>0){
+		if(index==total_page){
+			alert("已经是最后一页");
+		}else{
+			var new_index=parseInt(index)+1;
+			$('#index').val(new_index);
+			$("#a_index").html(new_index);
+			loadGroupShareData();
+		}
+	}else{
+		alert("请先选择群组");
+	}
+}
+
+//刷新列表内容
+function refreshData(data){
+	$.each(data.share_list,function(i,value){ 
+		var _tr = $("<li class='"+value.li_class+"'><a class='user' href='#'>" +
+				"<img class='img-responsive avatar_' style='width:30px;height:30px;' src='/HTP/pages/img/default_img.png' >" +
+				"<span class='user-name'>"+value.nickname+"</span></a>" +
+				"<div class='reply-content-box'><span class='reply-time'>"+value.date+"</span>" +
+				"<div class='reply-content pr'><span class='arrow'>&nbsp;</span>"+value.name+"<a href='#' onclick='javascript:downloadFile(this.id)' id='file_"+value.file_id+"'>下载</a>&nbsp;&nbsp;" +
+				"<a href='#' id='share_"+value.id+"' onclick='javascript:deleteShare(this.id)'>删除</a>" +
+				"</div></div></li>"); 
+		$("#showTable").append(_tr); 
+	}) 
+}
+
+//添加群组
 function createGroup(){
 	var group_name=$('#group_name').val();
 	group_name=encodeURI(encodeURI(group_name));

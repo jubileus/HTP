@@ -132,89 +132,28 @@
                     <div style="min-height: 538px;min-width: 200px" id="context" data-toggle="context"
                          data-target="#context-menu">
                         <h3 style="margin: 10px;text-align: center; padding: 5px">我的群组</h3>
-
+						<input type="hidden" id="group_id" value="" />
+						<input type="hidden" id="total_page" value="" />
+						<input type="hidden" id="index" value="" />
+						<form method="post" id="download_form" action="DownloadAction.action">
+							<input type="hidden" name="download_id" id="download_id" value="" />
+						</form>
                         <ul id="tree" class="ztree" style="width:560px; overflow:auto;margin-left: 50px"></ul>
                     </div>
                 </div>
                 <div class="span6">
                     <div style="border: thin solid #d3d3d3; min-height: 462px;">
                         <div data-spy="scroll" data-target="#navbarExample" data-offset="50" class="scrollspy-example">
-                            <br/>
-                            <ul class="content-reply-box span2">
-                                <li class="odd">
-                                    <a class="user" href="#"><img class="img-responsive avatar_" src="img/avatar-1.png"
-                                                                  alt=""><span class="user-name">大毛</span></a>
-
-                                    <div class="reply-content-box">
-                                        <span class="reply-time">03-08 15：00</span>
-
-                                        <div class="reply-content pr">
-                                            <span class="arrow">&nbsp;</span>
-                                            c语言进阶 <a>下载</a>&nbsp;&nbsp;<a>删除</a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="even">
-                                    <a class="user" href="#"><img class="img-responsive avatar_" src="img/avatar-1.png"
-                                                                  alt=""><span class="user-name">二毛</span></a>
-
-                                    <div class="reply-content-box">
-                                        <span class="reply-time">03-08 15：10</span>
-
-                                        <div class="reply-content pr">
-                                            <span class="arrow">&nbsp;</span>
-                                            c语言进阶2 <a>下载</a>&nbsp;&nbsp;<a>删除</a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="even">
-                                    <a class="user" href="#"><img class="img-responsive avatar_" src="img/avatar-1.png"
-                                                                  alt=""><span class="user-name">二毛</span></a>
-
-                                    <div class="reply-content-box">
-                                        <span class="reply-time">03-08 15：10</span>
-
-                                        <div class="reply-content pr">
-                                            <span class="arrow">&nbsp;</span>
-                                            c语言进阶2 <a>下载</a>&nbsp;&nbsp;<a>删除</a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="even">
-                                    <a class="user" href="#"><img class="img-responsive avatar_" src="img/avatar-1.png"
-                                                                  alt=""><span class="user-name">二毛</span></a>
-
-                                    <div class="reply-content-box">
-                                        <span class="reply-time">03-08 15：10</span>
-
-                                        <div class="reply-content pr">
-                                            <span class="arrow">&nbsp;</span>
-                                            c语言进阶2 <a>下载</a>&nbsp;&nbsp;<a>删除</a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="odd">
-                                    <a class="user" href="#"><img class="img-responsive avatar_" src="img/avatar-1.png"
-                                                                  alt=""><span class="user-name">三毛</span></a>
-
-                                    <div class="reply-content-box">
-                                        <span class="reply-time">03-08 15：20</span>
-
-                                        <div class="reply-content pr">
-                                            <span class="arrow">&nbsp;</span>
-                                            c语言进阶 <a>下载</a>&nbsp;&nbsp;<a>删除</a>
-                                        </div>
-                                    </div>
-                                </li>
+                            <ul id="showTable" class="content-reply-box span2">
                             </ul>
                         </div>
 
                     </div>
 
                     <div style="border:thin solid #d3d3d3;padding: 5px; margin-top: 5px; text-align: center">
-                        <a href="" class="btn-flat default">上一页</a>
-                        <a href="" class="">1</a>
-                        <a href="" class="btn-flat default">下一页</a>
+                        <a href="#" onclick="javascript:previousPage()" class="btn-flat default">上一页</a>
+                        <a href="" id="a_index" class="">1</a>
+                        <a href="#" onclick="javascript:nextPage()" class="btn-flat default">下一页</a>
                     </div>
                 </div>
             </div>
@@ -262,7 +201,10 @@
     	var group_id=treeNode.group_id;
     	if(group_id.length>0){
     		//点击的是群组，加载该群组第一页的分享
-    		alert(group_id);
+    		$("#index").val(1);
+    		$("#group_id").val(group_id);
+    		$("#a_index").html(1);
+    		loadGroupShareData();
     	}else{
     		//点击的是组员，不做任何操作
     	}

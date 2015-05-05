@@ -74,4 +74,23 @@ public interface IShareDao {
 	 * @param group_id
 	 */
     public void deleteByGroupId(String group_id);
+    
+    /**
+	 * @author 宫文超
+	 * 编写日期：2015-05-5
+	 * 功能：查询符合条件数据的总页数
+	 * @param group_id:群组id
+	 * @param num:每页显示数量
+	 */
+    public int getPageCount(String group_id,int num);
+
+    /**
+	 * @author 宫文超
+	 * 编写日期：2015-05-5
+	 * 功能：查询指定页数中的符合条件的数据
+	 * @param group_id:群组id
+	 * @param num:每页显示数量
+	 * @param index:准备获取的数据的对应页数
+	 */
+    public List getPageData(String group_id,int num,int index);
 }

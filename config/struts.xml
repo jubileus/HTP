@@ -31,6 +31,12 @@
 	<!-- Share Action End -->
 
 	<!-- Group Action Begin -->
+	<action name="DeleteGroupShareAction" class="DeleteGroupShareAction">
+    	<result type="json" />
+    </action>
+	<action name="GroupSharePageAction" class="GroupSharePageAction">
+    	<result type="json" />
+    </action>
 	<action name="GetGroupListByCreatorAction" class="GetGroupListByCreatorAction">
     	<result type="json" />
     </action>
