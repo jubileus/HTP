@@ -125,6 +125,9 @@
 		<property name="user_dao">
 			<ref bean="user_dao"/>
 		</property>
+		<property name="share_dao">
+			<ref bean="share_dao"/>
+		</property>
 	</bean>
 	<bean id="share_service" class="com.bjtu.service.share.ShareServiceImp">
 		<property name="share_dao">
@@ -178,6 +181,11 @@
 	<!--Share Action End-->
 	
 	<!--Group Action Begin-->
+	<bean scope="prototype" id="GetGroupListByCreatorAction" class="com.bjtu.ajax.group.GetGroupListByCreatorAction">
+		<property name="group_service">
+			<ref bean="group_service"/>
+		</property>
+	</bean>
 	<bean scope="prototype" id="DeleteMemberAction" class="com.bjtu.ajax.group.DeleteMemberAction">
 		<property name="group_service">
 			<ref bean="group_service"/>

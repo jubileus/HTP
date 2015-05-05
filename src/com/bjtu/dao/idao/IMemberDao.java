@@ -53,4 +53,12 @@ public interface IMemberDao {
 	 * @param member
 	 */
 	public Tb_member getByGroupId_UserId(Tb_member member);
+	
+	/**
+	 * @author 宫文超
+	 * 编写日期：2015-05-5
+	 * 功能：根据user_id查询群组成员
+	 * @param user_id
+	 */
+    public List getByUserId(String user_id);
 }

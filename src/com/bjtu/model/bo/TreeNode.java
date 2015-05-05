@@ -4,7 +4,7 @@ public class TreeNode {
 	private int id;       //节点id
 	private int pId;      //父节点id
 	private String name;     //节点名称
-	private String click;    //点击操作
+	private String group_id;    //群组id,当节点为组员是该值为""
 	private String user_id;  //用户id,父节点为""
 	private boolean open;	 //是否在页面展开
 	
@@ -26,12 +26,6 @@ public class TreeNode {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getClick() {
-		return click;
-	}
-	public void setClick(String click) {
-		this.click = click;
-	}
 	public String getUser_id() {
 		return user_id;
 	}
@@ -44,6 +38,11 @@ public class TreeNode {
 	public void setOpen(boolean open) {
 		this.open = open;
 	}
-	
+	public String getGroup_id() {
+		return group_id;
+	}
+	public void setGroup_id(String group_id) {
+		this.group_id = group_id;
+	}
 	
 }

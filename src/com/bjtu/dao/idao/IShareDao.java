@@ -58,4 +58,20 @@ public interface IShareDao {
 	 * @param share
 	 */
 	public void modifyShowname(Tb_share share);
+	
+	/**
+	 * @author 宫文超
+	 * 编写日期：2015-05-5
+	 * 功能：根据creator_id删除分享数据
+	 * @param creator_id
+	 */
+    public void deleteByCreatorId(String creator_id);
+    
+    /**
+	 * @author 宫文超
+	 * 编写日期：2015-05-5
+	 * 功能：根据group_id删除分享数据
+	 * @param group_id
+	 */
+    public void deleteByGroupId(String group_id);
 }

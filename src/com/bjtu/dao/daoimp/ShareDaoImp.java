@@ -143,5 +143,37 @@ public class ShareDaoImp implements IShareDao{
         update.set("show_name", share.getShow_name());
         share_dao_util.updateMulti(query, update);
 	}
+	
+	/**
+	 * @author 宫文超
+	 * 编写日期：2015-05-5
+	 * 功能：根据creator_id删除分享数据
+	 * @param creator_id
+	 */
+	@Override
+	public void deleteByCreatorId(String creator_id) {
+		Query query;
+		Criteria criteria;
+    	query=new Query();
+    	criteria=Criteria.where("creator_id").is(creator_id);
+    	query.addCriteria(criteria);
+    	share_dao_util.delete(query);		
+	}
+	
+	/**
+	 * @author 宫文超
+	 * 编写日期：2015-05-5
+	 * 功能：根据group_id删除分享数据
+	 * @param group_id
+	 */
+	@Override
+	public void deleteByGroupId(String group_id) {
+		Query query;
+		Criteria criteria;
+    	query=new Query();
+    	criteria=Criteria.where("group_id").is(group_id);
+    	query.addCriteria(criteria);
+    	share_dao_util.delete(query);		
+	}
 
 }

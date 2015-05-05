@@ -252,7 +252,20 @@
                 pIdKey: "pId",
                 rootPId: ""
             }
-        }
+        },
+        callback: {
+    		onClick: zTreeOnClick
+    	}
+    };
+    
+    function zTreeOnClick(event, treeId, treeNode) {
+    	var group_id=treeNode.group_id;
+    	if(group_id.length>0){
+    		//点击的是群组，加载该群组第一页的分享
+    		alert(group_id);
+    	}else{
+    		//点击的是组员，不做任何操作
+    	}
     };
 
     //页面初始加载方法

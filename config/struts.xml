@@ -31,6 +31,9 @@
 	<!-- Share Action End -->
 
 	<!-- Group Action Begin -->
+	<action name="GetGroupListByCreatorAction" class="GetGroupListByCreatorAction">
+    	<result type="json" />
+    </action>
 	<action name="DeleteMemberAction" class="DeleteMemberAction">
     	<result type="json" />
     </action>
@@ -87,9 +90,6 @@
     </action>
 	<!-- File Action End -->
 
-	<!-- Test Action Begin -->
-	<!-- Test Action End -->
-	
 	<!-- User Management Action Begin -->
 	<action name="ModifyNicknameAction" class="ModifyNicknameAction">
     	<result type="json" />

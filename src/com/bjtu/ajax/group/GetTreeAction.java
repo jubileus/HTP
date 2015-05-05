@@ -61,7 +61,7 @@ public class GetTreeAction extends ActionSupport{
         		node=new TreeNode();
         		node.setpId(0);
         		node.setId(parent_index);
-        		node.setClick("");
+        		node.setGroup_id(group.getId());
         		node.setOpen(true);
         		node.setName(group.getName());
         		node.setUser_id("");
@@ -76,7 +76,7 @@ public class GetTreeAction extends ActionSupport{
         				node=new TreeNode();
                 		node.setpId(parent_index);
                 		node.setId(child_index);
-                		node.setClick("");
+                		node.setGroup_id("");
                 		node.setOpen(false);
                 		node.setName(member.getNickname());
                 		node.setUser_id(member.getId());

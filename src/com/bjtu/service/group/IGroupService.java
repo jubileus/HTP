@@ -36,9 +36,9 @@ public interface IGroupService {
 	 * @author 刘庶
 	 * 编写日期：2015-04-25
 	 * 功能：获取群组信息
-	 * @param creator_id
+	 * @param user_id
 	 */
-	public List getGroup(String creator_id);
+	public List getGroup(String user_id);
 	
 	/**
 	 * @author 刘庶
@@ -95,4 +95,36 @@ public interface IGroupService {
 	 * @param group_id
 	 */
 	public void deleteMembers(String group_id);
+	
+	/**
+	 * @author 刘庶
+	 * 编写日期：2015-05-5
+	 * 功能：根据id查询组员
+	 * @param id
+	 */
+    public Tb_member getMemberById(String id);
+    
+    /**
+	 * @author 刘庶
+	 * 编写日期：2015-05-5
+	 * 功能：根据creator_id删除分享
+	 * @param creator_id
+	 */
+    public void deleteByCreatorId(String creator_id);
+    
+    /**
+	 * @author 刘庶
+	 * 编写日期：2015-05-5
+	 * 功能：根据group_id删除分享
+	 * @param group_id
+	 */
+    public void deleteByGroupId(String group_id);
+    
+    /**
+	 * @author 刘庶
+	 * 编写日期：2015-05-5
+	 * 功能：根据creator_id获取群组信息
+	 * @param creator_id
+	 */
+	public List getGroupByCreatorId(String creator_id);
 }

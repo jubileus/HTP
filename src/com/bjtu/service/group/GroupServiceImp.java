@@ -1,9 +1,11 @@
 package com.bjtu.service.group;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.bjtu.dao.idao.IGroupDao;
 import com.bjtu.dao.idao.IMemberDao;
+import com.bjtu.dao.idao.IShareDao;
 import com.bjtu.dao.idao.IUserDao;
 import com.bjtu.model.pojo.Tb_group;
 import com.bjtu.model.pojo.Tb_member;
@@ -14,6 +16,7 @@ public class GroupServiceImp implements IGroupService{
 	private IGroupDao group_dao;
 	private IMemberDao member_dao;
 	private IUserDao user_dao;
+	private IShareDao share_dao;
 	public IGroupDao getGroup_dao() {
 		return group_dao;
 	}
@@ -31,6 +34,12 @@ public class GroupServiceImp implements IGroupService{
 	}
 	public void setUser_dao(IUserDao user_dao) {
 		this.user_dao = user_dao;
+	}
+	public IShareDao getShare_dao() {
+		return share_dao;
+	}
+	public void setShare_dao(IShareDao share_dao) {
+		this.share_dao = share_dao;
 	}
 	
 	/**
@@ -70,11 +79,23 @@ public class GroupServiceImp implements IGroupService{
 	 * @author 刘庶
 	 * 编写日期：2015-04-25
 	 * 功能：获取群组信息
-	 * @param creator_id
+	 * @param user_id
 	 */
 	@Override
-	public List getGroup(String creator_id) {
-		return group_dao.getGroup(creator_id);
+	public List getGroup(String user_id) {
+		List<Tb_member> member_list=member_dao.getByUserId(user_id);
+		List<Tb_group> rs=new ArrayList<Tb_group>();
+		Tb_group group;
+		Tb_member member;
+		if(member_list!=null&&member_list.size()>0){
+			for(int i=0;i<member_list.size();i++){
+				member=member_list.get(i);
+				group=group_dao.getById(member.getGroup_id());
+				rs.add(group);
+			}
+		}
+		
+		return rs;
 	}
 	
 	/**
@@ -156,6 +177,50 @@ public class GroupServiceImp implements IGroupService{
 	@Override
 	public void deleteMembers(String group_id) {
 		member_dao.deleteByGroupId(group_id);
+	}
+	
+	/**
+	 * @author 刘庶
+	 * 编写日期：2015-05-5
+	 * 功能：根据id查询组员
+	 * @param id
+	 */
+	@Override
+	public Tb_member getMemberById(String id) {
+		return member_dao.getById(id);
+	}
+	
+	/**
+	 * @author 刘庶
+	 * 编写日期：2015-05-5
+	 * 功能：根据creator_id删除分享
+	 * @param creator_id
+	 */
+	@Override
+	public void deleteByCreatorId(String creator_id) {
+		share_dao.deleteByCreatorId(creator_id);
+	}
+	
+	/**
+	 * @author 刘庶
+	 * 编写日期：2015-05-5
+	 * 功能：根据group_id删除分享
+	 * @param group_id
+	 */
+	@Override
+	public void deleteByGroupId(String group_id) {
+		share_dao.deleteByGroupId(group_id);		
+	}
+	
+	/**
+	 * @author 刘庶
+	 * 编写日期：2015-05-5
+	 * 功能：根据creator_id获取群组信息
+	 * @param creator_id
+	 */
+	@Override
+	public List getGroupByCreatorId(String creator_id) {
+		return group_dao.getGroup(creator_id);
 	}
 
 	

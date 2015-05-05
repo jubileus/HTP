@@ -23,14 +23,23 @@ public class DeleteMemberAction extends ActionSupport{
 
 	@Override
 	public String execute() throws Exception {
+		HttpServletRequest request = ServletActionContext.getRequest();
+        HttpSession session = request.getSession();
+        Tb_user user=(Tb_user)session.getAttribute("user");
+		
         StringTokenizer st=new StringTokenizer(member_id_list, "_");
         String member_id;
         while(st.hasMoreElements()){
         	//循环删除成员
         	member_id=st.nextToken();
-        	group_service.deleteSingleMember(member_id);
-        	//删除成员发布的分析
-        	//暂时留空
+        	Tb_member member=group_service.getMemberById(member_id);
+        	if(user.getId().equals(member.getUser_id())){
+        		//删除自己,拒绝操作
+        	}else{
+        		group_service.deleteSingleMember(member_id);
+            	//删除成员发布的分析
+            	group_service.deleteByCreatorId(member.getUser_id());
+        	}
         }
 		return SUCCESS;
 	}

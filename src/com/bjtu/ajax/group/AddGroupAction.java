@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 
 import com.bjtu.model.pojo.Tb_group;
+import com.bjtu.model.pojo.Tb_member;
 import com.bjtu.model.pojo.Tb_user;
 import com.bjtu.service.group.IGroupService;
 import com.bjtu.util.common.StringUtil;
@@ -39,7 +40,14 @@ public class AddGroupAction extends ActionSupport{
         	group.setId(StringUtil.getUUID());
         	//向数据库插入数据
         	group_service.insert(group);
-        	
+        	//将创始人加入群组
+        	Tb_member member=new Tb_member();
+    		member.setUser_id(user.getId());
+    		member.setGroup_id(group.getId());
+    		member.setId(StringUtil.getUUID());
+    		member.setNickname(user.getNickname());
+    		group_service.insertMember(member);
+    		
         	msg=1;
         }
     	

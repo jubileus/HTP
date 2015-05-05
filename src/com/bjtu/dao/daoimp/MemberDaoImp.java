@@ -99,5 +99,19 @@ public class MemberDaoImp implements IMemberDao{
 		objects[0]=group_id;
 		dao_util.delete(dao_util.getList(hql, objects));
 	}
+	
+	/**
+	 * @author 宫文超
+	 * 编写日期：2015-05-5
+	 * 功能：根据user_id查询群组成员
+	 * @param user_id
+	 */
+	@Override
+	public List getByUserId(String user_id) {
+		String hql = "from Tb_member where user_id = ?";
+		Object[] objects = new Object[1];
+		objects[0]=user_id;
+		return dao_util.getList(hql, objects);
+	}
 
 }

@@ -99,7 +99,7 @@ function addGroupMember(){
 
 //获取群组列表
 function getGroupList(){
-	var url = "GetGroupListAction.action";
+	var url = "GetGroupListByCreatorAction.action";
 	$.ajax({ 
 		type:'get', 
 		url:url, 
@@ -125,7 +125,7 @@ function getGroupList(){
 
 //删除群组时获取群组列表
 function getGroupListForDelete(){
-	var url = "GetGroupListAction.action";
+	var url = "GetGroupListByCreatorAction.action";
 	$.ajax({ 
 		type:'get', 
 		url:url, 
