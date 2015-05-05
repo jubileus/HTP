@@ -1,5 +1,4 @@
-﻿
-//添加群组
+﻿//添加群组
 function createGroup(){
 	var group_name=$('#group_name').val();
 	group_name=encodeURI(encodeURI(group_name));

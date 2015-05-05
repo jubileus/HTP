@@ -36,9 +36,16 @@ public class DeleteMemberAction extends ActionSupport{
         	if(user.getId().equals(member.getUser_id())){
         		//删除自己,拒绝操作
         	}else{
-        		group_service.deleteSingleMember(member_id);
-            	//删除成员发布的分析
-            	group_service.deleteByCreatorId(member.getUser_id());
+        		//检测是否是群组建立者
+              	Tb_group group=group_service.getById(member.getGroup_id());
+              	if(group.getCreator_id().equals(user.getId())){
+              		//是建立者，可以进行删除
+              		group_service.deleteSingleMember(member_id);
+                	//删除成员发布的分析
+                	group_service.deleteByCreatorId(member.getUser_id());
+              	}else{
+              		//不是建立者，不可以进行删除
+              	}
         	}
         }
 		return SUCCESS;
