@@ -150,7 +150,7 @@
 
                                         <div class="reply-content pr">
                                             <span class="arrow">&nbsp;</span>
-                                            c语言进阶 <a>下载</a>
+                                            c语言进阶 <a>下载</a>&nbsp;&nbsp;<a>删除</a>
                                         </div>
                                     </div>
                                 </li>
@@ -163,7 +163,7 @@
 
                                         <div class="reply-content pr">
                                             <span class="arrow">&nbsp;</span>
-                                            c语言进阶2 <a>下载</a>
+                                            c语言进阶2 <a>下载</a>&nbsp;&nbsp;<a>删除</a>
                                         </div>
                                     </div>
                                 </li>
@@ -176,7 +176,7 @@
 
                                         <div class="reply-content pr">
                                             <span class="arrow">&nbsp;</span>
-                                            c语言进阶2 <a>下载</a>
+                                            c语言进阶2 <a>下载</a>&nbsp;&nbsp;<a>删除</a>
                                         </div>
                                     </div>
                                 </li>
@@ -189,7 +189,7 @@
 
                                         <div class="reply-content pr">
                                             <span class="arrow">&nbsp;</span>
-                                            c语言进阶2 <a>下载</a>
+                                            c语言进阶2 <a>下载</a>&nbsp;&nbsp;<a>删除</a>
                                         </div>
                                     </div>
                                 </li>
@@ -202,20 +202,7 @@
 
                                         <div class="reply-content pr">
                                             <span class="arrow">&nbsp;</span>
-                                            c语言进阶 <a>下载</a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="even">
-                                    <a class="user" href="#"><img class="img-responsive avatar_" src="img/avatar-1.png"
-                                                                  alt=""><span class="user-name">大哥</span></a>
-
-                                    <div class="reply-content-box">
-                                        <span class="reply-time">03-08 15：30</span>
-
-                                        <div class="reply-content pr">
-                                            <span class="arrow">&nbsp;</span>
-                                            c语言进阶6 <a>下载</a>
+                                            c语言进阶 <a>下载</a>&nbsp;&nbsp;<a>删除</a>
                                         </div>
                                     </div>
                                 </li>
@@ -225,58 +212,10 @@
                     </div>
 
                     <div style="border:thin solid #d3d3d3;padding: 5px; margin-top: 5px; text-align: center">
-                        <a href="#shareFile" data-toggle="modal" class="btn-flat default ui-link" style="margin-left: 15px;">分享文件</a>
-                        <a href="javascript:goToGroupShare()" class="btn-flat default">文件库</a>
+                        <a href="" class="btn-flat default">上一页</a>
+                        <a href="" class="">1</a>
+                        <a href="" class="btn-flat default">下一页</a>
                     </div>
-
-                    <div class="modal hide fade" id="shareFile" tabindex="-1" role="dialog"   aria-hidden="true">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal"  aria-hidden="true" onclick="closeShareFile()">×</button>
-                            <h4>分享文件</h4>
-                        </div>
-
-                            <div class="modal-body">
-                                <div class="control-group">
-                                    <div class="table-wrapper products-table">
-                                        <table class="table table-hover">
-                                            <thead>
-                                            <tr>
-                                                <th class="span9">
-                                                    <input type="checkbox" />文件名
-                                                </th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <!-- row -->
-                                            <tr>
-                                                <td>
-                                                    <input type="checkbox" />
-                                                    <div class="img">
-                                                        <img src="img/table-img.png" />
-                                                    </div>
-                                                    <a href="#" class="name">算法精解-c语言描述</a>
-                                                </td>
-                                            </tr>
-                                            <!-- row -->
-                                            <tr>
-                                                <td>
-                                                    <input type="checkbox" />
-                                                    <div class="img">
-                                                        <img src="img/table-img.png" />
-                                                    </div>
-                                                    <a href="#" class="name">算法精解-c语言描述 </a>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button class="btn btn-small btn-success">分享</button>
-                            </div>
-                    </div>
-
                 </div>
             </div>
         </div>

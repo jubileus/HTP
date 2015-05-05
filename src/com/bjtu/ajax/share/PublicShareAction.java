@@ -37,7 +37,8 @@ public class PublicShareAction extends ActionSupport{
         share.setTimestamp(String.valueOf(System.currentTimeMillis()));
         share.setType(1);
         share.setShare_code("");
-        
+        share.setShow_name(share_service.getFileShowName(file_id));
+        share.setPostfix(share_service.getFilePostfix(file_id));
         share_service.insert(share);
         
         share_link=ShareParam.SHARE_PATH+"ShareViewAction.action?id="+share.getId();

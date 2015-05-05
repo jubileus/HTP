@@ -45,6 +45,8 @@ public class GroupShareAction extends ActionSupport{
             share.setTimestamp(String.valueOf(System.currentTimeMillis()));
             share.setType(3);
             share.setShare_code("");
+            share.setShow_name(share_service.getFileShowName(file_id));
+            share.setPostfix(share_service.getFilePostfix(file_id));
             share_service.insert(share);
         }
 		return SUCCESS;

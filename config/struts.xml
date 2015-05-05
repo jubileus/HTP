@@ -10,6 +10,15 @@
 	
 <package name="default" extends="json-default">
 	<!-- Share Action Begin -->
+	<action name="CancelMultiAction" class="CancelMultiAction">
+    	<result type="json" />
+    </action>
+	<action name="CancelSingleAction" class="CancelSingleAction">
+    	<result type="json" />
+    </action>
+	<action name="SharePageAction" class="SharePageAction">
+    	<result type="json" />
+    </action>
 	<action name="GroupShareAction" class="GroupShareAction">
     	<result type="json" />
     </action>
@@ -138,6 +147,13 @@
 
 
 <package name="products" extends="struts-default">
+	<!-- Share Action Begin -->
+	<action name="ShareIndexAction" class="ShareIndexAction">
+    	<result name="success">/pages/my_share.jsp</result>
+    	<result name="error">/pages/login.jsp</result>
+    </action>
+	<!-- Share Action End -->
+
 	<!-- File Action Begin -->
 	<action name="TypeFileInListIndexAction" class="TypeFileInListIndexAction">
     	<result name="success">/pages/type_files_list.jsp</result>

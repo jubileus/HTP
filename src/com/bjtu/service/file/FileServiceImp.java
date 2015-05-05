@@ -6,18 +6,21 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 import com.bjtu.dao.idao.IFileDao;
+import com.bjtu.dao.idao.IShareDao;
 import com.bjtu.dao.idao.IUserDao;
 import com.bjtu.model.bo.GalleryFileEntity;
 import com.bjtu.model.bo.ListFileEntity;
 import com.bjtu.model.bo.PathEntity;
 import com.bjtu.model.pojo.Tb_file;
 import com.bjtu.model.pojo.Tb_file_type;
+import com.bjtu.model.pojo.Tb_share;
 import com.bjtu.model.pojo.Tb_user;
 
 public class FileServiceImp implements IFileService{
 	
 	private IUserDao user_dao;
 	private IFileDao file_dao;
+	private IShareDao share_dao;
 	public IFileDao getFile_dao() {
 		return file_dao;
 	}
@@ -29,6 +32,12 @@ public class FileServiceImp implements IFileService{
 	}
 	public void setUser_dao(IUserDao user_dao) {
 		this.user_dao = user_dao;
+	}
+	public IShareDao getShare_dao() {
+		return share_dao;
+	}
+	public void setShare_dao(IShareDao share_dao) {
+		this.share_dao = share_dao;
 	}
 	
 	/**
@@ -347,6 +356,17 @@ public class FileServiceImp implements IFileService{
 	public List getPageData(String user_id, int num, int index, int category,
 			String file_name) {
 		return file_dao.getPageData(user_id, num, index, category, file_name);
+	}
+	
+	/**
+	 * @author 刘庶
+	 * 编写日期：2015-05-5
+	 * 功能：修改分享的显示名称
+	 * @param share
+	 */
+	@Override
+	public void modifyShowName(Tb_share share) {
+		share_dao.modifyShowname(share);
 	}
 	
 }

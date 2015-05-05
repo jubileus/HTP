@@ -111,6 +111,9 @@
 		<property name="user_dao">
 			<ref bean="user_dao"/>
 		</property>
+		<property name="share_dao">
+			<ref bean="share_dao"/>
+		</property>
 	</bean>
 	<bean id="group_service" class="com.bjtu.service.group.GroupServiceImp">
 		<property name="group_dao">
@@ -127,10 +130,36 @@
 		<property name="share_dao">
 			<ref bean="share_dao"/>
 		</property>
+		<property name="file_dao">
+			<ref bean="file_dao"/>
+		</property>
 	</bean>
 	<!-- Services End -->
 	
 	<!--Share Action Begin-->
+	<bean scope="prototype" id="CancelMultiAction" class="com.bjtu.ajax.share.CancelMultiAction">
+		<property name="share_service">
+			<ref bean="share_service"/>
+		</property>
+	</bean>
+	<bean scope="prototype" id="CancelSingleAction" class="com.bjtu.ajax.share.CancelSingleAction">
+		<property name="share_service">
+			<ref bean="share_service"/>
+		</property>
+	</bean>
+	<bean scope="prototype" id="SharePageAction" class="com.bjtu.ajax.share.SharePageAction">
+		<property name="share_service">
+			<ref bean="share_service"/>
+		</property>
+		<property name="fileType_management_service">
+			<ref bean="fileType_management_service"/>
+		</property>
+	</bean>
+	<bean scope="prototype" id="ShareIndexAction" class="com.bjtu.action.share.ShareIndexAction">
+		<property name="share_service">
+			<ref bean="share_service"/>
+		</property>
+	</bean>
 	<bean scope="prototype" id="GroupShareAction" class="com.bjtu.ajax.share.GroupShareAction">
 		<property name="share_service">
 			<ref bean="share_service"/>

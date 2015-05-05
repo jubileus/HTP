@@ -8,6 +8,7 @@ import com.bjtu.model.bo.ListFileEntity;
 import com.bjtu.model.bo.PathEntity;
 import com.bjtu.model.pojo.Tb_file;
 import com.bjtu.model.pojo.Tb_file_type;
+import com.bjtu.model.pojo.Tb_share;
 import com.bjtu.model.pojo.Tb_user;
 
 public interface IFileService {
@@ -146,4 +147,12 @@ public interface IFileService {
 	 * @param file_name:文件显示名称
 	 */
 	public List getPageData(String user_id,int num, int index, int category,String file_name);
+	
+	/**
+	 * @author 刘庶
+	 * 编写日期：2015-05-5
+	 * 功能：修改分享的显示名称
+	 * @param share
+	 */
+    public void modifyShowName(Tb_share share);
 }

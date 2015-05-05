@@ -4,6 +4,8 @@ public class Tb_share {
 	private String id;           //主键
 	private String creator_id;   //分享者id
 	private String file_id;      //文件id
+	private String show_name;    //文件显示名称
+	private String postfix;      //文件后缀
 	
 	private int type;            //分享类型:1=公开分享，2=私密分享，3=群组分享
 	
@@ -75,6 +77,22 @@ public class Tb_share {
 
 	public void setShare_code(String share_code) {
 		this.share_code = share_code;
+	}
+
+	public String getShow_name() {
+		return show_name;
+	}
+
+	public void setShow_name(String show_name) {
+		this.show_name = show_name;
+	}
+
+	public String getPostfix() {
+		return postfix;
+	}
+
+	public void setPostfix(String postfix) {
+		this.postfix = postfix;
 	}
 	
 }

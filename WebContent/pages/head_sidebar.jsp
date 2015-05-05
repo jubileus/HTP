@@ -37,7 +37,7 @@
                 </a>
             </li>
             <li id="my_share_li">
-                <a href="htp_myShare.html">
+                <a href="ShareIndexAction.action">
                     <i class="icon-external-link"></i>
                     <span>我的分享</span>
                 </a>

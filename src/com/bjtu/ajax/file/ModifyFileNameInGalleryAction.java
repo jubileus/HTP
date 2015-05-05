@@ -13,6 +13,7 @@ import org.apache.struts2.ServletActionContext;
 import com.bjtu.model.bo.GalleryFileEntity;
 import com.bjtu.model.bo.PathEntity;
 import com.bjtu.model.pojo.Tb_file;
+import com.bjtu.model.pojo.Tb_share;
 import com.bjtu.model.pojo.Tb_user;
 import com.bjtu.service.file.IFileService;
 import com.bjtu.service.fileType_management.IFileTypeManagementService;
@@ -43,6 +44,12 @@ public class ModifyFileNameInGalleryAction extends ActionSupport{
         	//文件名不重复，直接修改
         	file_service.modifyShowName(file);
         }
+        
+        //修改分享对应的显示名称
+        Tb_share share=new Tb_share();
+        share.setFile_id(file_id);
+        share.setShow_name(file.getShow_name());
+        file_service.modifyShowName(share);
         
 		return SUCCESS;
 	}

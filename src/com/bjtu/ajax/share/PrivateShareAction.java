@@ -38,7 +38,8 @@ public class PrivateShareAction extends ActionSupport{
         share.setTimestamp(String.valueOf(System.currentTimeMillis()));
         share.setType(2);
         share.setShare_code(StringUtil.getRandomPassword());
-        
+        share.setShow_name(share_service.getFileShowName(file_id));
+        share.setPostfix(share_service.getFilePostfix(file_id));
         share_service.insert(share);
         
         share_link=ShareParam.SHARE_PATH+"HTP/ShareViewAction.action?id="+share.getId();
