@@ -226,5 +226,21 @@ public class ShareDaoImp implements IShareDao{
 		
 		return share_dao_util.find(query);
 	}
+	
+	/**
+	 * @author 宫文超
+	 * 编写日期：2015-05-6
+	 * 功能：根据file_id删除分享数据
+	 * @param file_id
+	 */
+	@Override
+	public void deleteByFileId(String file_id) {
+		Query query;
+		Criteria criteria;
+    	query=new Query();
+    	criteria=Criteria.where("file_id").is(file_id);
+    	query.addCriteria(criteria);
+    	share_dao_util.delete(query);	
+	}
 
 }

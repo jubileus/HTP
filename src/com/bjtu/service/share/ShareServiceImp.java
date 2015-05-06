@@ -6,14 +6,17 @@ import java.util.List;
 
 import com.bjtu.dao.idao.IFileDao;
 import com.bjtu.dao.idao.IShareDao;
+import com.bjtu.dao.idao.IUserDao;
 import com.bjtu.model.bo.ShareEntity;
 import com.bjtu.model.pojo.Tb_file;
 import com.bjtu.model.pojo.Tb_share;
+import com.bjtu.model.pojo.Tb_user;
 
 public class ShareServiceImp implements IShareService{
 	
 	private IShareDao share_dao;
 	private IFileDao file_dao;
+	private IUserDao user_dao;
 	public IShareDao getShare_dao() {
 		return share_dao;
 	}
@@ -25,6 +28,12 @@ public class ShareServiceImp implements IShareService{
 	}
 	public void setFile_dao(IFileDao file_dao) {
 		this.file_dao = file_dao;
+	}
+	public IUserDao getUser_dao() {
+		return user_dao;
+	}
+	public void setUser_dao(IUserDao user_dao) {
+		this.user_dao = user_dao;
 	}
 	
 	/**
@@ -160,6 +169,39 @@ public class ShareServiceImp implements IShareService{
     	}
 		
 		return rs;
+	}
+	
+	/**
+	 * @author 刘庶
+	 * 编写日期：2015-05-6
+	 * 功能：根据file_id删除分享数据
+	 * @param file_id
+	 */
+	@Override
+	public void deleteByFileId(String file_id) {
+		share_dao.deleteByFileId(file_id);		
+	}
+	
+	/**
+	 * @author 刘庶
+	 * 编写日期：2015-05-6
+	 * 功能：根据id查询文件数据
+	 * @param id
+	 */
+	@Override
+	public Tb_file getFileById(String id) {
+		return file_dao.getById(id);
+	}
+	
+	/**
+	 * @author 刘庶
+	 * 编写日期：2015-05-6
+	 * 功能：根据user_id查询用户数据
+	 * @param user_id
+	 */
+	@Override
+	public Tb_user getUserById(String user_id) {
+		return user_dao.getById(user_id);
 	}
 	
 }

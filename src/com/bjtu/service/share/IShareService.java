@@ -7,6 +7,7 @@ import com.bjtu.model.bo.GalleryFileEntity;
 import com.bjtu.model.bo.ShareEntity;
 import com.bjtu.model.pojo.Tb_file;
 import com.bjtu.model.pojo.Tb_share;
+import com.bjtu.model.pojo.Tb_user;
 
 public interface IShareService {
 
@@ -79,4 +80,28 @@ public interface IShareService {
 	 * @param img_map
 	 */
     public List<ShareEntity> convertToShareEntity(List<Tb_share> share_list,HashMap<String, String> img_map);
+    
+    /**
+	 * @author 刘庶
+	 * 编写日期：2015-05-6
+	 * 功能：根据file_id删除分享数据
+	 * @param file_id
+	 */
+    public void deleteByFileId(String file_id);
+    
+    /**
+	 * @author 刘庶
+	 * 编写日期：2015-05-6
+	 * 功能：根据id查询文件数据
+	 * @param id
+	 */
+    public Tb_file getFileById(String id);
+    
+    /**
+	 * @author 刘庶
+	 * 编写日期：2015-05-6
+	 * 功能：根据user_id查询用户数据
+	 * @param user_id
+	 */
+    public Tb_user getUserById(String user_id);
 }

@@ -93,4 +93,12 @@ public interface IShareDao {
 	 * @param index:准备获取的数据的对应页数
 	 */
     public List getPageData(String group_id,int num,int index);
+    
+    /**
+	 * @author 宫文超
+	 * 编写日期：2015-05-6
+	 * 功能：根据file_id删除分享数据
+	 * @param file_id
+	 */
+    public void deleteByFileId(String file_id);
 }

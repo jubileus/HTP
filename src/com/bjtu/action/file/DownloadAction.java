@@ -30,9 +30,8 @@ public class DownloadAction extends ActionSupport{
 	public InputStream getInputStream() {
 		Tb_file file=file_service.getById(download_id);
 		String path=file.getPath();
-		String file_name=file.getHdfs_name()+"."+file.getPostfix();
 		fileName=file.getHdfs_name()+"."+file.getPostfix();
-		return HDFSUtil.download(path, file_name);
+		return HDFSUtil.download(path, fileName);
 	}
 	
 	public String getFileName() {

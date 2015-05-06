@@ -136,10 +136,23 @@
 		<property name="file_dao">
 			<ref bean="file_dao"/>
 		</property>
+		<property name="user_dao">
+			<ref bean="user_dao"/>
+		</property>
 	</bean>
 	<!-- Services End -->
 	
 	<!--Share Action Begin-->
+	<bean scope="prototype" id="ShareDownloadAction" class="com.bjtu.action.share.ShareDownloadAction">
+	</bean>
+	<bean scope="prototype" id="ShareViewAction" class="com.bjtu.action.share.ShareViewAction">
+		<property name="share_service">
+			<ref bean="share_service"/>
+		</property>
+		<property name="fileType_management_service">
+			<ref bean="fileType_management_service"/>
+		</property>
+	</bean>
 	<bean scope="prototype" id="CancelMultiAction" class="com.bjtu.ajax.share.CancelMultiAction">
 		<property name="share_service">
 			<ref bean="share_service"/>
@@ -434,21 +447,4 @@
 	</bean>	
 	<!--FileType Management Action End-->
 	
-	<bean scope="prototype" id="TestAction" class="com.bjtu.test.TestAction">
-		<property name="login_register_service">
-			<ref bean="login_register_service"/>
-		</property>
-		<property name="admin_management_service">
-			<ref bean="admin_management_service"/>
-		</property>
-		<property name="fileType_management_service">
-			<ref bean="fileType_management_service"/>
-		</property>
-	</bean>
-	<bean scope="prototype" id="TestMongoAction" class="com.bjtu.test.TestMongoAction">
-		<property name="file_service">
-			<ref bean="file_service"/>
-		</property>
-	</bean>
-
 </beans>

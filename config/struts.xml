@@ -154,6 +154,14 @@
 
 <package name="products" extends="struts-default">
 	<!-- Share Action Begin -->
+	<action name="ShareDownloadAction" class="ShareDownloadAction">
+    	<result name="success">/pages/share_download.jsp</result>
+    </action>
+	<action name="ShareViewAction" class="ShareViewAction">
+    	<result name="success">/pages/share_download.jsp</result>
+    	<result name="input">/pages/share_verify.jsp</result>
+    	<result name="error">/pages/share_missing.jsp</result>
+    </action>
 	<action name="ShareIndexAction" class="ShareIndexAction">
     	<result name="success">/pages/my_share.jsp</result>
     	<result name="error">/pages/login.jsp</result>
@@ -223,12 +231,6 @@
     </action>
     <!-- Login Register Action End -->
     
-    <action name="TestAction" class="TestAction">
-    	<result name="success">/pages/ok.jsp</result>
-    </action>
-    <action name="TestMongoAction" class="TestMongoAction">
-    	<result name="success">/pages/ok.jsp</result>
-    </action>
 </package>
 
 </struts>
